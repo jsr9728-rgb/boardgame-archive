@@ -46,7 +46,6 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
-        /* 📊 방문자 카운터 스타일 추가 */
         .visitor-counter {
             margin-top: 15px;
             display: inline-flex;
@@ -333,7 +332,6 @@
         .save-card-btn { background: #2563eb; color: white; }
         .delete-card-btn { background: #dc2626; color: white; }
 
-        /* 💌 방명록 섹션 디자인 */
         .guestbook-section {
             margin-top: 60px;
             background: white;
@@ -432,7 +430,6 @@
         .gb-action-btn.del { background: #fee2e2; color: #dc2626; }
         .gb-action-btn.del:hover { background: #fecaca; }
 
-        /* 💬 대댓글(답글) 스타일 */
         .reply-list {
             margin-top: 12px;
             padding-left: 20px;
@@ -521,7 +518,6 @@
         <h1>🎲 위드해피 보드게임 아카이브</h1>
         <p>인기 게임 박스 아트와 유튜브 영상 저장소</p>
         
-        <!-- 📊 방문자 카운터 표시 영역 -->
         <div class="visitor-counter">
             <span id="todayVisitorCount">오늘 방문자: 로딩 중...</span>
             <span>|</span>
@@ -539,7 +535,6 @@
     </header>
 
     <div class="container">
-        <!-- 인원수 맞춤 필터 바 -->
         <div class="player-filter-bar" id="playerFilterBar">
             <button class="player-filter-btn active" onclick="filterByPlayers('전체', this)">👥 모든 인원</button>
             <button class="player-filter-btn" onclick="filterByPlayers('2인', this)">👥 2인플 추천</button>
@@ -575,7 +570,6 @@
 
         <div class="grid" id="cardGrid"></div>
 
-        <!-- 💌 방명록 섹션 -->
         <div class="guestbook-section" id="guestbookSection">
             <h2>💌 방문객 소통 방명록</h2>
             <p style="color: var(--sub-text); font-size: 0.9rem; margin-top: 0;">컴퓨터와 스마트폰에서 남긴 글과 대댓글이 완벽하게 실시간 연동됩니다! (비밀번호로 수정/삭제 가능)</p>
@@ -597,7 +591,6 @@
         </div>
     </div>
 
-    <!-- 관리자 로그인 모달 -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <h3>관리자 인증</h3>
@@ -610,7 +603,6 @@
         </div>
     </div>
 
-    <!-- 새 게임 추가 모달 -->
     <div class="modal" id="addGameModal">
         <div class="modal-content">
             <h3>새 보드게임 추가</h3>
@@ -637,13 +629,12 @@
         </div>
     </div>
 
-    <!-- Firebase Firestore: 방명록 기기 간 동기화용 -->
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
     <script>
         let boardGames = [
-            { title: "5초준다", players: "3-8", genre: "카드, 순발력", time: "15분", image: "", link1: "https://www.youtube.com/watch?v=AolIAYTLjH0", link2: "", link3: "https://www.youtube.com/watch?v=wdT6g4Kwz4g" },
-            { title: "13일의 금요일", players: "3-6", genre: "카드", time: "30분", image: "", link1: "https://youtu.be/s1O7EElnOyo", link2: "https://youtu.be/IB89NsJl1XY", link3: "" },
+            { title: "5초준다", players: "3-8", genre: "카드, 순발력", time: "15분", image: "https://boardm.co.kr/upload/product/1709106093.jpg", link1: "https://www.youtube.com/watch?v=AolIAYTLjH0", link2: "", link3: "https://www.youtube.com/watch?v=wdT6g4Kwz4g" },
+            { title: "13일의 금요일", players: "3-6", genre: "카드", time: "30분", image: "https://boardm.co.kr/upload/product/db_5e43a91e5e2e4.jpg", link1: "https://youtu.be/s1O7EElnOyo", link2: "https://youtu.be/IB89NsJl1XY", link3: "" },
             { title: "가문의 왕관(25년 신작)", players: "3-5", genre: "덱빌딩, 카드", time: "30분", image: "", link1: "https://www.youtube.com/watch?v=96ejlCoX-BU", link2: "", link3: "" },
             { title: "가지각새(25년 신작)", players: "2-6", genre: "카드", time: "15분", image: "", link1: "https://www.youtube.com/watch?v=XJgzrkhnDxY", link2: "", link3: "https://youtube.com/shorts/kmxrm-HxpFU?si=4acZxcgN8gHEIpVy" },
             { title: "간장공장공장장(25년 신작)", players: "2-6", genre: "잰말게임", time: "15분", image: "", link1: "https://youtu.be/6K9q-bBcFT0?si=drCug4SzSHaFaHov", link2: "", link3: "" },
@@ -663,9 +654,9 @@
             { title: "나라비", players: "3-5", genre: "카드", time: "15분", image: "", link1: "https://www.youtube.com/watch?v=b6-oPcoC1UE", link2: "", link3: "" },
             { title: "나혼자 살아남기/좀비편(25년 신작)", players: "2-4", genre: "카드, 탈출", time: "10분", image: "", link1: "https://youtu.be/PXwi-UCmkCE?si=EvHK7BAFYmtRNAxR", link2: "", link3: "" },
             { title: "냥벽한공간(25년 신작)", players: "4", genre: "카드", time: "15분", image: "", link1: "https://youtu.be/lrgC3OdOn3A?si=lN8q079NWQbD2vso", link2: "https://youtu.be/m6vdX2bE8kI?si=mg0OYHZ6i2AGRg61", link3: "" },
-            { title: "노땡스 딜럭스(26년 신작)", players: "3~7", genre: "카드", time: "20분", image: "", link1: "https://www.youtube.com/watch?v=zsXMFkYtmcQ&t=2s", link2: "", link3: "https://www.youtube.com/shorts/6JM7LS3D65c" },
-            { title: "노터치크라켄", players: "4-6", genre: "카드, 마피아", time: "30분", image: "", link1: "https://www.youtube.com/watch?v=yp_70whUmm0", link2: "", link3: "https://www.youtube.com/shorts/qk4k304vNj8" },
-            { title: "다빈치코드", players: "2-4", genre: "추리", time: "15분", image: "", link1: "https://youtu.be/uVhK8FImTxo", link2: "https://youtu.be/uVhK8FImTxo?si=S5bhfID4rRqD4Bhm", link3: "" },
+            { title: "노땡스 딜럭스(26년 신작)", players: "3~7", genre: "카드", time: "20분", image: "https://boardm.co.kr/upload/product/1709095697.jpg", link1: "https://www.youtube.com/watch?v=zsXMFkYtmcQ&t=2s", link2: "", link3: "https://www.youtube.com/shorts/6JM7LS3D65c" },
+            { title: "노터치크라켄", players: "4-6", genre: "카드, 마피아", time: "30분", image: "https://boardm.co.kr/upload/product/db_5e43a6fb1a6a6.jpg", link1: "https://www.youtube.com/watch?v=yp_70whUmm0", link2: "", link3: "https://www.youtube.com/shorts/qk4k304vNj8" },
+            { title: "다빈치코드", players: "2-4", genre: "추리", time: "15분", image: "https://boardm.co.kr/upload/product/db_5aa65c1926612.jpg", link1: "https://youtu.be/uVhK8FImTxo", link2: "https://youtu.be/uVhK8FImTxo?si=S5bhfID4rRqD4Bhm", link3: "" },
             { title: "다운업 미니버전", players: "2-5", genre: "카드", time: "15분", image: "", link1: "https://www.youtube.com/watch?v=z0a-xFvnj6U&t=2s", link2: "", link3: "" },
             { title: "다이데이", players: "2-5", genre: "추리", time: "40분", image: "", link1: "https://www.youtube.com/watch?v=li4-Yylwskw", link2: "", link3: "" },
             { title: "다이스샷:몬스터하우스", players: "4", genre: "주사위", time: "15분", image: "", link1: "https://youtu.be/CKroTH7ns9E?si=Y7wy-2VvuxCjGddX", link2: "", link3: "" },
@@ -681,16 +672,16 @@
             { title: "드로잉넘버", players: "3-6", genre: "추리, 그림", time: "20분", image: "", link1: "https://youtu.be/j61faAiQcXE", link2: "https://www.youtube.com/live/RKBkwqfVeFM?si=ppkSoys3q1YnpQwg", link3: "https://youtube.com/shorts/yzTCEd8jxPw?si=pSvNkCvT1-nnTFdR" },
             { title: "드롭잇(25년 신작)", players: "1-4", genre: "타일", time: "30분", image: "", link1: "https://youtu.be/GIiFrPY5xeQ?si=2AhHMqS3mTW6vW-b", link2: "", link3: "" },
             { title: "딕싯 키즈", players: "3-6", genre: "카드, 추리", time: "25분", image: "", link1: "https://www.youtube.com/watch?v=OcSv4D4xG5I", link2: "", link3: "" },
-            { title: "라마", players: "2-6", genre: "카드", time: "20분", image: "", link1: "https://youtu.be/omnGG942kKs?si=jwmk3IwO-hK6UY3L", link2: "", link3: "" },
-            { title: "라스베가스", players: "2-5", genre: "주사위", time: "30분", image: "", link1: "https://youtu.be/8b2hK0giloM?si=Q_xyArYGHIgHGD87", link2: "", link3: "" },
+            { title: "라마", players: "2-6", genre: "카드", time: "20분", image: "https://boardm.co.kr/upload/product/db_5d697840134cd.jpg", link1: "https://youtu.be/omnGG942kKs?si=jwmk3IwO-hK6UY3L", link2: "", link3: "" },
+            { title: "라스베가스", players: "2-5", genre: "주사위", time: "30분", image: "https://boardm.co.kr/upload/product/db_5b40cf314545d.jpg", link1: "https://youtu.be/8b2hK0giloM?si=Q_xyArYGHIgHGD87", link2: "", link3: "" },
             { title: "라이어스레오(25년 신작)", players: "4", genre: "카드", time: "15분", image: "", link1: "https://youtu.be/aruiOGukBNA?si=lcU5Jahi_0RzVE1m", link2: "", link3: "https://youtube.com/shorts/UqBxU1DX5Vs?si=FPWoy2YTP7eDObmQ" },
             { title: "라쿠카라차/반딧불이(25년 신작)", players: "2-4", genre: "파티", time: "15분", image: "", link1: "https://youtu.be/rsydSbzq5o0?si=s-eDuiXr5c6QeItU", link2: "", link3: "" },
-            { title: "러브레터", players: "2-4", genre: "카드, 심리", time: "20분", image: "", link1: "https://youtu.be/Y2MA5OaGDjc?si=g-v-Aept36_BX_gk", link2: "", link3: "" },
+            { title: "러브레터", players: "2-4", genre: "카드, 심리", time: "20분", image: "https://boardm.co.kr/upload/product/db_5da0c491cf0eb.jpg", link1: "https://youtu.be/Y2MA5OaGDjc?si=g-v-Aept36_BX_gk", link2: "", link3: "" },
             { title: "럭키키티", players: "2-4", genre: "촉감, 실뽑기", time: "10분", image: "", link1: "", link2: "", link3: "" },
             { title: "레인보우", players: "2", genre: "카드", time: "15분", image: "", link1: "https://youtu.be/lIdu4XDgKt0?si=8OGiGJoJ0RzQPh-Z", link2: "", link3: "" },
             { title: "레인보우세븐", players: "2-5", genre: "카드", time: "20분", image: "", link1: "https://youtu.be/hIE5jZ1w9zA?si=J_X_Jtos-AAKNoYS", link2: "", link3: "" },
-            { title: "로보77", players: "2-8", genre: "카드", time: "30분", image: "", link1: "https://www.youtube.com/watch?v=Une943spuGg", link2: "https://www.youtube.com/watch?v=-YLHigV-eM8", link3: "" },
-            { title: "루미큐브", players: "2-4", genre: "파티, 타일", time: "20분", image: "", link1: "https://youtu.be/n6rpbLQn2Vc", link2: "https://youtu.be/LMH-EBCM4Tk", link3: "" },
+            { title: "로보77", players: "2-8", genre: "카드", time: "30분", image: "https://boardm.co.kr/upload/product/db_5aa65c192d119.jpg", link1: "https://www.youtube.com/watch?v=Une943spuGg", link2: "https://www.youtube.com/watch?v=-YLHigV-eM8", link3: "" },
+            { title: "루미큐브", players: "2-4", genre: "파티, 타일", time: "20분", image: "https://boardm.co.kr/upload/product/db_5aa65c17bb4c1.jpg", link1: "https://youtu.be/n6rpbLQn2Vc", link2: "https://youtu.be/LMH-EBCM4Tk", link3: "" },
             { title: "루미큐브 75주년", players: "2-4", genre: "파티, 타일", time: "20분", image: "", link1: "", link2: "", link3: "" },
             { title: "루미큐브 트위스트", players: "2-4", genre: "파티", time: "20분", image: "", link1: "https://youtu.be/I1keczHam6s", link2: "https://youtu.be/I1keczHam6s?si=jzxxdlDRVjgv5Wfq", link3: "" },
             { title: "루핑루이/포켓몬(25년 신작)", players: "2-4", genre: "파티", time: "10분", image: "", link1: "", link2: "", link3: "https://youtube.com/shorts/onV4sXFu2_0?si=ojq-4SWmKjbGmcLH" },
@@ -706,14 +697,14 @@
             { title: "미스터리하우스", players: "1~5", genre: "방탈출, 공포", time: "60분", image: "", link1: "", link2: "", link3: "" },
             { title: "미스테리움 파크", players: "2-6", genre: "추리", time: "45분", image: "", link1: "", link2: "", link3: "" },
             { title: "바다숲(25년 신작)", players: "2-4", genre: "타일", time: "30분", image: "", link1: "https://youtu.be/8p1PLTEw-D8?si=wGybXVz3pr-nCj-i", link2: "", link3: "" },
-            { title: "바퀴벌레포커로얄", players: "2-6", genre: "카드, 심리", time: "25분", image: "", link1: "https://www.youtube.com/watch?v=RZnf1cqsCTw", link2: "https://www.youtube.com/watch?v=m3wPWx01-FU", link3: "" },
+            { title: "바퀴벌레포커로얄", players: "2-6", genre: "카드, 심리", time: "25분", image: "https://boardm.co.kr/upload/product/db_5aa65c1901a1c.jpg", link1: "https://www.youtube.com/watch?v=RZnf1cqsCTw", link2: "https://www.youtube.com/watch?v=m3wPWx01-FU", link3: "" },
             { title: "발렌타인데이", players: "3-6", genre: "카드, 심리", time: "15분", image: "", link1: "https://www.youtube.com/watch?v=04d3baJkeQY", link2: "", link3: "https://www.youtube.com/shorts/CyhdFzMZu-A" },
-            { title: "뱀파이어퀸", players: "3-12", genre: "카드", time: "30분", image: "", link1: "https://www.youtube.com/watch?v=WiHgr2Za_og", link2: "https://www.youtube.com/watch?v=M5ao2kwGGn4", link3: "https://youtube.com/shorts/EhZGG_rBOMg?si=TJYbmDxIzPjqKc-R" },
-            { title: "뱅", players: "4-7", genre: "주사위", time: "40분", image: "", link1: "https://youtu.be/LhOXaq1Ihz4", link2: "https://youtu.be/bzklq9pn1jk", link3: "https://www.youtube.com/shorts/2RNCw9EM9BM" },
+            { title: "뱀파이어퀸", players: "3-12", genre: "카드", time: "30분", image: "https://boardm.co.kr/upload/product/db_602b9347d4ac8.jpg", link1: "https://www.youtube.com/watch?v=WiHgr2Za_og", link2: "https://www.youtube.com/watch?v=M5ao2kwGGn4", link3: "https://youtube.com/shorts/EhZGG_rBOMg?si=TJYbmDxIzPjqKc-R" },
+            { title: "뱅", players: "4-7", genre: "주사위", time: "40분", image: "https://boardm.co.kr/upload/product/db_5aa65c18a5528.jpg", link1: "https://youtu.be/LhOXaq1Ihz4", link2: "https://youtu.be/bzklq9pn1jk", link3: "https://www.youtube.com/shorts/2RNCw9EM9BM" },
             { title: "버거슬램(25년 신작)", players: "2-5", genre: "카드", time: "20분", image: "", link1: "https://www.youtube.com/watch?v=UyLrlcA9wG4", link2: "", link3: "" },
             { title: "버팔로체스(25년 신작)", players: "2", genre: "경쟁", time: "10분", image: "", link1: "https://www.youtube.com/watch?v=JIFDp3D0nZs", link2: "", link3: "" },
             { title: "베니스커넥션", players: "2", genre: "협력", time: "10분", image: "", link1: "", link2: "", link3: "" },
-            { title: "보난자", players: "2-7", genre: "카드, 협상", time: "45분", image: "", link1: "https://www.youtube.com/watch?v=1IgF5EHCY4M", link2: "https://www.youtube.com/watch?v=LGEKksXwgws", link3: "https://www.youtube.com/shorts/3y9_ZG9VM6U" },
+            { title: "보난자", players: "2-7", genre: "카드, 협상", time: "45분", image: "https://boardm.co.kr/upload/product/db_5aa65c18712fb.jpg", link1: "https://www.youtube.com/watch?v=1IgF5EHCY4M", link2: "https://www.youtube.com/watch?v=LGEKksXwgws", link3: "https://www.youtube.com/shorts/3y9_ZG9VM6U" },
             { title: "봄버스터즈(25년 신작)", players: "2-5", genre: "폭탄해체", time: "30분", image: "", link1: "https://youtu.be/tEVFU43a5rw?si=uxWVnOFNJwdfiSS_", link2: "https://youtu.be/alI-lMYWR70?si=_N0BKbrx_tuxZV3w", link3: "https://youtube.com/shorts/zfmSyvjPcEw?si=VXkb88zksG-DZjxA" },
             { title: "봄봄화원(25년 신작)", players: "1-4", genre: "전략", time: "40분", image: "", link1: "https://youtu.be/4RiG1_Mvpps?si=Vh0_D0XkUhq4cnvS", link2: "", link3: "" },
             { title: "부루마블", players: "4", genre: "주사위", time: "60분", image: "", link1: "", link2: "", link3: "" },
@@ -722,7 +713,7 @@
             { title: "빅사이드", players: "4-10", genre: "마피아", time: "60분", image: "", link1: "", link2: "", link3: "" },
             { title: "빅샷", players: "2-4", genre: "경매", time: "30분", image: "", link1: "", link2: "", link3: "" },
             { title: "빙수셔플(25년 신작)", players: "3-8", genre: "카드", time: "15분", image: "", link1: "https://www.youtube.com/watch?v=tuvtgXL2CQo&t=2s", link2: "", link3: "" },
-            { title: "사보타지", players: "3-10", genre: "카드", time: "30분", image: "", link1: "https://www.youtube.com/watch?v=NLcdpBr3RgM", link2: "https://youtu.be/GhiU4s9Ek10", link3: "" },
+            { title: "사보타지", players: "3-10", genre: "카드", time: "30분", image: "https://boardm.co.kr/upload/product/db_5aa65c18a221f.jpg", link1: "https://www.youtube.com/watch?v=NLcdpBr3RgM", link2: "https://youtu.be/GhiU4s9Ek10", link3: "" },
             { title: "사보타지 신작(25년 신작)", players: "3-10", genre: "카드", time: "30분", image: "", link1: "https://youtu.be/BArejl3CprM?si=WMpZjar09tdwVS3m", link2: "", link3: "" },
             { title: "사보타지2", players: "3-10", genre: "카드", time: "30분", image: "", link1: "", link2: "", link3: "" },
             { title: "사운드퀴즈쇼", players: "2-5", genre: "파티", time: "15분", image: "", link1: "", link2: "", link3: "" },
@@ -736,22 +727,22 @@
             { title: "수투", players: "4", genre: "카드", time: "30분", image: "", link1: "https://youtu.be/SFDWothLn54", link2: "https://youtu.be/xwsV6Xiy_LE", link3: "https://youtube.com/shorts/OUM4zajR60M?si=IzF_xfl_8YM2W76L" },
             { title: "숲속의 속삭임", players: "1-4", genre: "타일", time: "30분", image: "", link1: "https://youtu.be/eLF846-B2r8?si=N2HkLU-t4U0vg8V9", link2: "", link3: "" },
             { title: "슈팅피쉬", players: "2-4", genre: "카드", time: "10분", image: "", link1: "https://youtu.be/1BYmVykeBOE?si=d4E-u7J6oalRQCk7", link2: "", link3: "" },
-            { title: "스시고", players: "2-5", genre: "카드, 초밥", time: "15분", image: "", link1: "https://youtu.be/HJrYp_nuSYY?si=xdAu5sWDC6kB5KOJ", link2: "", link3: "" },
+            { title: "스시고", players: "2-5", genre: "카드, 초밥", time: "15분", image: "https://boardm.co.kr/upload/product/db_5b9f71cba8df4.jpg", link1: "https://youtu.be/HJrYp_nuSYY?si=xdAu5sWDC6kB5KOJ", link2: "", link3: "" },
             { title: "스시홀릭", players: "2-8", genre: "기억력, 뒤집기", time: "30분", image: "", link1: "", link2: "", link3: "" },
             { title: "스위스사는스미스씨", players: "2-6", genre: "파티,단어", time: "15분", image: "", link1: "https://youtu.be/c9axsGCliEs?si=9JirSBWvKX2MiDr-", link2: "", link3: "https://youtube.com/shorts/vRALG9Jc5vI?si=yzk1HxwgJImlmjxE" },
             { title: "스위트 앤 스파이시", players: "2-5", genre: "심리", time: "15분", image: "", link1: "", link2: "", link3: "" },
-            { title: "스컬킹", players: "2-8", genre: "카드, 트릭테이킹", time: "30분", image: "", link1: "https://youtu.be/EBmDL0sPrSA", link2: "https://youtu.be/0_fgwDX65aw", link3: "" },
+            { title: "스컬킹", players: "2-8", genre: "카드, 트릭테이킹", time: "30분", image: "https://boardm.co.kr/upload/product/db_5fa3716ee453f.jpg", link1: "https://youtu.be/EBmDL0sPrSA", link2: "https://youtu.be/0_fgwDX65aw", link3: "" },
             { title: "스타풀 왕관 전쟁 TCG", players: "2-6", genre: "TCG 카드", time: "1시간", image: "", link1: "", link2: "", link3: "" },
             { title: "스테레오마인드", players: "2-5", genre: "파티, 음악", time: "15분", image: "", link1: "", link2: "", link3: "https://youtube.com/shorts/hBJcKj2DTYs?si=wuvEr0fwVIcAbw9E" },
             { title: "스테레오마인드 클래시컬", players: "2-6", genre: "파티", time: "15분", image: "", link1: "", link2: "", link3: "" },
             { title: "스틱스택", players: "2-10", genre: "파티", time: "10분", image: "", link1: "", link2: "", link3: "https://youtu.be/d0QbTa5hTXY?si=oCZiRTZW4_4wUqeB" },
             { title: "스파팅톤", players: "2-6", genre: "숨은그림찾기, 스피드", time: "20분", image: "", link1: "", link2: "https://www.youtube.com/watch?v=DyYB37bVI38", link3: "https://youtube.com/shorts/LteNT1k0Its?si=Bsj1QnjhQACCQPSX" },
-            { title: "스플렌더(26년 신작)", players: "2-4", genre: "전략", time: "30분", image: "", link1: "https://www.youtube.com/watch?v=aMNioaQMRjY", link2: "", link3: "https://www.youtube.com/shorts/go4NyoZwTGI" },
+            { title: "스플렌더(26년 신작)", players: "2-4", genre: "전략", time: "30분", image: "https://boardm.co.kr/upload/product/db_5aa65c17d7b42.jpg", link1: "https://www.youtube.com/watch?v=aMNioaQMRjY", link2: "", link3: "https://www.youtube.com/shorts/go4NyoZwTGI" },
             { title: "스플렌더(마블)", players: "2-4", genre: "전략", time: "30분", image: "", link1: "", link2: "", link3: "https://youtube.com/shorts/ULeejz6owLw?si=DPSx61SDXJ0BoXAl" },
             { title: "스플렌더(키즈)", players: "2-4", genre: "전략", time: "25분", image: "", link1: "https://www.youtube.com/watch?v=WqpiasD6_-M", link2: "", link3: "https://www.youtube.com/shorts/XygWNoo6y0A" },
             { title: "스플렌더(포켓몬)", players: "2-4", genre: "전략", time: "30분", image: "", link1: "https://youtu.be/9ETTEpg7flA?si=cXsykpaJ0Uh6Iqx7", link2: "", link3: "https://www.youtube.com/shorts/secCniJBUeo" },
-            { title: "슬리핑퀸즈(10주년)", players: "2-5", genre: "카드", time: "20분", image: "", link1: "https://youtu.be/bjC58VJxIrg", link2: "https://youtu.be/-QJZWjQr8MI", link3: "" },
-            { title: "시타델", players: "2-8", genre: "전략", time: "60분", image: "", link1: "https://youtu.be/y7R1QjNjGJA", link2: "https://youtu.be/dy2NMYuO73k", link3: "https://www.youtube.com/shorts/baep786EFIM" },
+            { title: "슬리핑퀸즈(10주년)", players: "2-5", genre: "카드", time: "20분", image: "https://boardm.co.kr/upload/product/db_5d697b0a701b1.jpg", link1: "https://youtu.be/bjC58VJxIrg", link2: "https://youtu.be/-QJZWjQr8MI", link3: "" },
+            { title: "시타델", players: "2-8", genre: "전략", time: "60분", image: "https://boardm.co.kr/upload/product/db_5aa65c192c733.jpg", link1: "https://youtu.be/y7R1QjNjGJA", link2: "https://youtu.be/dy2NMYuO73k", link3: "https://www.youtube.com/shorts/baep786EFIM" },
             { title: "실버마인", players: "2-6", genre: "주사위", time: "45분", image: "", link1: "https://youtu.be/Deg2DaQeVnI", link2: "https://youtu.be/EpYQmn-ms7w", link3: "https://youtube.com/shorts/c5LW-3E7Emw?si=_KIDHY3lx45Bxacn" },
             { title: "아이엠", players: "2-8", genre: "카드, 질문", time: "30~40분", image: "", link1: "https://youtu.be/S0K18q_5Nfk?si=iw9vQLr1w2GqMFij", link2: "", link3: "" },
             { title: "아임더보스", players: "3-6", genre: "거래, 협상, 매수", time: "45분", image: "", link1: "", link2: "", link3: "" },
@@ -769,7 +760,7 @@
             { title: "왓김치(25년 신작)", players: "3-6", genre: "셋컬렉션", time: "30분", image: "", link1: "https://youtu.be/auKyfatbLdM?si=qF0otjixtCxwZamN", link2: "", link3: "https://youtube.com/shorts/-mawPqp3LSE?si=O8LpY7dA8pR1kF4I" },
             { title: "왕관은 내거야", players: "3-6", genre: "카드, 전략", time: "20분", image: "", link1: "", link2: "", link3: "" },
             { title: "요트다이스(미키마우스)", players: "1-4", genre: "주사위", time: "30분", image: "", link1: "", link2: "", link3: "https://youtu.be/EwXOyV9L8U0?si=JK1ZTCU3jb5JrH_p" },
-            { title: "우노", players: "2-10", genre: "카드", time: "30분", image: "", link1: "https://youtu.be/yD8pro1QjGI", link2: "", link3: "" },
+            { title: "우노", players: "2-10", genre: "카드", time: "30분", image: "https://boardm.co.kr/upload/product/db_5aa65c192d64f.jpg", link1: "https://youtu.be/yD8pro1QjGI", link2: "", link3: "" },
             { title: "우노어택", players: "2-10", genre: "카드", time: "30분", image: "", link1: "https://youtu.be/kzlPU1PADsc", link2: "https://youtu.be/60NLzt_y2ls", link3: "https://www.youtube.com/shorts/-I_WuSey_iw" },
             { title: "우노플립", players: "2-10", genre: "카드", time: "30분", image: "", link1: "", link2: "", link3: "" },
             { title: "워드패치", players: "4", genre: "영어", time: "30분", image: "", link1: "", link2: "", link3: "" },
@@ -782,11 +773,11 @@
             { title: "윌유메리미", players: "2-4", genre: "눈치, 전략", time: "20분", image: "", link1: "https://www.youtube.com/watch?v=ll1ZB-W70Sw", link2: "", link3: "" },
             { title: "이리저리드로잉", players: "3-6", genre: "파티, 그림", time: "10분", image: "", link1: "", link2: "", link3: "https://youtube.com/shorts/VTP46jsQpPY?si=hq6_8aEFmAf287tJ" },
             { title: "이지컴 이지고", players: "2-4", genre: "주사위", time: "30분", image: "", link1: "https://youtu.be/KO24mhwgFko", link2: "https://youtu.be/jJ2OMrRB_Mo", link3: "https://www.youtube.com/shorts/17h1v9G9loA" },
-            { title: "인사이더", players: "4-8", genre: "마피아, 스무고개", time: "15분", image: "", link1: "https://youtu.be/nsUZqdT61Ok?si=mEm1FuqlkyObW3iH", link2: "", link3: "" },
+            { title: "인사이더", players: "4-8", genre: "마피아, 스무고개", time: "15분", image: "https://boardm.co.kr/upload/product/db_5b98a3b839ef4.jpg", link1: "https://youtu.be/nsUZqdT61Ok?si=mEm1FuqlkyObW3iH", link2: "", link3: "" },
             { title: "인생역전", players: "3-5", genre: "주사위", time: "60분", image: "", link1: "https://youtu.be/nagaDuxwCSQ", link2: "https://youtu.be/gbKOBbNFakU", link3: "https://www.youtube.com/shorts/D0QLKi58Hmw" },
-            { title: "장난꾸러기 나방", players: "3-5", genre: "블러핑, 카드", time: "15분", image: "", link1: "", link2: "", link3: "" },
+            { title: "장난꾸러기 나방", players: "3-5", genre: "블러핑, 카드", time: "15분", image: "https://boardm.co.kr/upload/product/db_5aa65c192323e.jpg", link1: "", link2: "", link3: "" },
             { title: "제왕의 깃발", players: "3-5", genre: "주사위, 전략", time: "30분", image: "", link1: "", link2: "", link3: "" },
-            { title: "젝스님트", players: "2-10", genre: "카드", time: "30분", image: "", link1: "https://youtu.be/bcLhvABq-pk", link2: "https://youtu.be/eAa_dYoHbes", link3: "" },
+            { title: "젝스님트", players: "2-10", genre: "카드", time: "30분", image: "https://boardm.co.kr/upload/product/db_5aa65c189b2db.jpg", link1: "https://youtu.be/bcLhvABq-pk", link2: "https://youtu.be/eAa_dYoHbes", link3: "" },
             { title: "젝스님트 황소남작(25년 신작)", players: "2-10", genre: "카드", time: "30분", image: "", link1: "https://www.youtube.com/watch?v=ccdJ-JV0qD0", link2: "https://youtu.be/6CnK1AbUUBM?si=ZejW608sTYJv_0aH", link3: "" },
             { title: "쥬라기인생게임", players: "2-4", genre: "주사위", time: "60분", image: "", link1: "", link2: "", link3: "" },
             { title: "착한녀석들", players: "4-8", genre: "협상", time: "45분", image: "", link1: "", link2: "", link3: "" },
@@ -794,14 +785,14 @@
             { title: "초밥왕", players: "2-5", genre: "파티", time: "15분", image: "", link1: "https://youtu.be/HJrYp_nuSYY?si=_t0MvQ5v-ICrmHfs", link2: "", link3: "" },
             { title: "초성게임왕", players: "2-4", genre: "추리", time: "30분", image: "", link1: "https://youtu.be/fuP_ngAif7E", link2: "", link3: "https://www.youtube.com/shorts/BQMUIfSzWSk" },
             { title: "치킨치킨", players: "2-8", genre: "카드", time: "20분", image: "", link1: "", link2: "", link3: "" },
-            { title: "카탄", players: "3-4", genre: "전략", time: "120분", image: "", link1: "", link2: "", link3: "" },
+            { title: "카탄", players: "3-4", genre: "전략", time: "120분", image: "https://boardm.co.kr/upload/product/db_5aa65c1798369.jpg", link1: "", link2: "", link3: "" },
             { title: "캔트스탑 엘보드", players: "2-4", genre: "경쟁", time: "30분", image: "", link1: "https://youtu.be/Z15X05qA4Qg?si=MBzz_abm-BBg0bpk", link2: "", link3: "" },
             { title: "캡슐 컬렉터(26년 신작)", players: "2-4", genre: "카드", time: "15분", image: "", link1: "https://www.youtube.com/watch?v=zD8GnK3t3IU", link2: "", link3: "" },
             { title: "캣타워", players: "2-4", genre: "파티", time: "15분", image: "", link1: "https://youtu.be/U6VZ8oYJkyU", link2: "", link3: "" },
             { title: "커피러시/겨울(26년 신작)", players: "2-4", genre: "주문", time: "30분", image: "", link1: "https://www.youtube.com/watch?v=A2lPfnwlZuw", link2: "", link3: "" },
             { title: "커피러시/테이크아웃(26년 신작)", players: "1-6", genre: "주문, 스피드", time: "15분", image: "", link1: "https://www.youtube.com/watch?v=3i-q738QlDM", link2: "https://www.youtube.com/watch?v=Dfkbef_xaqA", link3: "" },
             { title: "컨퓨징 썬", players: "2-10", genre: "주사위", time: "10분", image: "", link1: "", link2: "", link3: "" },
-            { title: "컬러레또", players: "2-5", genre: "카드", time: "30분", image: "", link1: "https://youtu.be/Zj5ngmOwaXo", link2: "https://youtu.be/UDsl4BTGVmk", link3: "https://youtube.com/shorts/Z4dzfN3Zy2Y?si=e4B0x8o9M_KltSB5" },
+            { title: "컬러레또", players: "2-5", genre: "카드", time: "30분", image: "https://boardm.co.kr/upload/product/db_5b7ea53d71ff9.jpg", link1: "https://youtu.be/Zj5ngmOwaXo", link2: "https://youtu.be/UDsl4BTGVmk", link3: "https://youtube.com/shorts/Z4dzfN3Zy2Y?si=e4B0x8o9M_KltSB5" },
             { title: "쿠", players: "2-6", genre: "카드", time: "15분", image: "", link1: "", link2: "", link3: "" },
             { title: "쿠키런 용감한 파티", players: "2-6", genre: "카드", time: "30분", image: "", link1: "", link2: "", link3: "" },
             { title: "쿠키박스 키튼(25년 신작)", players: "2-4", genre: "순발력", time: "15분", image: "", link1: "", link2: "", link3: "https://youtube.com/shorts/vsOMkI1pprU?si=EhKGh2T-U-kmiE1w" },
@@ -823,11 +814,11 @@
             { title: "트릭의 달인", players: "3-5", genre: "카드, 트릭테이킹", time: "45분", image: "", link1: "", link2: "", link3: "" },
             { title: "파뿌리 천사와 악마(25년 신작)", players: "4-16", genre: "마피아", time: "5분", image: "", link1: "https://youtu.be/m74ZcSJmNbk?si=mRi1KYRXZaHhE6bF", link2: "", link3: "" },
             { title: "패러다임", players: "2-6", genre: "카드", time: "30분", image: "", link1: "", link2: "", link3: "" },
-            { title: "퍼레이드", players: "2-6", genre: "카드", time: "45분", image: "", link1: "https://youtu.be/LFCqHjMyCGU?si=oQv_3Z0MJJmwZgNF", link2: "", link3: "" },
+            { title: "퍼레이드", players: "2-6", genre: "카드", time: "45분", image: "https://boardm.co.kr/upload/product/db_5aa65c17e3ef8.jpg", link1: "https://youtu.be/LFCqHjMyCGU?si=oQv_3Z0MJJmwZgNF", link2: "", link3: "" },
             { title: "퍼틸리티", players: "2-4", genre: "자원, 전략", time: "45분", image: "", link1: "", link2: "", link3: "" },
             { title: "페이퍼사파리(피카츄와 친구들)", players: "2-5", genre: "카드", time: "30분", image: "", link1: "https://youtu.be/gr1xe0hqA2c", link2: "", link3: "https://youtube.com/shorts/vUN9aeata6c?si=qqao8n4ihA158Wkd" },
             { title: "펭귄얼음깨기", players: "2-4", genre: "파티(어린이)", time: "15분", image: "", link1: "", link2: "", link3: "" },
-            { title: "펭귄파티", players: "2-6", genre: "카드", time: "15분", image: "", link1: "", link2: "", link3: "" },
+            { title: "펭귄파티", players: "2-6", genre: "카드", time: "15분", image: "https://boardm.co.kr/upload/product/db_5b9e28e670929.jpg", link1: "", link2: "", link3: "" },
             { title: "포인트샐러드(이브이컬렉션)", players: "2-6", genre: "카드, 전략", time: "30분", image: "", link1: "https://youtu.be/pY_JZsdTdDw", link2: "https://youtu.be/VnAllALP0JE", link3: "https://youtube.com/shorts/DJUniOv1rew?si=gl5BtPteneb9fwly" },
             { title: "포카튼워터스", players: "3-7", genre: "전략", time: "240분", image: "", link1: "", link2: "", link3: "" },
             { title: "포켓몬 알까기", players: "2", genre: "슈팅", time: "15분", image: "", link1: "", link2: "", link3: "" },
@@ -1083,7 +1074,6 @@
             alert('다운로드 완료!');
         }
 
-        // ================= 💌 Firebase Firestore 및 방문자 카운터 연동 =================
         const firebaseConfig = {
             apiKey: "AIzaSyBJ2mh_PQ5Mxz7MwJlqgzobRcQr_LS-Ldw",
             authDomain: "withhappy.firebaseapp.com",
@@ -1112,7 +1102,6 @@
             console.error("Firebase 초기화 실패:", error);
         }
 
-        // 📊 방문자 수 기록 및 불러오기 함수
         async function countAndLoadVisitors() {
             if (!guestbookReady) {
                 document.getElementById("todayVisitorCount").textContent = "오늘 방문자: 연동 필요";
@@ -1121,11 +1110,9 @@
             }
 
             try {
-                const todayStr = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
+                const todayStr = new Date().toISOString().slice(0, 10);
                 const statsRef = guestbookDb.collection("stats").doc("visitors");
                 const visitedKey = "withhappy_visited_" + todayStr;
-
-                // 오늘 이미 방문했는지 체크 (새로고침 시 중복 카운트 방지)
                 const hasVisitedToday = localStorage.getItem(visitedKey);
 
                 await guestbookDb.runTransaction(async (transaction) => {
@@ -1151,7 +1138,6 @@
                         localStorage.setItem(visitedKey, "true");
                     }
 
-                    // 화면에 표시
                     document.getElementById("todayVisitorCount").textContent = `오늘 방문자: ${todayCount}명`;
                     document.getElementById("totalVisitorCount").textContent = `전체 방문자: ${total}명`;
                 });
@@ -1285,7 +1271,6 @@
                     item.appendChild(message);
                 }
 
-                // ======== 💬 대댓글 영역 생성 ========
                 const replySection = document.createElement("div");
                 replySection.style.cssText = "margin-top: 15px;";
 
@@ -1359,7 +1344,6 @@
 
                 replySection.append(replyToggleBtn, replyContainer);
                 item.appendChild(replySection);
-                // =====================================
 
                 listEl.appendChild(item);
             });
@@ -1546,7 +1530,7 @@
 
         renderCards(boardGames);
         loadGuestbook();
-        countAndLoadVisitors(); // 📊 페이지 로드 시 방문자 수 체크 및 카운트 실행
+        countAndLoadVisitors();
     </script>
 </body>
 </html>
