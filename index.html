@@ -537,7 +537,6 @@
         .modal-content input[type="text"], .modal-content input[type="password"] { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; }
         .modal-buttons { display: flex; gap: 10px; justify-content: flex-end; }
 
-        /* 월드컵 & 도구 모달 스타일 */
         .worldcup-arena {
             display: flex;
             flex-direction: column;
@@ -568,9 +567,9 @@
         <p>인기 게임 박스 아트와 유튜브 영상 저장소</p>
         
         <div class="visitor-counter">
-            <span id="todayVisitorCount">오늘 방문자: 1명</span>
+            <span id="todayVisitorCount">오늘 방문자: 66명</span>
             <span>|</span>
-            <span id="totalVisitorCount">전체 방문자: 1명</span>
+            <span id="totalVisitorCount">전체 방문자: 167명</span>
         </div>
 
         <div class="header-actions">
@@ -6257,6 +6256,136 @@
 
             <div class="guestbook-list" id="guestbookList"><div class="guestbook-item">
                     <div class="guestbook-item-header">
+                        <span class="guestbook-author">👤 왕뉴비</span>
+                        <div class="guestbook-date">
+                            <span>2026.09.20 20:25</span>
+                            <button class="gb-action-btn" onclick="requestEdit('RjwVNaXAkp0hiRJT5DyQ')">수정</button><button class="gb-action-btn del" onclick="requestDelete('RjwVNaXAkp0hiRJT5DyQ')">삭제</button>
+                        </div>
+                    </div>
+                    <div class="guestbook-message">보드게임 카페 운영해주세요!!!</div>
+                    <div style="margin-top: 15px;">
+                        <button class="gb-action-btn" onclick="toggleReplyBox('RjwVNaXAkp0hiRJT5DyQ')">💬 답글 1개 쓰기/보기</button>
+                        <div id="reply-container-RjwVNaXAkp0hiRJT5DyQ" style="display:none; margin-top:10px;">
+                            <div class="reply-list">
+                                <div class="reply-item">
+                                    <div class="reply-header">
+                                        <span class="reply-author">↪ 👤 위드해피</span>
+                                        <div style="display:flex;align-items:center;gap:6px;">
+                                            <span style="font-size:0.75rem;color:var(--sub-text);">2026.09.20 20:30</span>
+                                            <button class="gb-action-btn del" style="padding:2px 6px;font-size:0.7rem;" onclick="deleteReply('RjwVNaXAkp0hiRJT5DyQ',0)">삭제</button>
+                                        </div>
+                                    </div>
+                                    <div class="reply-message">앗ㅎㅎ카페요? ㅜ 마음만은 굴뚝 같습니다ㅎㅎ</div>
+                                </div></div>
+                            <div class="reply-form" style="margin-top:10px;">
+                                <div class="reply-form-row">
+                                    <input type="text" id="rep-author-RjwVNaXAkp0hiRJT5DyQ" placeholder="닉네임">
+                                    <input type="password" id="rep-pw-RjwVNaXAkp0hiRJT5DyQ" placeholder="비밀번호">
+                                </div>
+                                <textarea id="rep-msg-RjwVNaXAkp0hiRJT5DyQ" placeholder="따뜻한 답글을 남겨보세요..."></textarea>
+                                <div style="text-align: right;">
+                                    <button class="gb-action-btn" onclick="addReply('RjwVNaXAkp0hiRJT5DyQ')" style="background:var(--primary-color);color:white;">답글 등록</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div><div class="guestbook-item">
+                    <div class="guestbook-item-header">
+                        <span class="guestbook-author">👤 함가방두창</span>
+                        <div class="guestbook-date">
+                            <span>2026.09.20 10:11</span>
+                            <button class="gb-action-btn" onclick="requestEdit('P5EFcwhNMPWtRkmZNlwH')">수정</button><button class="gb-action-btn del" onclick="requestDelete('P5EFcwhNMPWtRkmZNlwH')">삭제</button>
+                        </div>
+                    </div>
+                    <div class="guestbook-message">항상 응원합니다 화이팅</div>
+                    <div style="margin-top: 15px;">
+                        <button class="gb-action-btn" onclick="toggleReplyBox('P5EFcwhNMPWtRkmZNlwH')">💬 답글 1개 쓰기/보기</button>
+                        <div id="reply-container-P5EFcwhNMPWtRkmZNlwH" style="display:none; margin-top:10px;">
+                            <div class="reply-list">
+                                <div class="reply-item">
+                                    <div class="reply-header">
+                                        <span class="reply-author">↪ 👤 위드해피</span>
+                                        <div style="display:flex;align-items:center;gap:6px;">
+                                            <span style="font-size:0.75rem;color:var(--sub-text);">2026.09.20 14:35</span>
+                                            <button class="gb-action-btn del" style="padding:2px 6px;font-size:0.7rem;" onclick="deleteReply('P5EFcwhNMPWtRkmZNlwH',0)">삭제</button>
+                                        </div>
+                                    </div>
+                                    <div class="reply-message">앗 ㅎㅎㅎ 함가방 두창 !!! 항상 응원 감사합니다 ㅎㅎㅎㅎ!!!!</div>
+                                </div></div>
+                            <div class="reply-form" style="margin-top:10px;">
+                                <div class="reply-form-row">
+                                    <input type="text" id="rep-author-P5EFcwhNMPWtRkmZNlwH" placeholder="닉네임">
+                                    <input type="password" id="rep-pw-P5EFcwhNMPWtRkmZNlwH" placeholder="비밀번호">
+                                </div>
+                                <textarea id="rep-msg-P5EFcwhNMPWtRkmZNlwH" placeholder="따뜻한 답글을 남겨보세요..."></textarea>
+                                <div style="text-align: right;">
+                                    <button class="gb-action-btn" onclick="addReply('P5EFcwhNMPWtRkmZNlwH')" style="background:var(--primary-color);color:white;">답글 등록</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div><div class="guestbook-item">
+                    <div class="guestbook-item-header">
+                        <span class="guestbook-author">👤 로블록스</span>
+                        <div class="guestbook-date">
+                            <span>2026.09.19 18:00</span>
+                            <button class="gb-action-btn" onclick="requestEdit('xvDPghOuphraL4UJHJpW')">수정</button><button class="gb-action-btn del" onclick="requestDelete('xvDPghOuphraL4UJHJpW')">삭제</button>
+                        </div>
+                    </div>
+                    <div class="guestbook-message">좋아요</div>
+                    <div style="margin-top: 15px;">
+                        <button class="gb-action-btn" onclick="toggleReplyBox('xvDPghOuphraL4UJHJpW')">💬 답글 1개 쓰기/보기</button>
+                        <div id="reply-container-xvDPghOuphraL4UJHJpW" style="display:none; margin-top:10px;">
+                            <div class="reply-list">
+                                <div class="reply-item">
+                                    <div class="reply-header">
+                                        <span class="reply-author">↪ 👤 위드해피</span>
+                                        <div style="display:flex;align-items:center;gap:6px;">
+                                            <span style="font-size:0.75rem;color:var(--sub-text);">2026.09.19 18:00</span>
+                                            <button class="gb-action-btn del" style="padding:2px 6px;font-size:0.7rem;" onclick="deleteReply('xvDPghOuphraL4UJHJpW',0)">삭제</button>
+                                        </div>
+                                    </div>
+                                    <div class="reply-message">감사합니다~~</div>
+                                </div></div>
+                            <div class="reply-form" style="margin-top:10px;">
+                                <div class="reply-form-row">
+                                    <input type="text" id="rep-author-xvDPghOuphraL4UJHJpW" placeholder="닉네임">
+                                    <input type="password" id="rep-pw-xvDPghOuphraL4UJHJpW" placeholder="비밀번호">
+                                </div>
+                                <textarea id="rep-msg-xvDPghOuphraL4UJHJpW" placeholder="따뜻한 답글을 남겨보세요..."></textarea>
+                                <div style="text-align: right;">
+                                    <button class="gb-action-btn" onclick="addReply('xvDPghOuphraL4UJHJpW')" style="background:var(--primary-color);color:white;">답글 등록</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div><div class="guestbook-item">
+                    <div class="guestbook-item-header">
+                        <span class="guestbook-author">👤 위드해피</span>
+                        <div class="guestbook-date">
+                            <span>2026.09.19 14:36</span>
+                            <button class="gb-action-btn" onclick="requestEdit('7J7UCe2wK3qZ15ZKKF94')">수정</button><button class="gb-action-btn del" onclick="requestDelete('7J7UCe2wK3qZ15ZKKF94')">삭제</button>
+                        </div>
+                    </div>
+                    <div class="guestbook-message">※ 들려주셔서 감사합니다. 들려주는 분들의 편의를 위해
+
+방명록/타이머/점수판/이상형 월드컵/찜/게임완료체크/랜덤게임 뽑기까지 만들었습니다
+
+사실 엄청난 시간과...실패로 만들었습니다. 재미있게 즐겨 주시고 위드해피 많이 사랑해주세요!! ♥</div>
+                    <div style="margin-top: 15px;">
+                        <button class="gb-action-btn" onclick="toggleReplyBox('7J7UCe2wK3qZ15ZKKF94')">💬 답글 0개 쓰기/보기</button>
+                        <div id="reply-container-7J7UCe2wK3qZ15ZKKF94" style="display:none; margin-top:10px;">
+                            <div class="reply-list"></div>
+                            <div class="reply-form" style="margin-top:10px;">
+                                <div class="reply-form-row">
+                                    <input type="text" id="rep-author-7J7UCe2wK3qZ15ZKKF94" placeholder="닉네임">
+                                    <input type="password" id="rep-pw-7J7UCe2wK3qZ15ZKKF94" placeholder="비밀번호">
+                                </div>
+                                <textarea id="rep-msg-7J7UCe2wK3qZ15ZKKF94" placeholder="따뜻한 답글을 남겨보세요..."></textarea>
+                                <div style="text-align: right;">
+                                    <button class="gb-action-btn" onclick="addReply('7J7UCe2wK3qZ15ZKKF94')" style="background:var(--primary-color);color:white;">답글 등록</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div><div class="guestbook-item">
+                    <div class="guestbook-item-header">
                         <span class="guestbook-author">👤 사천김과장TV대표:김채민</span>
                         <div class="guestbook-date">
                             <span>2026.09.19 13:04</span>
@@ -6382,7 +6511,6 @@
                 <button class="tool-tab-btn" onclick="switchToolTab('score')">📊 간이 점수판</button>
             </div>
             
-            <!-- 타이머 탭 -->
             <div id="toolTimerSection" style="padding: 20px 0;">
                 <div id="timerDisplay" style="font-size: 3rem; font-weight: bold; color: var(--primary-color); margin-bottom: 15px;">00:00</div>
                 <div style="display: flex; gap: 10px; justify-content: center;">
@@ -6392,7 +6520,6 @@
                 </div>
             </div>
 
-            <!-- 점수판 탭 -->
             <div id="toolScoreSection" style="display: none; padding: 10px 0; text-align: left;">
                 <div style="display: flex; gap: 8px; margin-bottom: 10px;">
                     <input type="text" id="scorePlayerName" placeholder="플레이어 이름" style="margin-bottom:0;">
@@ -8610,7 +8737,6 @@
         "link3": "https://youtube.com/shorts/FzUE1DKSgO4?si=cqq45t_psXncIn9m"
     }
 ];
-        // 로컬 유저 데이터 (플레이 완료 및 찜하기 목록)
         let userRecords = JSON.parse(localStorage.getItem('withhappy_user_records') || '{}');
 
         function saveUserRecords() {
@@ -8798,7 +8924,6 @@
             });
         }
 
-        // --- 이상형 월드컵 로직 ---
         let wcList = [];
         let wcNextRound = [];
         let wcIndex = 0;
@@ -8807,9 +8932,7 @@
         function openWorldcupModal() {
             let pool = getCurrentFilteredItems();
             if (pool.length < 2) { alert('월드컵을 진행하려면 검색 조건에 최소 2개 이상의 게임이 필요합니다!'); return; }
-            // 무작위로 섞기
             wcList = [...pool].sort(() => Math.random() - 0.5);
-            // 2의 배수로 맞추기 (최대 16강까지)
             let maxCount = 16;
             if (wcList.length >= 32) maxCount = 32;
             else if (wcList.length >= 16) maxCount = 16;
@@ -8876,7 +8999,6 @@
             nextWcMatch();
         }
 
-        // --- 타이머 & 점수판 로직 ---
         function openToolModal() { document.getElementById('toolModal').classList.add('active'); }
         function closeToolModal() { document.getElementById('toolModal').classList.remove('active'); }
 
@@ -9041,25 +9163,39 @@
             }
         } catch (error) {}
 
+        // 첫 로딩 지연 및 새로고침 중복 카운트 방지 기능 적용된 방문자 카운터 함수
         async function countAndLoadVisitors() {
-            if (!guestbookReady) return;
+            if (!guestbookReady) {
+                document.getElementById("todayVisitorCount").textContent = "오늘 방문자: 1명";
+                document.getElementById("totalVisitorCount").textContent = "전체 방문자: 1명";
+                return;
+            }
             try {
                 const todayStr = new Date().toISOString().slice(0, 10);
                 const statsRef = guestbookDb.collection("stats").doc("visitors");
+                
+                const visitedKey = "withhappy_visited_" + todayStr;
+                const isAlreadyVisited = localStorage.getItem(visitedKey);
+
                 const doc = await statsRef.get();
                 let total = 1;
                 let dailyData = {};
 
                 if (doc.exists) {
                     const data = doc.data();
-                    total = (data.total || 0) + 1;
+                    total = data.total || 1;
                     dailyData = data.daily || {};
                 }
 
-                let todayCount = (dailyData[todayStr] || 0) + 1;
-                dailyData[todayStr] = todayCount;
+                let todayCount = dailyData[todayStr] || 1;
 
-                await statsRef.set({ total: total, daily: dailyData }, { merge: true });
+                if (!isAlreadyVisited) {
+                    total += 1;
+                    todayCount += 1;
+                    dailyData[todayStr] = todayCount;
+                    await statsRef.set({ total: total, daily: dailyData }, { merge: true });
+                    localStorage.setItem(visitedKey, "true");
+                }
 
                 document.getElementById("todayVisitorCount").textContent = `오늘 방문자: ${todayCount}명`;
                 document.getElementById("totalVisitorCount").textContent = `전체 방문자: ${total}명`;
