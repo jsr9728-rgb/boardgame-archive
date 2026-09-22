@@ -482,7 +482,7 @@
         }
         .modal.active { display: flex; }
         .modal-content {
-            background: white; padding: 20px; border-radius: 12px; width: 90%; max-width: 400px; box-sizing: border-box; text-align: center;
+            background: white; padding: 20px; border-radius: 12px; width: 90%; max-width: 450px; box-sizing: border-box; text-align: center;
         }
         .modal-content h3 { margin-top: 0; margin-bottom: 15px; }
         .modal-content input { width: 100%; padding: 8px; margin-bottom: 12px; border: 1px solid var(--border-color); border-radius: 6px; box-sizing: border-box; }
@@ -492,14 +492,14 @@
             border: 2px dashed var(--primary-color); padding: 20px; border-radius: 10px; margin-bottom: 15px; word-break: break-all;
         }
         .wc-card {
-            background: #f8fafc; border: 2px solid var(--border-color); border-radius: 10px; padding: 10px; cursor: pointer; text-align: center;
+            background: #f8fafc; border: 2px solid var(--border-color); border-radius: 10px; padding: 12px; cursor: pointer; text-align: center; transition: transform 0.1s;
         }
-        .wc-card img { width: 100%; height: 100px; object-fit: contain; margin-bottom: 6px; }
+        .wc-card:hover { transform: scale(1.02); border-color: var(--primary-color); }
+        .wc-card img { width: 100%; height: 130px; object-fit: contain; margin-bottom: 8px; }
         .tool-box-tabs { display: flex; gap: 5px; margin-bottom: 12px; justify-content: center; }
         .tool-tab-btn { padding: 5px 12px; font-weight: bold; border: none; background: #e2e8f0; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
         .tool-tab-btn.active { background: #1e293b; color: white; }
     </style>
-    <!-- 모바일 이미지 로딩 안정성을 위한 메타 태그 추가 -->
     <meta name="referrer" content="no-referrer">
 </head>
 <body>
@@ -509,9 +509,9 @@
         <p>인기 게임 박스 아트와 유튜브 영상 저장소</p>
         
         <div class="visitor-counter">
-            <span id="todayVisitorCount">오늘: 95명</span>
+            <span id="todayVisitorCount">오늘: 98명</span>
             <span>|</span>
-            <span id="totalVisitorCount">전체: 196명</span>
+            <span id="totalVisitorCount">전체: 199명</span>
         </div>
 
         <div class="header-actions">
@@ -8372,10 +8372,18 @@
     </div>
 
     <div class="modal" id="worldcupModal">
-        <div class="modal-content" style="max-width: 450px;">
+        <div class="modal-content" style="max-width: 480px;">
             <h3>🏆 이상형 월드컵</h3>
-            <div id="wcProgress" style="font-weight: bold; color: var(--sub-text); font-size: 0.85rem; margin-bottom:10px;"></div>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;" id="wcArena"></div>
+            <div id="wcProgress" style="font-weight: bold; color: var(--sub-text); font-size: 0.85rem; margin-bottom:10px;">🏆 [ 16강 ] (1 / 8)</div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;" id="wcArena">
+                <div class="wc-card" onclick="selectWcWinner(0)">
+                    <img src="https://reminiscent-flame-dbe.notion.site/image/attachment%3Aa31f43dc-ec34-4443-8bc3-70143c964843%3A113578282937233-46bd9598-06e2-4f57-abb6-68ba89fdca5e.jpg?table=block&amp;id=3ba1688b-fcdd-80f5-b682-ce7a6b347171&amp;spaceId=740392ac-a5d9-4903-ab9f-7cf2c40f4dee&amp;width=890&amp;userId=&amp;cache=v2&amp;imgBuildSrc=requestProxiedImageUrl" alt="라스베가스">
+                    <div style="font-weight:bold; font-size:0.95rem; margin-top:4px;">라스베가스</div>
+                </div>
+                <div class="wc-card" onclick="selectWcWinner(1)">
+                    <img src="https://reminiscent-flame-dbe.notion.site/image/attachment%3A406aa2f0-984f-40fa-a585-f380c3d5a742%3A51a47fd0694969723ddb258858c238d9ce637da16544f37bc04da0ce5a67.jpg?table=block&amp;id=3ba1688b-fcdd-8055-a974-f4c9b9035491&amp;spaceId=740392ac-a5d9-4903-ab9f-7cf2c40f4dee&amp;width=950&amp;userId=&amp;cache=v2&amp;imgBuildSrc=requestProxiedImageUrl" alt="후지플러시">
+                    <div style="font-weight:bold; font-size:0.95rem; margin-top:4px;">후지플러시</div>
+                </div></div>
             <div style="margin-top: 15px; text-align: right;"><button class="btn" onclick="closeWorldcupModal()">닫기</button></div>
         </div>
     </div>
@@ -10738,7 +10746,6 @@
             applyFilters();
         }
 
-        // 디바운스 적용으로 입력 지연 현상(렉) 완벽 해결
         function debounceFilterCards() {
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => { applyFilters(); }, 150);
@@ -10866,7 +10873,6 @@
             window.scrollTo({ top: 300, behavior: 'smooth' });
         }
 
-        // 문서 조각(Fragment)을 사용하여 렌더링 속도 대폭 개선
         function renderCards(items) {
             const grid = document.getElementById('cardGrid');
             document.getElementById('totalCount').innerText = `총 ${items.length}개 게임`;
@@ -10969,21 +10975,33 @@
             if (wcIndex >= wcList.length) {
                 if (wcNextRound.length === 1) {
                     let winner = wcNextRound[0];
+                    let winnerImg = winner.image ? `<img src="${winner.image}" style="width:100%; height:140px; object-fit:contain; margin-bottom:8px;">` : `<div style="font-size:2.5rem; margin-bottom:8px;">👑</div>`;
                     document.getElementById('wcProgress').innerText = `👑 우승!`;
                     document.getElementById('wcArena').innerHTML = `
-                        <div style="grid-column: 1/-1; text-align:center;">
-                            <h2 style="color:var(--primary-color);">${winner.title}</h2>
-                            <button class="btn primary" onclick="closeWorldcupModal()">확인</button>
+                        <div style="grid-column: 1/-1; text-align:center; padding:10px;">
+                            ${winnerImg}
+                            <h2 style="color:var(--primary-color); margin:5px 0;">${winner.title}</h2>
+                            <button class="btn primary" onclick="closeWorldcupModal()" style="margin-top:12px;">확인</button>
                         </div>`;
                     return;
                 }
                 wcList = [...wcNextRound]; wcNextRound = []; wcIndex = 0; wcRoundName = `${wcList.length}강`;
             }
             let g1 = wcList[wcIndex], g2 = wcList[wcIndex + 1];
-            document.getElementById('wcProgress').innerText = `🏆 [ ${wcRoundName} ]`;
+            document.getElementById('wcProgress').innerText = `🏆 [ ${wcRoundName} ] (${(wcIndex/2)+1} / ${wcList.length/2})`;
+
+            let img1 = g1.image ? `<img src="${g1.image}" alt="${g1.title}">` : `<div style="height:130px; display:flex; align-items:center; justify-content:center; font-size:2rem;">🎲</div>`;
+            let img2 = g2.image ? `<img src="${g2.image}" alt="${g2.title}">` : `<div style="height:130px; display:flex; align-items:center; justify-content:center; font-size:2rem;">🎲</div>`;
+
             document.getElementById('wcArena').innerHTML = `
-                <div class="wc-card" onclick="selectWcWinner(0)"><div style="font-weight:bold;">${g1.title}</div></div>
-                <div class="wc-card" onclick="selectWcWinner(1)"><div style="font-weight:bold;">${g2.title}</div></div>`;
+                <div class="wc-card" onclick="selectWcWinner(0)">
+                    ${img1}
+                    <div style="font-weight:bold; font-size:0.95rem; margin-top:4px;">${g1.title}</div>
+                </div>
+                <div class="wc-card" onclick="selectWcWinner(1)">
+                    ${img2}
+                    <div style="font-weight:bold; font-size:0.95rem; margin-top:4px;">${g2.title}</div>
+                </div>`;
         }
         function selectWcWinner(choice) { wcNextRound.push(wcList[wcIndex + choice]); wcIndex += 2; nextWcMatch(); }
 
