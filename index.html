@@ -563,9 +563,9 @@
         <p>인기 게임 박스 아트와 유튜브 영상 저장소</p>
         
         <div class="visitor-counter">
-            <span id="todayVisitorCount">오늘: 11명</span>
+            <span id="todayVisitorCount">오늘: 17명</span>
             <span>|</span>
-            <span id="totalVisitorCount">전체: 266명</span>
+            <span id="totalVisitorCount">전체: 272명</span>
         </div>
 
         <div class="header-actions">
@@ -587,7 +587,7 @@
     <div class="container">
         <div class="promo-memo-section" id="promoMemoSection">
             <h3>📢 공지 &amp; 홍보 안내</h3>
-            <div class="promo-content-box" id="promoDisplayBox">안녕하세요! 보드게임 유튜브 영상을 올리면서 직접 만든 아카이브 페이지입니다. ㅎㅎ<br><br>- 초성/인원별/성향별 보드게임 정리<br>- 보드게임 이상형 월드컵 &amp; 룰렛 &amp; 코스추천 기능 포함!<br><br>구경 한번 해보시고 가볍게 즐겨주세요 🙇‍♂️</div>
+            <div class="promo-content-box" id="promoDisplayBox">🎲 위드해피 보드게임 아카이브에 오신 것을 환영합니다! 🎉<br>구독자분들과 방문자분들이 더 재밌게 즐기실 수 있도록 새로운 기능들을 대폭 추가했습니다. ㅎㅎ<br><br>✨ [새롭게 추가된 즐길 거리들]<br>1. 🎲 보드게임 코스 추천기 (상단 파란색 버튼)<br>   - 모임 인원수와 성향(파티 vs 전략)만 고르면, 오늘 모임에서 달릴 1·2라운드 코스 요리를 척척 추천해 드립니다!<br>2. 🏆 방문자 업적 뱃지 시스템 (상단 초록색 버튼)<br>   - 사이트를 둘러보고, 후기도 남기고, 찜이나 완료 체크도 해보세요! 숨겨진 뱃지들을 하나씩 모으는 재미가 있습니다.<br>3. 🎰 랜덤 룰렛 &amp; 이상형 월드컵 &amp; 도구 상자<br>   - 뭘 할지 고민될 때는 룰렛을 돌리고, 이상형 월드컵으로 최애 게임을 뽑아보세요. 타이머와 점수판 기능도 유용하게 쓰실 수 있습니다!<br>4. 🔥 실시간 인기 급상승 TOP 5 &amp; 한 줄 후기<br>   - 다른 사람들이 가장 많이 찾는 게임과 생생한 한 줄 후기도 구경하고 직접 남겨보세요.<br><br>초성별, 인원별, 성향별로 깔끔하게 정리되어 있으니 편하게 둘러보시고 가볍게 즐겨주세요 🙇‍♂️<br>방명록에 소중한 흔적도 꼭 남겨주세요! 감사합니다 ✨</div>
             <textarea id="promoMemoText" placeholder="방문자들이 볼 공지나 홍보 문구를 적어두세요..."></textarea>
             <div class="admin-only" style="margin-top: 8px; display: flex; gap: 8px; justify-content: flex-end;">
                 <button class="btn primary" onclick="savePromoMemo()">저장하기</button>
@@ -11605,11 +11605,8 @@
         let userBadges = JSON.parse(localStorage.getItem('withhappy_badges') || '{"visitor": true, "reviewer": false, "explorer": false, "guestbook": false}');
 
         function checkBadgeConditions() {
-            // 1. 첫 방문 뱃지 (기본 true)
-            // 2. 후기 작성 뱃지
             let totalTips = Object.values(gameTips).reduce((acc, cur) => acc + cur.length, 0);
             if (totalTips > 0) userBadges.reviewer = true;
-            // 3. 탐험가 뱃지 (완료나 찜 3개 이상 체크)
             let actionCount = Object.values(userRecords).filter(r => r.played || r.wish).length;
             if (actionCount >= 3) userBadges.explorer = true;
             localStorage.setItem('withhappy_badges', JSON.stringify(userBadges));
@@ -11654,7 +11651,7 @@
                 return matchP && matchVibe;
             });
 
-            if (pool.length < 2) pool = boardGames; // 부족하면 전체에서
+            if (pool.length < 2) pool = boardGames;
             pool.sort(() => Math.random() - 0.5);
             let game1 = pool[0];
             let game2 = pool[1] || pool[0];
@@ -11692,7 +11689,7 @@
         function closeStatsModal() { document.getElementById('statsModal').classList.remove('active'); }
 
         function loadPromoMemo() {
-            let defaultText = `안녕하세요! 보드게임 유튜브 영상을 올리면서 직접 만든 아카이브 페이지입니다. ㅎㅎ\n\n- 초성/인원별/성향별 보드게임 정리\n- 보드게임 이상형 월드컵 & 룰렛 & 코스추천 기능 포함!\n\n구경 한번 해보시고 가볍게 즐겨주세요 🙇‍♂️`;
+            let defaultText = `🎲 위드해피 보드게임 아카이브에 오신 것을 환영합니다! 🎉\n구독자분들과 방문자분들이 더 재밌게 즐기실 수 있도록 새로운 기능들을 대폭 추가했습니다. ㅎㅎ\n\n✨ [새롭게 추가된 즐길 거리들]\n1. 🎲 보드게임 코스 추천기 (상단 파란색 버튼)\n   - 모임 인원수와 성향(파티 vs 전략)만 고르면, 오늘 모임에서 달릴 1·2라운드 코스 요리를 척척 추천해 드립니다!\n2. 🏆 방문자 업적 뱃지 시스템 (상단 초록색 버튼)\n   - 사이트를 둘러보고, 후기도 남기고, 찜이나 완료 체크도 해보세요! 숨겨진 뱃지들을 하나씩 모으는 재미가 있습니다.\n3. 🎰 랜덤 룰렛 & 이상형 월드컵 & 도구 상자\n   - 뭘 할지 고민될 때는 룰렛을 돌리고, 이상형 월드컵으로 최애 게임을 뽑아보세요. 타이머와 점수판 기능도 유용하게 쓰실 수 있습니다!\n4. 🔥 실시간 인기 급상승 TOP 5 & 한 줄 후기\n   - 다른 사람들이 가장 많이 찾는 게임과 생생한 한 줄 후기도 구경하고 직접 남겨보세요.\n\n초성별, 인원별, 성향별로 깔끔하게 정리되어 있으니 편하게 둘러보시고 가볍게 즐겨주세요 🙇‍♂️\n방명록에 소중한 흔적도 꼭 남겨주세요! 감사합니다 ✨`;
             let memo = localStorage.getItem('withhappy_promo_memo') || defaultText;
             document.getElementById('promoMemoText').value = memo;
             document.getElementById('promoDisplayBox').innerText = memo;
@@ -12334,7 +12331,6 @@
                 date: formatGuestbookDate(new Date()), isEditing: false,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
-            // 방명록 작성 시 뱃지 획득
             userBadges.guestbook = true;
             localStorage.setItem('withhappy_badges', JSON.stringify(userBadges));
 
