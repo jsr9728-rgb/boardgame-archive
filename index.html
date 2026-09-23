@@ -96,9 +96,10 @@
             padding: 0 15px;
         }
 
+        /* 방문자 모두에게 보이는 홍보/공지 공용 섹션 */
         .promo-memo-section {
             background: #fffbeb;
-            border: 2px dashed #f59e0b;
+            border: 2px solid #f59e0b;
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 25px;
@@ -107,6 +108,17 @@
             margin-top: 0;
             color: #d97706;
             font-size: 1.1rem;
+        }
+        .promo-content-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-all;
+            color: #334155;
         }
         .promo-memo-section textarea {
             width: 100%;
@@ -120,7 +132,10 @@
             resize: vertical;
             background: white;
             outline: none;
+            display: none; /* 기본은 숨김, 관리자 모드일 때 보임 */
         }
+        body.admin-mode .promo-memo-section textarea { display: block; }
+        body.admin-mode .promo-content-box { display: none; }
 
         .trending-banner {
             background: #1e293b;
@@ -535,9 +550,9 @@
         <p>인기 게임 박스 아트와 유튜브 영상 저장소</p>
         
         <div class="visitor-counter">
-            <span id="todayVisitorCount">오늘: 1명</span>
+            <span id="todayVisitorCount">오늘: 6명</span>
             <span>|</span>
-            <span id="totalVisitorCount">전체: 256명</span>
+            <span id="totalVisitorCount">전체: 261명</span>
         </div>
 
         <div class="header-actions">
@@ -554,11 +569,12 @@
     </header>
 
     <div class="container">
-        <div class="promo-memo-section admin-block" id="promoMemoSection">
-            <h3>📝 [관리자 전용] 커뮤니티 홍보용 문구 &amp; 메모장</h3>
-            <p style="font-size:0.85rem; color:#b45309; margin-top:0; margin-bottom:8px;">여기에 홍보글이나 아이디어를 적어두고 버튼을 눌러 복사하세요! (자동 저장됩니다)</p>
-            <textarea id="promoMemoText" placeholder="커뮤니티에 올릴 홍보 글을 적어두세요..."></textarea>
-            <div style="margin-top: 8px; display: flex; gap: 8px; justify-content: flex-end;">
+        <!-- 방문자 전용 공지/홍보 영역 (관리자 모드일 때만 텍스트박스로 바뀌어 수정 가능) -->
+        <div class="promo-memo-section" id="promoMemoSection">
+            <h3>📢 공지 &amp; 홍보 안내</h3>
+            <div class="promo-content-box" id="promoDisplayBox">안녕하세요! 보드게임 유튜브 영상을 올리면서 직접 만든 아카이브 페이지입니다. ㅎㅎ<br><br>- 초성/인원별/성향별 보드게임 정리<br>- 보드게임 이상형 월드컵 &amp; 룰렛 기능 포함!<br><br>구경 한번 해보시고 가볍게 즐겨주세요 🙇‍♂️</div>
+            <textarea id="promoMemoText" placeholder="방문자들이 볼 공지나 홍보 문구를 적어두세요..."></textarea>
+            <div class="admin-only" style="margin-top: 8px; display: flex; gap: 8px; justify-content: flex-end;">
                 <button class="btn primary" onclick="savePromoMemo()">저장하기</button>
                 <button class="btn accent" onclick="copyPromoMemo()">클립보드 복사</button>
             </div>
@@ -10670,21 +10686,24 @@
         let debounceTimer = null;
 
         function loadPromoMemo() {
-            let memo = localStorage.getItem('withhappy_promo_memo') || `안녕하세요! 보드게임 유튜브 영상을 올리면서 직접 만든 아카이브 페이지입니다. ㅎㅎ\n\n- 초성/인원별/성향별 보드게임 정리\n- 보드게임 이상형 월드컵 & 룰렛 기능 포함!\n\n구경 한번 해보시고 가볍게 즐겨주세요 🙇‍♂️\n👉 링크: [여기에 사이트 주소 입력]`;
+            let defaultText = `안녕하세요! 보드게임 유튜브 영상을 올리면서 직접 만든 아카이브 페이지입니다. ㅎㅎ\n\n- 초성/인원별/성향별 보드게임 정리\n- 보드게임 이상형 월드컵 & 룰렛 기능 포함!\n\n구경 한번 해보시고 가볍게 즐겨주세요 🙇‍♂️`;
+            let memo = localStorage.getItem('withhappy_promo_memo') || defaultText;
             document.getElementById('promoMemoText').value = memo;
+            document.getElementById('promoDisplayBox').innerText = memo;
         }
 
         function savePromoMemo() {
             let text = document.getElementById('promoMemoText').value;
             localStorage.setItem('withhappy_promo_memo', text);
-            alert('홍보 문구가 저장되었습니다!');
+            document.getElementById('promoDisplayBox').innerText = text;
+            alert('공지/홍보 문구가 저장되었습니다! 이제 방문자들도 이 내용을 볼 수 있습니다.');
         }
 
         function copyPromoMemo() {
             let textarea = document.getElementById('promoMemoText');
             textarea.select();
             navigator.clipboard.writeText(textarea.value).then(() => {
-                alert('홍보 문구가 클립보드에 복사되었습니다! 커뮤니티에 붙여넣기 하세요.');
+                alert('홍보 문구가 클립보드에 복사되었습니다!');
             });
         }
 
