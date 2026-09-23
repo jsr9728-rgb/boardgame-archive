@@ -96,7 +96,6 @@
             padding: 0 15px;
         }
 
-        /* 방문자 모두에게 보이는 홍보/공지 공용 섹션 */
         .promo-memo-section {
             background: #fffbeb;
             border: 2px solid #f59e0b;
@@ -132,7 +131,7 @@
             resize: vertical;
             background: white;
             outline: none;
-            display: none; /* 기본은 숨김, 관리자 모드일 때 보임 */
+            display: none;
         }
         body.admin-mode .promo-memo-section textarea { display: block; }
         body.admin-mode .promo-content-box { display: none; }
@@ -425,16 +424,17 @@
         .card-link.none { background-color: #cbd5e1; color: #64748b; }
 
         .click-stats-badge {
-            display: block;
+            display: flex;
+            justify-content: space-around;
             font-size: 0.7rem;
             color: #d97706;
             background: #fffbeb;
-            padding: 3px 6px;
+            padding: 4px 6px;
             border-radius: 4px;
             margin-bottom: 8px;
-            text-align: center;
             font-weight: bold;
             border: 1px dashed #f59e0b;
+            gap: 4px;
         }
 
         .admin-controls {
@@ -550,9 +550,9 @@
         <p>인기 게임 박스 아트와 유튜브 영상 저장소</p>
         
         <div class="visitor-counter">
-            <span id="todayVisitorCount">오늘: 6명</span>
+            <span id="todayVisitorCount">오늘: 8명</span>
             <span>|</span>
-            <span id="totalVisitorCount">전체: 261명</span>
+            <span id="totalVisitorCount">전체: 263명</span>
         </div>
 
         <div class="header-actions">
@@ -569,7 +569,6 @@
     </header>
 
     <div class="container">
-        <!-- 방문자 전용 공지/홍보 영역 (관리자 모드일 때만 텍스트박스로 바뀌어 수정 가능) -->
         <div class="promo-memo-section" id="promoMemoSection">
             <h3>📢 공지 &amp; 홍보 안내</h3>
             <div class="promo-content-box" id="promoDisplayBox">안녕하세요! 보드게임 유튜브 영상을 올리면서 직접 만든 아카이브 페이지입니다. ㅎㅎ<br><br>- 초성/인원별/성향별 보드게임 정리<br>- 보드게임 이상형 월드컵 &amp; 룰렛 기능 포함!<br><br>구경 한번 해보시고 가볍게 즐겨주세요 🙇‍♂️</div>
@@ -655,7 +654,11 @@
                             <span class="spec-badge players">👥 3-6명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 1회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 1</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -690,7 +693,11 @@
                             <span class="spec-badge players">👥 3-8명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 1회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 1</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -725,7 +732,11 @@
                             <span class="spec-badge players">👥 3-5명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -760,7 +771,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -795,7 +810,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -830,7 +849,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -865,7 +888,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 10분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -900,7 +927,11 @@
                             <span class="spec-badge players">👥 3-6명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -935,7 +966,11 @@
                             <span class="spec-badge players">👥 3-7명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -970,7 +1005,11 @@
                             <span class="spec-badge players">👥 5명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1005,7 +1044,11 @@
                             <span class="spec-badge players">👥 2-10명</span>
                             <span class="spec-badge time">⏱️ 10분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1040,7 +1083,11 @@
                             <span class="spec-badge players">👥 2-10명</span>
                             <span class="spec-badge time">⏱️ 10분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1075,7 +1122,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1110,7 +1161,11 @@
                             <span class="spec-badge players">👥 4-10명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1145,7 +1200,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1180,7 +1239,11 @@
                             <span class="spec-badge players">👥 1-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1215,7 +1278,11 @@
                             <span class="spec-badge players">👥 4-10명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1250,7 +1317,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1285,7 +1356,11 @@
                             <span class="spec-badge players">👥 3-5명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1320,7 +1395,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 10분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1355,7 +1434,11 @@
                             <span class="spec-badge players">👥 4명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1390,7 +1473,11 @@
                             <span class="spec-badge players">👥 3~7명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1425,7 +1512,11 @@
                             <span class="spec-badge players">👥 4-6명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1460,7 +1551,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1495,7 +1590,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1530,7 +1629,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 40분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1565,7 +1668,11 @@
                             <span class="spec-badge players">👥 4명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1600,7 +1707,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 10분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1635,7 +1746,11 @@
                             <span class="spec-badge players">👥 6명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1670,7 +1785,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1705,7 +1824,11 @@
                             <span class="spec-badge players">👥 3-5명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1740,7 +1863,11 @@
                             <span class="spec-badge players">👥 2명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1775,7 +1902,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 45분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1810,7 +1941,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1845,7 +1980,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1880,7 +2019,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1915,7 +2058,11 @@
                             <span class="spec-badge players">👥 3-6명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1950,7 +2097,11 @@
                             <span class="spec-badge players">👥 1-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -1985,7 +2136,11 @@
                             <span class="spec-badge players">👥 3-6명</span>
                             <span class="spec-badge time">⏱️ 25분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2020,7 +2175,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2055,7 +2214,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2090,7 +2253,11 @@
                             <span class="spec-badge players">👥 4명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2125,7 +2292,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2160,7 +2331,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2195,7 +2370,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 10분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2230,7 +2409,11 @@
                             <span class="spec-badge players">👥 2명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2265,7 +2448,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2300,7 +2487,11 @@
                             <span class="spec-badge players">👥 2-8명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2335,7 +2526,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2370,7 +2565,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2405,7 +2604,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2440,7 +2643,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 10분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2475,7 +2682,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2510,7 +2721,11 @@
                             <span class="spec-badge players">👥 1~4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2545,7 +2760,11 @@
                             <span class="spec-badge players">👥 4-8명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2580,7 +2799,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2615,7 +2838,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2650,7 +2877,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 40분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2685,7 +2916,11 @@
                             <span class="spec-badge players">👥 4명</span>
                             <span class="spec-badge time">⏱️ 60분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2720,7 +2955,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2755,7 +2994,11 @@
                             <span class="spec-badge players">👥 3-6명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2790,7 +3033,11 @@
                             <span class="spec-badge players">👥 1~5명</span>
                             <span class="spec-badge time">⏱️ 60분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2825,7 +3072,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 45분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2860,7 +3111,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2895,7 +3150,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 25분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2930,7 +3189,11 @@
                             <span class="spec-badge players">👥 3-6명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 1회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 1</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -2965,7 +3228,11 @@
                             <span class="spec-badge players">👥 3-12명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3000,7 +3267,11 @@
                             <span class="spec-badge players">👥 4-7명</span>
                             <span class="spec-badge time">⏱️ 40분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3035,7 +3306,11 @@
                             <span class="spec-badge players">👥 4-7명</span>
                             <span class="spec-badge time">⏱️ 30</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3070,7 +3345,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3105,7 +3384,11 @@
                             <span class="spec-badge players">👥 2명</span>
                             <span class="spec-badge time">⏱️ 10분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3140,7 +3423,11 @@
                             <span class="spec-badge players">👥 2명</span>
                             <span class="spec-badge time">⏱️ 10분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3175,7 +3462,11 @@
                             <span class="spec-badge players">👥 2-7명</span>
                             <span class="spec-badge time">⏱️ 45분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3210,7 +3501,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3245,7 +3540,11 @@
                             <span class="spec-badge players">👥 1-4명</span>
                             <span class="spec-badge time">⏱️ 40분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3280,7 +3579,11 @@
                             <span class="spec-badge players">👥 4명</span>
                             <span class="spec-badge time">⏱️ 60분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3315,7 +3618,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3350,7 +3657,11 @@
                             <span class="spec-badge players">👥 4-8명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3385,7 +3696,11 @@
                             <span class="spec-badge players">👥 4-10명</span>
                             <span class="spec-badge time">⏱️ 60분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3420,7 +3735,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3455,7 +3774,11 @@
                             <span class="spec-badge players">👥 3-8명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3490,7 +3813,11 @@
                             <span class="spec-badge players">👥 3-10명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3525,7 +3852,11 @@
                             <span class="spec-badge players">👥 3-10명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3560,7 +3891,11 @@
                             <span class="spec-badge players">👥 3-10명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3595,7 +3930,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3630,7 +3969,11 @@
                             <span class="spec-badge players">👥 1-5명</span>
                             <span class="spec-badge time">⏱️ 1명당 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3665,7 +4008,11 @@
                             <span class="spec-badge players">👥 4-8명</span>
                             <span class="spec-badge time">⏱️ 60분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3700,7 +4047,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3735,7 +4086,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3770,7 +4125,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3805,7 +4164,11 @@
                             <span class="spec-badge players">👥 4-12명</span>
                             <span class="spec-badge time">⏱️ 40분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3840,7 +4203,11 @@
                             <span class="spec-badge players">👥 1-20명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3875,7 +4242,11 @@
                             <span class="spec-badge players">👥 4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3910,7 +4281,11 @@
                             <span class="spec-badge players">👥 1-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3945,7 +4320,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 10분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -3980,7 +4359,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4015,7 +4398,11 @@
                             <span class="spec-badge players">👥 2-8명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4050,7 +4437,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4085,7 +4476,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4120,7 +4515,11 @@
                             <span class="spec-badge players">👥 2-8명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4155,7 +4554,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 1시간</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4190,7 +4593,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4225,7 +4632,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4260,7 +4671,11 @@
                             <span class="spec-badge players">👥 2-10명</span>
                             <span class="spec-badge time">⏱️ 10분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4295,7 +4710,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4330,7 +4749,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4365,7 +4788,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4400,7 +4827,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 25분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4435,7 +4866,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4470,7 +4905,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4505,7 +4944,11 @@
                             <span class="spec-badge players">👥 2-8명</span>
                             <span class="spec-badge time">⏱️ 60분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4540,7 +4983,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 45분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4575,7 +5022,11 @@
                             <span class="spec-badge players">👥 2-8명</span>
                             <span class="spec-badge time">⏱️ 30~40분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4610,7 +5061,11 @@
                             <span class="spec-badge players">👥 3-6명</span>
                             <span class="spec-badge time">⏱️ 45분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4645,7 +5100,11 @@
                             <span class="spec-badge players">👥 1-6명</span>
                             <span class="spec-badge time">⏱️ 180분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4680,7 +5139,11 @@
                             <span class="spec-badge players">👥 1-4명</span>
                             <span class="spec-badge time">⏱️ 60분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4715,7 +5178,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 40분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4750,7 +5217,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4785,7 +5256,11 @@
                             <span class="spec-badge players">👥 3~8명</span>
                             <span class="spec-badge time">⏱️ 40분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4820,7 +5295,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 60분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4855,7 +5334,11 @@
                             <span class="spec-badge players">👥 2명</span>
                             <span class="spec-badge time">⏱️ 10~20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4890,7 +5373,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4925,7 +5412,11 @@
                             <span class="spec-badge players">👥 2명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4960,7 +5451,11 @@
                             <span class="spec-badge players">👥 2명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -4995,7 +5490,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5030,7 +5529,11 @@
                             <span class="spec-badge players">👥 3-6명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5065,7 +5568,11 @@
                             <span class="spec-badge players">👥 3-6명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5100,7 +5607,11 @@
                             <span class="spec-badge players">👥 1-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5135,7 +5646,11 @@
                             <span class="spec-badge players">👥 2-10명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5170,7 +5685,11 @@
                             <span class="spec-badge players">👥 2-10명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5205,7 +5724,11 @@
                             <span class="spec-badge players">👥 2-10명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5240,7 +5763,11 @@
                             <span class="spec-badge players">👥 4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5275,7 +5802,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5310,7 +5841,11 @@
                             <span class="spec-badge players">👥 2-10명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5345,7 +5880,11 @@
                             <span class="spec-badge players">👥 2-10명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5380,7 +5919,11 @@
                             <span class="spec-badge players">👥 4명</span>
                             <span class="spec-badge time">⏱️ 60분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5415,7 +5958,11 @@
                             <span class="spec-badge players">👥 1-5명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5450,7 +5997,11 @@
                             <span class="spec-badge players">👥 3-6명</span>
                             <span class="spec-badge time">⏱️ 45분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5485,7 +6036,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5520,7 +6075,11 @@
                             <span class="spec-badge players">👥 3-6명</span>
                             <span class="spec-badge time">⏱️ 10분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5555,7 +6114,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5590,7 +6153,11 @@
                             <span class="spec-badge players">👥 4-8명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5625,7 +6192,11 @@
                             <span class="spec-badge players">👥 3-5명</span>
                             <span class="spec-badge time">⏱️ 60분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5660,7 +6231,11 @@
                             <span class="spec-badge players">👥 3-5명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5695,7 +6270,11 @@
                             <span class="spec-badge players">👥 3-5명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5730,7 +6309,11 @@
                             <span class="spec-badge players">👥 2-10명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5765,7 +6348,11 @@
                             <span class="spec-badge players">👥 2-10명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5800,7 +6387,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 60분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5835,7 +6426,11 @@
                             <span class="spec-badge players">👥 4-8명</span>
                             <span class="spec-badge time">⏱️ 45분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5870,7 +6465,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 45분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5905,7 +6504,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5940,7 +6543,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -5975,7 +6582,11 @@
                             <span class="spec-badge players">👥 2-8명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6010,7 +6621,11 @@
                             <span class="spec-badge players">👥 3-4명</span>
                             <span class="spec-badge time">⏱️ 120분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6045,7 +6660,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6080,7 +6699,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6115,7 +6738,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6150,7 +6777,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6185,7 +6816,11 @@
                             <span class="spec-badge players">👥 1-6명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6220,7 +6855,11 @@
                             <span class="spec-badge players">👥 2-10명</span>
                             <span class="spec-badge time">⏱️ 10분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6255,7 +6894,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6290,7 +6933,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6325,7 +6972,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6360,7 +7011,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6395,7 +7050,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6430,7 +7089,11 @@
                             <span class="spec-badge players">👥 3-8명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6465,7 +7128,11 @@
                             <span class="spec-badge players">👥 1-4명</span>
                             <span class="spec-badge time">⏱️ 100분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6500,7 +7167,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 10분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6535,7 +7206,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 60분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6570,7 +7245,11 @@
                             <span class="spec-badge players">👥 3-8명</span>
                             <span class="spec-badge time">⏱️ 40분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6605,7 +7284,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6640,7 +7323,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 40분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6675,7 +7362,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6710,7 +7401,11 @@
                             <span class="spec-badge players">👥 2-8명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6745,7 +7440,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6780,7 +7479,11 @@
                             <span class="spec-badge players">👥 4-12명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6815,7 +7518,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 10분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6850,7 +7557,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6885,7 +7596,11 @@
                             <span class="spec-badge players">👥 2명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6920,7 +7635,11 @@
                             <span class="spec-badge players">👥 3-5명</span>
                             <span class="spec-badge time">⏱️ 45분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6955,7 +7674,11 @@
                             <span class="spec-badge players">👥 4-16명</span>
                             <span class="spec-badge time">⏱️ 5분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -6990,7 +7713,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7025,7 +7752,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 45분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7060,7 +7791,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 45분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7095,7 +7830,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7130,7 +7869,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7165,7 +7908,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7200,7 +7947,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7235,7 +7986,11 @@
                             <span class="spec-badge players">👥 3-7명</span>
                             <span class="spec-badge time">⏱️ 240분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7270,7 +8025,11 @@
                             <span class="spec-badge players">👥 2명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7305,7 +8064,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 10분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7340,7 +8103,11 @@
                             <span class="spec-badge players">👥 2-10명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7375,7 +8142,11 @@
                             <span class="spec-badge players">👥 1-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7410,7 +8181,11 @@
                             <span class="spec-badge players">👥 3-5명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7445,7 +8220,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 40분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7480,7 +8259,11 @@
                             <span class="spec-badge players">👥 4-6명</span>
                             <span class="spec-badge time">⏱️ 60분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7515,7 +8298,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7550,7 +8337,11 @@
                             <span class="spec-badge players">👥 4-8명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7585,7 +8376,11 @@
                             <span class="spec-badge players">👥 5명</span>
                             <span class="spec-badge time">⏱️ 45분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7620,7 +8415,11 @@
                             <span class="spec-badge players">👥 3-4명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7655,7 +8454,11 @@
                             <span class="spec-badge players">👥 3-5명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7690,7 +8493,11 @@
                             <span class="spec-badge players">👥 3-10명</span>
                             <span class="spec-badge time">⏱️ 10분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7725,7 +8532,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 22분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7760,7 +8571,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 10분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7795,7 +8610,11 @@
                             <span class="spec-badge players">👥 3-9명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7830,7 +8649,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 15분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7865,7 +8688,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 25분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7900,7 +8727,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 60분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7935,7 +8766,11 @@
                             <span class="spec-badge players">👥 2-6명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 1회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 1</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -7970,7 +8805,11 @@
                             <span class="spec-badge players">👥 5-8명</span>
                             <span class="spec-badge time">⏱️ 75분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -8005,7 +8844,11 @@
                             <span class="spec-badge players">👥 2-5명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -8040,7 +8883,11 @@
                             <span class="spec-badge players">👥 3-8명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -8075,7 +8922,11 @@
                             <span class="spec-badge players">👥 2-4명</span>
                             <span class="spec-badge time">⏱️ 20분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -8110,7 +8961,11 @@
                             <span class="spec-badge players">👥 2-10명</span>
                             <span class="spec-badge time">⏱️ 30분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -8145,7 +9000,11 @@
                             <span class="spec-badge players">👥 2명</span>
                             <span class="spec-badge time">⏱️ 5분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -8180,7 +9039,11 @@
                             <span class="spec-badge players">👥 2명</span>
                             <span class="spec-badge time">⏱️ 5분</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): 0회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: 0</span>
+                            <span>🎮 플레이: 0</span>
+                            <span>⚡ 쇼츠: 0</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 &amp; 후기</div>
@@ -8441,7 +9304,6 @@
         </div>
     </div>
 
-    <!-- 모달들 -->
     <div class="modal" id="rouletteModal">
         <div class="modal-content">
             <h3>🎰 랜덤 게임 룰렛</h3>
@@ -10989,7 +11851,6 @@
                 let c1 = clickStats[safeKeyBase + "_intro"] || 0;
                 let c2 = clickStats[safeKeyBase + "_play"] || 0;
                 let c3 = clickStats[safeKeyBase + "_shorts"] || 0;
-                let totalGameClicks = c1 + c2 + c3;
 
                 let tips = gameTips[game.title] || [];
                 let tipsHtml = tips.map((t, tIdx) => `
@@ -11024,7 +11885,11 @@
                             <span class="spec-badge players">👥 ${game.players}명</span>
                             <span class="spec-badge time">⏱️ ${game.time}</span>
                         </div>
-                        <div class="click-stats-badge">📊 조회수(클릭): ${totalGameClicks}회</div>
+                        <div class="click-stats-badge">
+                            <span>🎬 소개: ${c1}</span>
+                            <span>🎮 플레이: ${c2}</span>
+                            <span>⚡ 쇼츠: ${c3}</span>
+                        </div>
                         
                         <div class="game-tips-box">
                             <div class="tips-header">💡 한 줄 꿀팁 & 후기</div>
