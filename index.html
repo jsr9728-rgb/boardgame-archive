@@ -620,6 +620,7 @@
             <button class="player-filter-btn" onclick="filterByPlayers('2인', this)">👥 2인</button>
             <button class="player-filter-btn" onclick="filterByPlayers('3~4인', this)">👥 3~4인</button>
             <button class="player-filter-btn" onclick="filterByPlayers('다인용', this)">👥 5인+</button>
+            <button class="player-filter-btn" onclick="filterByPlayers('10인이상', this)" style="background:#eff6ff; color:#2563eb; border-color:#bfdbfe;">🔥 10인 이상 대인원</button>
             <button class="player-filter-btn" onclick="filterByPlayers('플레이함', this)" style="background:#f0fdf4; color:#16a34a;">✔️ 완료</button>
             <button class="player-filter-btn" onclick="filterByPlayers('찜한게임', this)" style="background:#fef2f2; color:#dc2626;">❤️ 찜</button>
         </div>
@@ -11861,6 +11862,7 @@
             if (filterType === '2인') return minP <= 2 && maxP >= 2;
             if (filterType === '3~4인') return (minP <= 3 && maxP >= 3) || (minP <= 4 && maxP >= 4);
             if (filterType === '다인용') return maxP >= 5;
+            if (filterType === '10인이상') return maxP >= 10;
             return true;
         }
 
