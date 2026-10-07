@@ -620,6 +620,7 @@
             <button class="player-filter-btn" onclick="filterByPlayers('2인', this)">👥 2인</button>
             <button class="player-filter-btn" onclick="filterByPlayers('3~4인', this)">👥 3~4인</button>
             <button class="player-filter-btn" onclick="filterByPlayers('다인용', this)">👥 5인+</button>
+            <button class="player-filter-btn" onclick="filterByPlayers('10인이상', this)" style="background:#e0e7ff; color:#3730a3;">👥 10인 이상</button>
             <button class="player-filter-btn" onclick="filterByPlayers('플레이함', this)" style="background:#f0fdf4; color:#16a34a;">✔️ 완료</button>
             <button class="player-filter-btn" onclick="filterByPlayers('찜한게임', this)" style="background:#fef2f2; color:#dc2626;">❤️ 찜</button>
         </div>
@@ -11987,10 +11988,22 @@
         }
 
         function checkPlayerMatch(game, filterType) {
-            let record = userRecords[game.title] || { played: false, wish: false };
-            if (filterType === '플레이함') return record.played;
-            if (filterType === '찜한게임') return record.wish;
-            if (filterType === '전체') return true;
+            if (filterType === '10인이상') {
+        let numbers = game.players.replace(/\s+/g, '').match(/\d+/g);
+        if (numbers && numbers.length > 0) {
+            let maxPlayers = parseInt(numbers[numbers.length - 1]);
+            return maxPlayers >= 10;
+        }
+        return false;
+    }
+
+    let record = userRecords[game.title] || { played: false, wish: false };
+    if (filterType === '플레이함') return record.played;
+    if (filterType === '찜한게임') return record.wish;
+    if (filterType === '전체') return true;
+
+    let numbers = game.players.replace(/\s+/g, '').match(/\d+/g);
+    // ... (이후 기존 코드 계속)
 
             let numbers = game.players.replace(/\s+/g, '').match(/\d+/g);
             if (!numbers) return true;
@@ -12303,13 +12316,20 @@
             navigator.clipboard.writeText(window.location.href).then(() => alert('링크 복사 완료!'));
         }
 
-        function saveCard(idx) {
-            boardGames[idx].image = document.getElementById(`img-${idx}`).value.trim();
-            boardGames[idx].link1 = document.getElementById(`l1-${idx}`).value.trim();
-            boardGames[idx].link2 = document.getElementById(`l2-${idx}`).value.trim();
-            boardGames[idx].link3 = document.getElementById(`l3-${idx}`).value.trim();
-            saveToStorage(); applyFilters(); alert('저장됨');
-        }
+        function saveCard(index) {
+    const card = document.querySelectorAll('.card')[index];
+    
+    // 👇 입력된 장르와 인원 값을 가져와서 화면에 반영하는 코드 추가
+    const newGenre = document.getElementById(`genre-${index}`).value;
+    const newPlayers = document.getElementById(`players-${index}`).value;
+    const newImg = document.getElementById(`img-${index}`).value;
+
+    card.querySelector('.spec-badge.genre').textContent = `🏷️ ${newGenre}`;
+    card.querySelector('.spec-badge.players').textContent = `👥 ${newPlayers}`;
+    card.querySelector('img').src = newImg;
+    
+    alert('수정 및 저장되었습니다!');
+}
         function deleteCard(idx) {
             if (confirm('삭제하시겠습니까?')) { boardGames.splice(idx, 1); saveToStorage(); applyFilters(); }
         }
