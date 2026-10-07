@@ -11973,16 +11973,15 @@
         }
 
         function renderCards(items) {
+           function renderCards(items) {
             const grid = document.getElementById('cardGrid');
-            document.getElementById('totalCount').innerText = `총 ${items.length}개 게임`;
+            document.getElementById('totalCount').innerText = `검색된 보드게임: ${items.length}개`;
             grid.innerHTML = '';
 
             if (items.length === 0) {
-                grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #a0aec0;">검색 결과가 없습니다.</div>`;
+                grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 50px; color: #a0aec0;">해당하는 보드게임이 없습니다.</div>`;
                 return;
             }
-
-            let fragment = document.createDocumentFragment();
 
             items.forEach((game) => {
                 let realIndex = boardGames.findIndex(g => g.title === game.title);
@@ -11990,74 +11989,45 @@
                 let playedClass = record.played ? 'checked' : '';
                 let wishClass = record.wish ? 'checked' : '';
 
-                let safeKeyBase = game.title.replace(/[.#$\/\[\]]/g, "_");
-                let c1 = clickStats[safeKeyBase + "_intro"] || 0;
-                let c2 = clickStats[safeKeyBase + "_play"] || 0;
-                let c3 = clickStats[safeKeyBase + "_shorts"] || 0;
-
-                let tips = gameTips[game.title] || [];
-                let tipsHtml = tips.map((t, tIdx) => `
-                    <div class="tip-item">
-                        <span class="tip-text">${t}</span>
-                        <div class="tip-actions">
-                            <button class="tip-btn" onclick="editGameTip('${game.title.replace(/'/g, "\\'")}', ${tIdx})">수정</button>
-                            <button class="tip-btn del" onclick="deleteGameTip('${game.title.replace(/'/g, "\\'")}', ${tIdx})">삭제</button>
-                        </div>
-                    </div>`).join('');
-                if (tips.length === 0) tipsHtml = `<div style="color:#94a3b8; font-size:0.7rem; text-align:center;">등록된 후기 없음</div>`;
-
                 let imageHTML = game.image ? `<img src="${game.image}" alt="${game.title}" loading="lazy">` : `<div class="placeholder-box"><span>🎲</span><span>${game.title}</span></div>`;
                 let linksHTML = '';
-                if (game.link1) linksHTML += `<a href="${game.link1}" target="_blank" class="card-link intro" onclick="trackLinkClick('${game.title.replace(/'/g, "\\'")}', 'intro')">🎬 소개 영상</a>`;
-                if (game.link2) linksHTML += `<a href="${game.link2}" target="_blank" class="card-link play" onclick="trackLinkClick('${game.title.replace(/'/g, "\\'")}', 'play')">🎮 플레이 영상</a>`;
-                if (game.link3) linksHTML += `<a href="${game.link3}" target="_blank" class="card-link shorts" onclick="trackLinkClick('${game.title.replace(/'/g, "\\'")}', 'shorts')">⚡ 쇼츠</a>`;
+                if (game.link1) linksHTML += `<a href="${game.link1}" target="_blank" class="card-link intro">🎬 게임 소개</a>`;
+                if (game.link2) linksHTML += `<a href="${game.link2}" target="_blank" class="card-link play">🎮 게임 영상</a>`;
+                if (game.link3) linksHTML += `<a href="${game.link3}" target="_blank" class="card-link shorts">⚡ 쇼츠</a>`;
                 if (!game.link1 && !game.link2 && !game.link3) linksHTML = `<span class="card-link none">영상 준비중</span>`;
 
-                let cardEl = document.createElement('div');
-                cardEl.className = 'card';
-                cardEl.innerHTML = `
-                    <div class="card-user-actions">
-                        <button class="action-tag played ${playedClass}" onclick="toggleUserRecord('${game.title.replace(/'/g, "\\'")}', 'played')">✔️완료</button>
-                        <button class="action-tag wish ${wishClass}" onclick="toggleUserRecord('${game.title.replace(/'/g, "\\'")}', 'wish')">❤️찜</button>
-                    </div>
-                    <div class="box-image-container">${imageHTML}</div>
-                    <div class="card-content">
-                        <h3 class="card-title">${game.title}</h3>
-                        <div class="game-specs">
-                            <span class="spec-badge genre">🏷️ ${game.genre}</span>
-                            <span class="spec-badge players">👥 ${game.players}명</span>
-                            <span class="spec-badge time">⏱️ ${game.time}</span>
+                grid.innerHTML += `
+                    <div class="card">
+                        <div class="card-user-actions">
+                            <button class="action-tag played ${playedClass}" onclick="toggleUserRecord('${game.title.replace(/'/g, "\\'")}', 'played')">✔️ 완료</button>
+                            <button class="action-tag wish ${wishClass}" onclick="toggleUserRecord('${game.title.replace(/'/g, "\\'")}', 'wish')">❤️ 찜</button>
                         </div>
-                        <div class="click-stats-badge">
-                            <span>🎬 소개: ${c1}</span>
-                            <span>🎮 플레이: ${c2}</span>
-                            <span>⚡ 쇼츠: ${c3}</span>
-                        </div>
-                        
-                        <div class="game-tips-box">
-                            <div class="tips-header">💡 한 줄 꿀팁 & 후기</div>
-                            <div class="tips-list">${tipsHtml}</div>
-                            <div class="tip-input-row">
-                                <input type="text" id="tip-input-${safeKeyBase}" placeholder="후기 입력..." onkeydown="if(event.key==='Enter') addGameTip('${game.title.replace(/'/g, "\\'")}')">
-                                <button class="tip-add-btn" onclick="addGameTip('${game.title.replace(/'/g, "\\'")}')">등록</button>
+                        <div class="box-image-container">${imageHTML}</div>
+                        <div class="card-content">
+                            <h3 class="card-title">${game.title}</h3>
+                            <div class="game-specs">
+                                <span class="spec-badge genre">🏷️ ${game.genre}</span>
+                                <span class="spec-badge players">👥 ${game.players}명</span>
+                                <span class="spec-badge time">⏱️ ${game.time}</span>
                             </div>
-                        </div>
-
-                        <div class="card-links">${linksHTML}</div>
-                        <div class="admin-controls">
-                            <label>이미지:</label><input type="text" id="img-${realIndex}" value="${game.image || ''}">
-                            <label>소개:</label><input type="text" id="l1-${realIndex}" value="${game.link1 || ''}">
-                            <label>플레이:</label><input type="text" id="l2-${realIndex}" value="${game.link2 || ''}">
-                            <label>쇼츠:</label><input type="text" id="l3-${realIndex}" value="${game.link3 || ''}">
-                            <div class="admin-btn-row">
-                                <button class="save-card-btn" onclick="saveCard(${realIndex})">저장</button>
-                                <button class="delete-card-btn" onclick="deleteCard(${realIndex})">삭제</button>
+                            <div class="card-links">${linksHTML}</div>
+                            <div class="admin-controls">
+                                <label>게임 이름:</label><input type="text" id="title-${realIndex}" value="${game.title}">
+                                <label>인원 (예: 2-4 또는 3-10):</label><input type="text" id="players-${realIndex}" value="${game.players}">
+                                <label>장르:</label><input type="text" id="genre-${realIndex}" value="${game.genre}">
+                                <label>소요 시간:</label><input type="text" id="time-${realIndex}" value="${game.time}">
+                                <label>이미지 주소:</label><input type="text" id="img-${realIndex}" value="${game.image || ''}">
+                                <label>소개 영상:</label><input type="text" id="l1-${realIndex}" value="${game.link1 || ''}">
+                                <label>플레이 영상:</label><input type="text" id="l2-${realIndex}" value="${game.link2 || ''}">
+                                <label>쇼츠 영상:</label><input type="text" id="l3-${realIndex}" value="${game.link3 || ''}">
+                                <div class="admin-btn-row">
+                                    <button class="save-card-btn" onclick="saveCard(${realIndex})">저장</button>
+                                    <button class="delete-card-btn" onclick="deleteCard(${realIndex})">삭제</button>
+                                </div>
                             </div>
                         </div>
                     </div>`;
-                fragment.appendChild(cardEl);
             });
-            grid.appendChild(fragment);
         }
 
         let wcList = [], wcNextRound = [], wcIndex = 0, wcRoundName = "";
@@ -12168,11 +12138,18 @@
         }
 
         function saveCard(idx) {
+          function saveCard(idx) {
+            boardGames[idx].title = document.getElementById(`title-${idx}`).value.trim();
+            boardGames[idx].players = document.getElementById(`players-${idx}`).value.trim();
+            boardGames[idx].genre = document.getElementById(`genre-${idx}`).value.trim();
+            boardGames[idx].time = document.getElementById(`time-${idx}`).value.trim();
             boardGames[idx].image = document.getElementById(`img-${idx}`).value.trim();
             boardGames[idx].link1 = document.getElementById(`l1-${idx}`).value.trim();
             boardGames[idx].link2 = document.getElementById(`l2-${idx}`).value.trim();
             boardGames[idx].link3 = document.getElementById(`l3-${idx}`).value.trim();
-            saveToStorage(); applyFilters(); alert('저장됨');
+            saveToStorage();
+            applyFilters();
+            alert('성공적으로 수정 및 저장되었습니다!');
         }
         function deleteCard(idx) {
             if (confirm('삭제하시겠습니까?')) { boardGames.splice(idx, 1); saveToStorage(); applyFilters(); }
