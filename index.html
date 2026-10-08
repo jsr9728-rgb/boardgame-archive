@@ -80,8 +80,13 @@
         .bgm-sub { font-size: 0.85rem; color: #64748b; margin-top: 3px; }
         
         .bgm-controls-wrapper { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; width: 100%; }
-        .bgm-player-box { flex: 1; min-width: 280px; width: 100%; }
-        .bgm-player-box audio { width: 100%; height: 42px; border-radius: 8px; outline: none; }
+        .bgm-player-box { flex: 1; min-width: 280px; width: 100%; display: flex; align-items: center; gap: 10px; }
+        .bgm-toggle-btn {
+            background: #ff6b6b; color: white; border: none; padding: 10px 20px; border-radius: 30px;
+            font-weight: bold; font-size: 0.95rem; cursor: pointer; box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+            transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
+        }
+        .bgm-toggle-btn:hover { background: #ee5253; transform: scale(1.03); }
 
         @keyframes pulseBeat {
             0% { transform: scale(1); }
@@ -285,16 +290,16 @@
                     <div class="bgm-icon">🎧</div>
                     <div>
                         <div class="bgm-title">🎵 위드해피 공식 테마곡 - 우리들의 보드게임 아지트</div>
-                        <div class="bgm-sub" id="bgmStatusText">화면을 어디든 누르시면 테마곡이 시작됩니다!</div>
+                        <div class="bgm-sub" id="bgmStatusText">화면을 어디든 클릭/터치하시면 음악이 바로 재생됩니다!</div>
                     </div>
                 </div>
             </div>
             
             <div class="bgm-controls-wrapper">
                 <div class="bgm-player-box">
-                    <audio controls id="bgmAudio" autoplay loop style="width:100%;">
+                    <button id="bgmToggleBtn" class="bgm-toggle-btn" onclick="toggleBgm()">▶ 테마곡 재생</button>
+                    <audio id="bgmAudio" loop style="display:none;">
                         <source src="withhappy_bgm.mp3" type="audio/mpeg">
-                        브라우저가 오디오 재생을 지원하지 않습니다.
                     </audio>
                 </div>
             </div>
@@ -576,23 +581,77 @@
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
     <script>
-        // 📱 모든 접속자 대상 모바일/PC 스마트 오디오 재생 제어
-        document.addEventListener('DOMContentLoaded', function() {
+        // 🎵 스마트 BGM 오디오 및 합성 웹오디오 엔진
+        let isPlayingBgm = false;
+        let audioCtx = null;
+        let synthInterval = null;
+
+        function playSynthBgm() {
+            if (synthInterval) return;
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContext();
+                const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 349.23, 329.63, 293.66]; // C E G C A F E D
+                let idx = 0;
+                synthInterval = setInterval(() => {
+                    if (!isPlayingBgm || !audioCtx) return;
+                    let osc = audioCtx.createOscillator();
+                    let gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(notes[idx % notes.length], audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.4);
+                    idx++;
+                }, 300);
+            } catch(e) {}
+        }
+
+        function stopSynthBgm() {
+            if (synthInterval) { clearInterval(synthInterval); synthInterval = null; }
+            if (audioCtx) { audioCtx.close(); audioCtx = null; }
+        }
+
+        function toggleBgm() {
             const audio = document.getElementById('bgmAudio');
-            if (audio) {
+            const btn = document.getElementById('bgmToggleBtn');
+            const statusText = document.getElementById('bgmStatusText');
+
+            if (!isPlayingBgm) {
+                isPlayingBgm = true;
+                btn.innerText = "❚❚ 테마곡 일시정지";
+                statusText.innerText = "🎵 위드해피 테마곡이 활기차게 재생 중입니다!";
+                
                 let playPromise = audio.play();
                 if (playPromise !== undefined) {
                     playPromise.catch(() => {
-                        const startPlayOnInteraction = () => {
-                            audio.play();
-                            document.removeEventListener('click', startPlayOnInteraction);
-                            document.removeEventListener('touchstart', startPlayOnInteraction);
-                        };
-                        document.addEventListener('click', startPlayOnInteraction);
-                        document.addEventListener('touchstart', startPlayOnInteraction);
+                        // MP3 재생 실패 시 Web Audio API 합성 오디오 엔진 자동 가동
+                        playSynthBgm();
                     });
                 }
+            } else {
+                isPlayingBgm = false;
+                audio.pause();
+                stopSynthBgm();
+                btn.innerText = "▶ 테마곡 재생";
+                statusText.innerText = "일시정지되었습니다. 언제든 다시 클릭해보세요!";
             }
+        }
+
+        // 📱 스마트 오디오 자동 재생 핸들러
+        document.addEventListener('DOMContentLoaded', function() {
+            const startPlayOnInteraction = () => {
+                if (!isPlayingBgm) {
+                    toggleBgm();
+                }
+                document.removeEventListener('click', startPlayOnInteraction);
+                document.removeEventListener('touchstart', startPlayOnInteraction);
+            };
+            document.addEventListener('click', startPlayOnInteraction);
+            document.addEventListener('touchstart', startPlayOnInteraction);
         });
 
         let boardGames = [
