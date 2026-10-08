@@ -63,13 +63,16 @@
 
         .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
 
-        /* 채널 소개 게시판 카드 영역 (복구됨!) */
+        /* 토리님이 작성하신 채널 안내 문구 반영 게시판 */
         .intro-banner {
-            background: white; border-radius: 16px; padding: 25px 30px; margin-bottom: 25px;
-            box-shadow: var(--shadow); border: 1px solid var(--border-color);
-            line-height: 1.6; font-size: 0.95rem; color: #475569;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 16px; padding: 30px; margin-bottom: 25px;
+            box-shadow: var(--shadow); border: 2px solid #e2e8f0;
+            line-height: 1.7; font-size: 0.98rem; color: #334155;
         }
-        .intro-banner h3 { margin-top: 0; color: #1e293b; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
+        .intro-banner h3 { margin-top: 0; color: #1e293b; font-size: 1.3rem; display: flex; align-items: center; gap: 8px; font-weight: 800; }
+        .intro-banner ul { padding-left: 20px; margin: 12px 0; }
+        .intro-banner li { margin-bottom: 6px; }
 
         .top-banner {
             background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
@@ -227,10 +230,19 @@
     </header>
 
     <div class="container">
-        <!-- 채널 및 아카이브 소개 게시판 영역 (복구 완료!) -->
+        <!-- 토리님이 작성하신 채널 안내 게시판 문구 반영 완료! -->
         <div class="intro-banner">
-            <h3>📢 위드해피 채널 & 아카이브 안내</h3>
-            <p>안녕하세요! 유튜브 채널 <strong>'위드해피'</strong>의 보드게임 아카이브 공식 홈페이지입니다. 보유하고 있는 보드게임과 퍼즐들의 룰 설명, 플레이 영상, 쇼츠를 한눈에 찾아보실 수 있도록 정리하고 있습니다. 게임별 필터와 룰렛, 이상형 월드컵 등 다양한 기능도 함께 즐겨보세요!</p>
+            <h3>🎲 위드해피 보드게임 아카이브에 오신 것을 환영합니다! 🎉</h3>
+            <p>구독자분들과 방문자분들이 더 재밌게 즐기실 수 있도록 새로운 기능들을 대폭 추가했습니다. ㅎㅎ</p>
+            
+            <p style="margin: 10px 0 5px; font-weight: bold; color: #b45309;">✨ [새롭게 추가된 즐길 거리들]</p>
+            <ul>
+                <li><strong>1. 🎲 보드게임 코스 추천기 (상단 파란색 버튼)</strong><br>모임 인원수와 성향(파티 vs 전략)만 고르면, 오늘 모임에서 달릴 1·2라운드 코스 요리를 척척 추천해 드립니다!</li>
+                <li><strong>2. 🏆 방문자 업적 뱃지 시스템</strong><br>사이트를 둘러보고, 후기도 남기고, 찜이나 완료 체크도 해보세요! 숨겨진 뱃지들을 하나씩 모으는 재미가 있습니다.</li>
+                <li><strong>3. 🎰 랜덤 룰렛 & 이상형 월드컵 & 도구 상자</strong><br>뭘 할지 고민될 때는 룰렛을 돌리고, 이상형 월드컵으로 최애 게임을 뽑아보세요. 타이머와 점수판 기능도 유용하게 쓰실 수 있습니다!</li>
+                <li><strong>4. 🔥 실시간 인기 급상승 TOP 5 & 한 줄 후기</strong><br>다른 사람들이 가장 많이 찾는 게임과 생생한 한 줄 후기도 구경하고 직접 남겨보세요.</li>
+            </ul>
+            <p style="margin-top: 15px; margin-bottom: 0; color: #475569;">초성별, 인원별, 성향별로 깔끔하게 정리되어 있으니 편하게 둘러보시고 가볍게 즐겨주세요 🙇‍♂️<br><strong>방명록에 소중한 흔적도 꼭 남겨주세요! 감사합니다 ✨</strong></p>
         </div>
 
         <!-- 인기 추천 게임 배너 -->
@@ -451,7 +463,7 @@
         </div>
     </div>
 
-    <!-- 방명록 수정 모달 (복구됨!) -->
+    <!-- 방명록 수정 모달 -->
     <div class="modal" id="editGuestbookModal">
         <div class="modal-content" style="text-align: left;">
             <h3>방명록 수정/삭제</h3>
