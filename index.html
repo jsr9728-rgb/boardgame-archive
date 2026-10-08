@@ -63,16 +63,16 @@
 
         .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
 
-        /* 토리님이 작성하신 채널 안내 문구 반영 게시판 */
+        /* 안내 문구 게시판 */
         .intro-banner {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             border-radius: 16px; padding: 30px; margin-bottom: 25px;
             box-shadow: var(--shadow); border: 2px solid #e2e8f0;
-            line-height: 1.7; font-size: 0.98rem; color: #334155;
+            line-height: 1.7; font-size: 0.98rem; color: #334155; position: relative;
         }
-        .intro-banner h3 { margin-top: 0; color: #1e293b; font-size: 1.3rem; display: flex; align-items: center; gap: 8px; font-weight: 800; }
-        .intro-banner ul { padding-left: 20px; margin: 12px 0; }
-        .intro-banner li { margin-bottom: 6px; }
+        .intro-banner-edit-btn {
+            position: absolute; top: 20px; right: 20px;
+        }
 
         .top-banner {
             background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
@@ -117,21 +117,20 @@
         .total-count { font-size: 1.1rem; font-weight: bold; color: var(--sub-text); }
         .search-box input {
             width: 100%; max-width: 320px; padding: 12px 20px; font-size: 1rem; border: 2px solid var(--border-color);
-            border-radius: 30px; outline: none; transition: all 0.3s ease; box-shadow: var(--shadow); background-color: white;
+            border-radius: 30px; outline: none; transition: all 0.2s ease; box-shadow: var(--shadow); background-color: white;
         }
-        .search-box input:focus { border-color: var(--primary-color); box-shadow: 0 6px 20px rgba(255, 107, 107, 0.2); }
+        .search-box input:focus { border-color: var(--primary-color); box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2); }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
         .card {
             background-color: var(--card-bg); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow);
-            transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; border: 1px solid var(--border-color); position: relative;
+            display: flex; flex-direction: column; border: 1px solid var(--border-color); position: relative;
         }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
 
         .card-user-actions { position: absolute; top: 10px; right: 10px; display: flex; gap: 6px; z-index: 10; }
         .action-tag {
             background: rgba(255, 255, 255, 0.9); border: 1px solid var(--border-color); border-radius: 20px;
-            padding: 4px 10px; font-size: 0.75rem; font-weight: bold; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: all 0.2s;
+            padding: 4px 10px; font-size: 0.75rem; font-weight: bold; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .action-tag.played { background: #e2e8f0; color: #64748b; }
         .action-tag.played.checked { background: #16a34a; color: white; border-color: #16a34a; }
@@ -141,8 +140,7 @@
             width: 100%; height: 190px; background: #ffffff; display: flex; align-items: center; justify-content: center;
             overflow: hidden; border-bottom: 1px solid var(--border-color); position: relative; padding: 10px; box-sizing: border-box;
         }
-        .box-image-container img { width: 100%; height: 100%; object-fit: contain; object-position: center; transition: transform 0.3s ease; }
-        .card:hover .box-image-container img { transform: scale(1.04); }
+        .box-image-container img { width: 100%; height: 100%; object-fit: contain; object-position: center; }
 
         .placeholder-box {
             display: flex; flex-direction: column; align-items: center; justify-content: center; color: #475569;
@@ -158,8 +156,7 @@
         .spec-badge.time { background-color: #e0f2fe; color: #0369a1; }
 
         .card-links { display: flex; flex-direction: column; gap: 6px; margin-top: auto; }
-        .card-link { text-decoration: none; color: white; text-align: center; padding: 8px; border-radius: 6px; font-weight: bold; font-size: 0.8rem; transition: opacity 0.2s; }
-        .card-link:hover { opacity: 0.85; }
+        .card-link { text-decoration: none; color: white; text-align: center; padding: 8px; border-radius: 6px; font-weight: bold; font-size: 0.8rem; }
         .card-link.intro { background-color: #2563eb; }
         .card-link.play { background-color: #16a34a; }
         .card-link.shorts { background-color: #9333ea; }
@@ -183,8 +180,7 @@
 
         .roulette-box { font-size: 1.5rem; font-weight: bold; padding: 25px; background: #f8fafc; border: 2px dashed var(--primary-color); border-radius: 12px; margin: 20px 0; color: var(--primary-color); min-height: 40px; display: flex; align-items: center; justify-content: center; }
         .worldcup-arena { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
-        .wc-card { background: #f8fafc; border: 2px solid var(--border-color); border-radius: 12px; padding: 15px; cursor: pointer; transition: all 0.2s; }
-        .wc-card:hover { border-color: var(--primary-color); background: #fff5f5; transform: scale(1.02); }
+        .wc-card { background: #f8fafc; border: 2px solid var(--border-color); border-radius: 12px; padding: 15px; cursor: pointer; }
         .wc-card img { width: 100%; height: 120px; object-fit: contain; margin-bottom: 8px; }
         .wc-title { font-weight: bold; font-size: 1.1rem; }
 
@@ -230,19 +226,21 @@
     </header>
 
     <div class="container">
-        <!-- 토리님이 작성하신 채널 안내 게시판 문구 반영 완료! -->
-        <div class="intro-banner">
-            <h3>🎲 위드해피 보드게임 아카이브에 오신 것을 환영합니다! 🎉</h3>
-            <p>구독자분들과 방문자분들이 더 재밌게 즐기실 수 있도록 새로운 기능들을 대폭 추가했습니다. ㅎㅎ</p>
-            
-            <p style="margin: 10px 0 5px; font-weight: bold; color: #b45309;">✨ [새롭게 추가된 즐길 거리들]</p>
-            <ul>
-                <li><strong>1. 🎲 보드게임 코스 추천기 (상단 파란색 버튼)</strong><br>모임 인원수와 성향(파티 vs 전략)만 고르면, 오늘 모임에서 달릴 1·2라운드 코스 요리를 척척 추천해 드립니다!</li>
-                <li><strong>2. 🏆 방문자 업적 뱃지 시스템</strong><br>사이트를 둘러보고, 후기도 남기고, 찜이나 완료 체크도 해보세요! 숨겨진 뱃지들을 하나씩 모으는 재미가 있습니다.</li>
-                <li><strong>3. 🎰 랜덤 룰렛 & 이상형 월드컵 & 도구 상자</strong><br>뭘 할지 고민될 때는 룰렛을 돌리고, 이상형 월드컵으로 최애 게임을 뽑아보세요. 타이머와 점수판 기능도 유용하게 쓰실 수 있습니다!</li>
-                <li><strong>4. 🔥 실시간 인기 급상승 TOP 5 & 한 줄 후기</strong><br>다른 사람들이 가장 많이 찾는 게임과 생생한 한 줄 후기도 구경하고 직접 남겨보세요.</li>
-            </ul>
-            <p style="margin-top: 15px; margin-bottom: 0; color: #475569;">초성별, 인원별, 성향별로 깔끔하게 정리되어 있으니 편하게 둘러보시고 가볍게 즐겨주세요 🙇‍♂️<br><strong>방명록에 소중한 흔적도 꼭 남겨주세요! 감사합니다 ✨</strong></p>
+        <!-- 상단 안내 게시판 (관리자 모드에서 수정 가능!) -->
+        <div class="intro-banner" id="introBannerContainer">
+            <button class="btn accent admin-only intro-banner-edit-btn" onclick="openEditIntroModal()">✏️ 안내 문구 수정</button>
+            <div id="introContentDisplay">
+                <h3>🎲 위드해피 보드게임 아카이브에 오신 것을 환영합니다! 🎉</h3>
+                <p>구독자분들과 방문자분들이 더 재밌게 즐기실 수 있도록 새로운 기능들을 대폭 추가했습니다. ㅎㅎ</p>
+                <p style="margin: 10px 0 5px; font-weight: bold; color: #b45309;">✨ [새롭게 추가된 즐길 거리들]</p>
+                <ul>
+                    <li><strong>1. 🎲 보드게임 코스 추천기 (상단 파란색 버튼)</strong><br>모임 인원수와 성향(파티 vs 전략)만 고르면, 오늘 모임에서 달릴 1·2라운드 코스 요리를 척척 추천해 드립니다!</li>
+                    <li><strong>2. 🏆 방문자 업적 뱃지 시스템</strong><br>사이트를 둘러보고, 후기도 남기고, 찜이나 완료 체크도 해보세요! 숨겨진 뱃지들을 하나씩 모으는 재미가 있습니다.</li>
+                    <li><strong>3. 🎰 랜덤 룰렛 & 이상형 월드컵 & 도구 상자</strong><br>뭘 할지 고민될 때는 룰렛을 돌리고, 이상형 월드컵으로 최애 게임을 뽑아보세요. 타이머와 점수판 기능도 유용하게 쓰실 수 있습니다!</li>
+                    <li><strong>4. 🔥 실시간 인기 급상승 TOP 5 & 한 줄 후기</strong><br>다른 사람들이 가장 많이 찾는 게임과 생생한 한 줄 후기도 구경하고 직접 남겨보세요.</li>
+                </ul>
+                <p style="margin-top: 15px; margin-bottom: 0; color: #475569;">초성별, 인원별, 성향별로 깔끔하게 정리되어 있으니 편하게 둘러보시고 가볍게 즐겨주세요 🙇‍♂️<br><strong>방명록에 소중한 흔적도 꼭 남겨주세요! 감사합니다 ✨</strong></p>
+            </div>
         </div>
 
         <!-- 인기 추천 게임 배너 -->
@@ -311,6 +309,7 @@
             </div>
         </div>
 
+        <!-- 0.1초 반응형 고속 그리드 -->
         <div class="grid" id="cardGrid"></div>
 
         <div class="guestbook-section" id="guestbookSection">
@@ -330,6 +329,19 @@
 
             <div class="guestbook-list" id="guestbookList">
                 <div style="text-align: center; color: var(--sub-text); padding: 20px;">방명록을 불러오는 중입니다...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 안내 문구 수정 모달 (관리자 전용) -->
+    <div class="modal" id="editIntroModal">
+        <div class="modal-content" style="max-width: 600px; text-align: left;">
+            <h3>📢 상단 안내 문구 수정 (HTML 가능)</h3>
+            <label>안내판에 표시될 내용 입력</label>
+            <textarea id="editIntroTextarea" style="width:100%; height:250px; padding:10px; border:1px solid var(--border-color); border-radius:8px; font-family:monospace; font-size:0.9rem; box-sizing:border-box;"></textarea>
+            <div style="margin-top: 15px; text-align: right; display:flex; gap:8px; justify-content:flex-end;">
+                <button class="btn" onclick="closeEditIntroModal()">취소</button>
+                <button class="btn primary" onclick="saveIntroText()">저장하기</button>
             </div>
         </div>
     </div>
@@ -561,7 +573,7 @@
                 document.getElementById('loginBtn').style.display = 'none';
             }
             document.getElementById('adminToggleBtn').innerText = isAdminMode ? "⚙️ 관리자 모드 끄기" : "⚙️ 관리자 모드 켜기";
-            renderCards(getCurrentFilteredItems());
+            applyFilters();
             loadGuestbook();
         }
 
@@ -642,6 +654,103 @@
 
         function applyFilters() { renderCards(getCurrentFilteredItems()); }
 
+        // ⚡ 0.1초 반응형 고속 렌더링 엔진 (DocumentFragment 적용)
+        function renderCards(items) {
+            const grid = document.getElementById('cardGrid');
+            document.getElementById('totalCount').innerText = `검색된 보드게임: ${items.length}개`;
+            
+            if (items.length === 0) {
+                grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 50px; color: #a0aec0;">해당하는 보드게임이 없습니다.</div>`;
+                return;
+            }
+
+            const fragment = document.createDocumentFragment();
+            items.forEach((game) => {
+                let realIndex = boardGames.findIndex(g => g.title === game.title);
+                let record = userRecords[game.title] || { played: false, wish: false };
+                let playedClass = record.played ? 'checked' : '';
+                let wishClass = record.wish ? 'checked' : '';
+
+                let imageHTML = game.image ? `<img src="${game.image}" alt="${game.title}" loading="lazy">` : `<div class="placeholder-box"><span>🎲</span><span>${game.title}</span></div>`;
+                let linksHTML = '';
+                if (game.link1) linksHTML += `<a href="${game.link1}" target="_blank" class="card-link intro">🎬 게임 소개</a>`;
+                if (game.link2) linksHTML += `<a href="${game.link2}" target="_blank" class="card-link play">🎮 게임 영상</a>`;
+                if (game.link3) linksHTML += `<a href="${game.link3}" target="_blank" class="card-link shorts">⚡ 쇼츠</a>`;
+                if (!game.link1 && !game.link2 && !game.link3) linksHTML = `<span class="card-link none">영상 준비중</span>`;
+
+                let cardEl = document.createElement('div');
+                cardEl.className = 'card';
+                cardEl.innerHTML = `
+                    <div class="card-user-actions">
+                        <button class="action-tag played ${playedClass}" onclick="toggleUserRecord('${game.title.replace(/'/g, "\\'")}', 'played')">✔️ 완료</button>
+                        <button class="action-tag wish ${wishClass}" onclick="toggleUserRecord('${game.title.replace(/'/g, "\\'")}', 'wish')">❤️ 찜</button>
+                    </div>
+                    <div class="box-image-container">${imageHTML}</div>
+                    <div class="card-content">
+                        <h3 class="card-title">${game.title}</h3>
+                        <div class="game-specs">
+                            <span class="spec-badge genre">🏷️ ${game.genre}</span>
+                            <span class="spec-badge players">👥 ${game.players}명</span>
+                            <span class="spec-badge time">⏱️ ${game.time}</span>
+                        </div>
+                        <div class="card-links">${linksHTML}</div>
+                        <div class="admin-controls">
+                            <label>게임 이름:</label><input type="text" id="title-${realIndex}" value="${game.title || ''}">
+                            <label>인원:</label><input type="text" id="players-${realIndex}" value="${game.players || ''}">
+                            <label>장르:</label><input type="text" id="genre-${realIndex}" value="${game.genre || ''}">
+                            <label>소요 시간:</label><input type="text" id="time-${realIndex}" value="${game.time || ''}">
+                            <label>이미지 주소:</label><input type="text" id="img-${realIndex}" value="${game.image || ''}">
+                            <label>소개 영상:</label><input type="text" id="l1-${realIndex}" value="${game.link1 || ''}">
+                            <label>플레이 영상:</label><input type="text" id="l2-${realIndex}" value="${game.link2 || ''}">
+                            <label>쇼츠 영상:</label><input type="text" id="l3-${realIndex}" value="${game.link3 || ''}">
+                            <div class="admin-btn-row">
+                                <button class="save-card-btn" onclick="saveCard(${realIndex})">저장</button>
+                                <button class="delete-card-btn" onclick="deleteCard(${realIndex})">삭제</button>
+                            </div>
+                        </div>
+                    </div>`;
+                fragment.appendChild(cardEl);
+            });
+            grid.innerHTML = '';
+            grid.appendChild(fragment);
+        }
+
+        // 상단 안내 문구 관리자 수정 관련 함수들
+        function openEditIntroModal() {
+            document.getElementById('editIntroTextarea').value = document.getElementById('introContentDisplay').innerHTML.trim();
+            document.getElementById('editIntroModal').classList.add('active');
+        }
+        function closeEditIntroModal() { document.getElementById('editIntroModal').classList.remove('active'); }
+        async function saveIntroText() {
+            let newHtml = document.getElementById('editIntroTextarea').value;
+            document.getElementById('introContentDisplay').innerHTML = newHtml;
+            closeEditIntroModal();
+            if (guestbookDb) {
+                try {
+                    await guestbookDb.collection("stats").doc("introText").set({ html: newHtml });
+                    alert('안내 문구가 성공적으로 저장되었습니다!');
+                } catch(e) { alert('로컬에만 반영되었습니다. (파이어베이스 저장 실패)'); }
+            } else {
+                localStorage.setItem('withhappy_intro_html', newHtml);
+                alert('로컬에 저장되었습니다!');
+            }
+        }
+
+        async function loadIntroText() {
+            if (localStorage.getItem('withhappy_intro_html')) {
+                document.getElementById('introContentDisplay').innerHTML = localStorage.getItem('withhappy_intro_html');
+            }
+            if (guestbookReady) {
+                try {
+                    let doc = await guestbookDb.collection("stats").doc("introText").get();
+                    if (doc.exists && doc.data().html) {
+                        document.getElementById('introContentDisplay').innerHTML = doc.data().html;
+                        localStorage.setItem('withhappy_intro_html', doc.data().html);
+                    }
+                } catch(e) {}
+            }
+        }
+
         function openSmartRecModal() { document.getElementById('smartRecModal').classList.add('active'); document.getElementById('smartRecResult').style.display = 'none'; }
         function closeSmartRecModal() { document.getElementById('smartRecModal').classList.remove('active'); }
 
@@ -694,64 +803,7 @@
                     clearInterval(timer);
                     display.innerHTML = `🎉 당첨: <span style="color:#1e293b;">${randGame.title}</span>!`;
                 }
-            }, 80);
-        }
-
-        function renderCards(items) {
-            const grid = document.getElementById('cardGrid');
-            document.getElementById('totalCount').innerText = `검색된 보드게임: ${items.length}개`;
-            grid.innerHTML = '';
-
-            if (items.length === 0) {
-                grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 50px; color: #a0aec0;">해당하는 보드게임이 없습니다.</div>`;
-                return;
-            }
-
-            items.forEach((game) => {
-                let realIndex = boardGames.findIndex(g => g.title === game.title);
-                let record = userRecords[game.title] || { played: false, wish: false };
-                let playedClass = record.played ? 'checked' : '';
-                let wishClass = record.wish ? 'checked' : '';
-
-                let imageHTML = game.image ? `<img src="${game.image}" alt="${game.title}" loading="lazy">` : `<div class="placeholder-box"><span>🎲</span><span>${game.title}</span></div>`;
-                let linksHTML = '';
-                if (game.link1) linksHTML += `<a href="${game.link1}" target="_blank" class="card-link intro">🎬 게임 소개</a>`;
-                if (game.link2) linksHTML += `<a href="${game.link2}" target="_blank" class="card-link play">🎮 게임 영상</a>`;
-                if (game.link3) linksHTML += `<a href="${game.link3}" target="_blank" class="card-link shorts">⚡ 쇼츠</a>`;
-                if (!game.link1 && !game.link2 && !game.link3) linksHTML = `<span class="card-link none">영상 준비중</span>`;
-
-                grid.innerHTML += `
-                    <div class="card">
-                        <div class="card-user-actions">
-                            <button class="action-tag played ${playedClass}" onclick="toggleUserRecord('${game.title.replace(/'/g, "\\'")}', 'played')">✔️ 완료</button>
-                            <button class="action-tag wish ${wishClass}" onclick="toggleUserRecord('${game.title.replace(/'/g, "\\'")}', 'wish')">❤️ 찜</button>
-                        </div>
-                        <div class="box-image-container">${imageHTML}</div>
-                        <div class="card-content">
-                            <h3 class="card-title">${game.title}</h3>
-                            <div class="game-specs">
-                                <span class="spec-badge genre">🏷️ ${game.genre}</span>
-                                <span class="spec-badge players">👥 ${game.players}명</span>
-                                <span class="spec-badge time">⏱️ ${game.time}</span>
-                            </div>
-                            <div class="card-links">${linksHTML}</div>
-                            <div class="admin-controls">
-                                <label>게임 이름:</label><input type="text" id="title-${realIndex}" value="${game.title || ''}">
-                                <label>인원:</label><input type="text" id="players-${realIndex}" value="${game.players || ''}">
-                                <label>장르:</label><input type="text" id="genre-${realIndex}" value="${game.genre || ''}">
-                                <label>소요 시간:</label><input type="text" id="time-${realIndex}" value="${game.time || ''}">
-                                <label>이미지 주소:</label><input type="text" id="img-${realIndex}" value="${game.image || ''}">
-                                <label>소개 영상:</label><input type="text" id="l1-${realIndex}" value="${game.link1 || ''}">
-                                <label>플레이 영상:</label><input type="text" id="l2-${realIndex}" value="${game.link2 || ''}">
-                                <label>쇼츠 영상:</label><input type="text" id="l3-${realIndex}" value="${game.link3 || ''}">
-                                <div class="admin-btn-row">
-                                    <button class="save-card-btn" onclick="saveCard(${realIndex})">저장</button>
-                                    <button class="delete-card-btn" onclick="deleteCard(${realIndex})">삭제</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>`;
-            });
+            }, 50);
         }
 
         let wcList = [], wcNextRound = [], wcIndex = 0, wcRoundName = "";
@@ -947,21 +999,25 @@
                 let snapshot = await guestbookDb.collection("guestbook").orderBy("createdAt", "desc").get();
                 let posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 if (posts.length === 0) { listEl.innerHTML = `<div style="text-align:center;color:var(--sub-text);padding:20px;">작성된 방명록이 없습니다.</div>`; return; }
-                listEl.innerHTML = "";
+                let fragment = document.createDocumentFragment();
                 posts.forEach(post => {
                     let escapedMsg = post.message.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-                    listEl.innerHTML += `
-                        <div class="guestbook-item">
-                            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-                                <span style="font-weight:bold; color:var(--primary-color);">👤 ${post.author}</span>
-                                <div style="display:flex; align-items:center; gap:8px;">
-                                    <span style="font-size:0.8rem; color:var(--sub-text);">${post.date}</span>
-                                    <button class="gb-action-btn" onclick="openEditModal('${post.id}', '${escapedMsg}')">수정/삭제</button>
-                                </div>
+                    let itemEl = document.createElement('div');
+                    itemEl.className = 'guestbook-item';
+                    itemEl.innerHTML = `
+                        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                            <span style="font-weight:bold; color:var(--primary-color);">👤 ${post.author}</span>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span style="font-size:0.8rem; color:var(--sub-text);">${post.date}</span>
+                                <button class="gb-action-btn" onclick="openEditModal('${post.id}', '${escapedMsg}')">수정/삭제</button>
                             </div>
-                            <div>${post.message}</div>
-                        </div>`;
+                        </div>
+                        <div>${post.message}</div>
+                    `;
+                    fragment.appendChild(itemEl);
                 });
+                listEl.innerHTML = "";
+                listEl.appendChild(fragment);
             } catch (e) {}
         }
 
@@ -1021,6 +1077,7 @@
             } catch (e) { alert('삭제 중 오류가 발생했습니다.'); }
         }
 
+        loadIntroText();
         renderCards(boardGames);
         loadGuestbook();
         countAndLoadVisitors();
