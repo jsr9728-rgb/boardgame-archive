@@ -63,16 +63,13 @@
 
         .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
 
-        /* 안내 문구 게시판 */
         .intro-banner {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             border-radius: 16px; padding: 30px; margin-bottom: 25px;
             box-shadow: var(--shadow); border: 2px solid #e2e8f0;
             line-height: 1.7; font-size: 0.98rem; color: #334155; position: relative;
         }
-        .intro-banner-edit-btn {
-            position: absolute; top: 20px; right: 20px;
-        }
+        .intro-banner-edit-btn { position: absolute; top: 20px; right: 20px; }
 
         .top-banner {
             background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
@@ -226,7 +223,7 @@
     </header>
 
     <div class="container">
-        <!-- 상단 안내 게시판 (관리자 모드에서 수정 가능!) -->
+        <!-- 상단 안내 게시판 -->
         <div class="intro-banner" id="introBannerContainer">
             <button class="btn accent admin-only intro-banner-edit-btn" onclick="openEditIntroModal()">✏️ 안내 문구 수정</button>
             <div id="introContentDisplay">
@@ -333,7 +330,7 @@
         </div>
     </div>
 
-    <!-- 안내 문구 수정 모달 (관리자 전용) -->
+    <!-- 안내 문구 수정 모달 -->
     <div class="modal" id="editIntroModal">
         <div class="modal-content" style="max-width: 600px; text-align: left;">
             <h3>📢 상단 안내 문구 수정 (HTML 가능)</h3>
@@ -610,8 +607,24 @@
             applyFilters();
         }
 
+        // 💡 [수정됨] 베스트 추천 클릭 시 다른 필터/초성을 전부 '전체'로 초기화하여 꼬임 방지!
         function searchBannerGame(gameName) {
             document.getElementById('searchInput').value = gameName;
+            
+            // 인원수, 장르, 초성 필터를 '전체'로 리셋
+            currentPlayerFilter = '전체';
+            currentGenreFilter = '전체';
+            currentChosung = '전체';
+
+            document.querySelectorAll('.player-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.player-btn')[0].classList.add('active'); // 첫 번째 '모든 인원' 활성화
+
+            document.querySelectorAll('.genre-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.genre-btn')[0].classList.add('active'); // 첫 번째 '모든 장르' 활성화
+
+            document.querySelectorAll('.chosung-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.chosung-btn')[0].classList.add('active'); // 첫 번째 '전체' 활성화
+
             applyFilters();
             window.scrollTo({ top: 400, behavior: 'smooth' });
         }
@@ -654,7 +667,7 @@
 
         function applyFilters() { renderCards(getCurrentFilteredItems()); }
 
-        // ⚡ 0.1초 반응형 고속 렌더링 엔진 (DocumentFragment 적용)
+        // ⚡ 0.1초 반응형 고속 렌더링 엔진
         function renderCards(items) {
             const grid = document.getElementById('cardGrid');
             document.getElementById('totalCount').innerText = `검색된 보드게임: ${items.length}개`;
