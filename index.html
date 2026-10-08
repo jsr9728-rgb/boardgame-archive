@@ -65,17 +65,32 @@
 
         .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
 
+        /* 🏆 화려하고 매력적인 업적 뱃지 디자인 스타일 */
         .badge-bar {
-            background: white; border-radius: 14px; padding: 15px 20px; margin-bottom: 25px;
-            box-shadow: var(--shadow); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 16px; padding: 20px 25px; margin-bottom: 25px;
+            box-shadow: var(--shadow); border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;
         }
-        .badge-title { font-weight: bold; font-size: 0.95rem; color: #1e293b; display: flex; align-items: center; gap: 6px; }
-        .badge-items { display: flex; gap: 10px; flex-wrap: wrap; }
+        .badge-title { font-weight: 800; font-size: 1.05px; color: #1e293b; display: flex; align-items: center; gap: 8px; }
+        .badge-items { display: flex; gap: 12px; flex-wrap: wrap; }
+        
         .badge-chip {
-            background: #f1f5f9; border: 1px dashed #cbd5e1; padding: 5px 12px; border-radius: 20px;
-            font-size: 0.8rem; font-weight: bold; color: #94a3b8; display: flex; align-items: center; gap: 5px; transition: all 0.3s;
+            background: #e2e8f0; border: 2px solid #cbd5e1; padding: 8px 14px; border-radius: 30px;
+            font-size: 0.85rem; font-weight: bold; color: #64748b; display: flex; align-items: center; gap: 7px;
+            filter: grayscale(100%); opacity: 0.5; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
         }
-        .badge-chip.unlocked { background: #ecfdf5; border: 1px solid #10b981; color: #047857; box-shadow: 0 2px 5px rgba(16, 185, 129, 0.15); }
+        .badge-chip.unlocked {
+            background: linear-gradient(135deg, #fef08a 0%, #fde047 100%);
+            border: 2px solid #eab308; color: #713f12; filter: grayscale(0%); opacity: 1;
+            transform: scale(1.05); box-shadow: 0 6px 15px rgba(234, 179, 8, 0.3);
+            animation: bounceBadge 0.5s ease;
+        }
+        @keyframes bounceBadge {
+            0% { transform: scale(0.9); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1.05); }
+        }
 
         .intro-banner {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
@@ -239,14 +254,14 @@
     </header>
 
     <div class="container">
-        <!-- 업적 뱃지 바 -->
+        <!-- 🏆 화려한 업적 뱃지 시스템 바 -->
         <div class="badge-bar">
-            <div class="badge-title">🏆 방문자 업적 뱃지 (<span id="unlockedBadgeCount">0</span>/4 달성)</div>
+            <div class="badge-title">🎖️ 방문자 업적 뱃지 (<span id="unlockedBadgeCount" style="color:#eab308;">0</span> / 4 달성)</div>
             <div class="badge-items">
-                <div class="badge-chip" id="badgeExplorer">🔍 탐험가 (구경하기)</div>
-                <div class="badge-chip" id="badgeCollector">❤️ 수집광 (찜 3개)</div>
-                <div class="badge-chip" id="badgePlayer">✔️ 플레이어 (완료 3개)</div>
-                <div class="badge-chip" id="badgeCommunicator">💌 소통왕 (방명록)</div>
+                <div class="badge-chip" id="badgeExplorer">🧭 탐험가 <span style="font-size:0.75rem; opacity:0.8;">(구경하기)</span></div>
+                <div class="badge-chip" id="badgeCollector">💎 수집광 <span style="font-size:0.75rem; opacity:0.8;">(찜 3개)</span></div>
+                <div class="badge-chip" id="badgePlayer">🎯 플레이어 <span style="font-size:0.75rem; opacity:0.8;">(완료 3개)</span></div>
+                <div class="badge-chip" id="badgeCommunicator">💌 소통왕 <span style="font-size:0.75rem; opacity:0.8;">(방명록)</span></div>
             </div>
         </div>
 
@@ -260,7 +275,7 @@
                 <ul>
                     <li><strong>1. 🎲 보드게임 코스 추천기 (상단 초록색 버튼)</strong><br>모임 인원수와 성향에 맞춰 오늘 모임에서 달릴 1·2라운드 코스 요리를 척척 추천해 드립니다!</li>
                     <li><strong>2. ⚖️ 보드게임 밸런스 게임 (상단 분홍색 버튼)</strong><br>취향저격 양자택일 질문에 답하고 내 성향에 딱 맞는 게임을 바로 찾아보세요!</li>
-                    <li><strong>3. 🏆 방문자 업적 뱃지 시스템</strong><br>사이트를 둘러보고, 찜이나 완료 체크도 해보세요! 숨겨진 뱃지들을 하나씩 모으는 재미가 있습니다.</li>
+                    <li><strong>3. 🎖️ 방문자 업적 뱃지 시스템</strong><br>사이트를 둘러보고, 찜이나 완료 체크도 해보세요! 숨겨진 뱃지들을 하나씩 모으는 재미가 있습니다.</li>
                     <li><strong>4. 🎰 랜덤 룰렛 & 이상형 월드컵 & 도구 상자</strong><br>뭘 할지 고민될 때는 룰렛을 돌리고, 이상형 월드컵으로 최애 게임을 뽑아보세요. 타이머와 점수판 기능도 유용합니다!</li>
                 </ul>
                 <p style="margin-top: 15px; margin-bottom: 0; color: #475569;">초성별, 인원별, 성향별로 깔끔하게 정리되어 있으니 편하게 둘러보시고 가볍게 즐겨주세요 🙇‍♂️<br><strong>방명록에 소중한 흔적도 꼭 남겨주세요! 감사합니다 ✨</strong></p>
@@ -368,14 +383,12 @@
         </div>
     </div>
 
-    <!-- ⚖️ 보드게임 밸런스 게임 모달 (매칭 게임 결과 연동 완료!) -->
+    <!-- ⚖️ 보드게임 밸런스 게임 모달 -->
     <div class="modal" id="balanceModal">
         <div class="modal-content">
             <h3 id="balanceTitle">⚖️ 보드게임 취향 밸런스 게임</h3>
             <div id="balanceArena" style="margin: 20px 0;"></div>
-            <div style="text-align: right;">
-                <button class="btn" onclick="closeBalanceModal()">닫기</button>
-            </div>
+            <div style="text-align: right;"><button class="btn" onclick="closeBalanceModal()">닫기</button></div>
         </div>
     </div>
 
@@ -788,7 +801,7 @@
             `;
         }
 
-        // ⚖️ 보드게임 밸런스 게임 (선택 성향에 맞는 게임 바로 찾아주기 연동 완료!)
+        // ⚖️ 보드게임 밸런스 게임
         let balanceStep = 0;
         let balanceScores = { 전략: 0, 파티: 0, 카드: 0, 심화: 0 };
         const balanceQuestions = [
@@ -825,10 +838,9 @@
                     </div>
                 `;
             } else {
-                // 가장 점수가 높은 성향 찾기
                 let bestTag = Object.keys(balanceScores).reduce((a, b) => balanceScores[a] > balanceScores[b] ? a : b);
                 let matchedGames = boardGames.filter(g => g.genre.toLowerCase().includes(bestTag.toLowerCase()));
-                if (matchedGames.length === 0) matchedGames = boardGames.slice(0, 3); // 없으면 일부 추천
+                if (matchedGames.length === 0) matchedGames = boardGames.slice(0, 3);
 
                 document.getElementById('balanceTitle').innerText = `🎉 취향 분석 완료! (추천 스타일: ${bestTag})`;
                 
