@@ -72,6 +72,7 @@
             border-radius: 16px; padding: 20px 25px; margin-bottom: 25px;
             box-shadow: var(--shadow); border: 2px solid #fecaca;
             display: flex; flex-direction: column; gap: 15px;
+            position: relative;
         }
         .bgm-header-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
         .bgm-info { display: flex; align-items: center; gap: 12px; }
@@ -80,13 +81,8 @@
         .bgm-sub { font-size: 0.85rem; color: #64748b; margin-top: 3px; }
         
         .bgm-controls-wrapper { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; width: 100%; }
-        .bgm-player-box { flex: 1; min-width: 280px; width: 100%; display: flex; align-items: center; gap: 10px; }
-        .bgm-toggle-btn {
-            background: #ff6b6b; color: white; border: none; padding: 10px 20px; border-radius: 30px;
-            font-weight: bold; font-size: 0.95rem; cursor: pointer; box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
-            transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
-        }
-        .bgm-toggle-btn:hover { background: #ee5253; transform: scale(1.03); }
+        .bgm-player-box { flex: 1; min-width: 280px; width: 100%; }
+        .bgm-player-box audio { width: 100%; height: 42px; border-radius: 8px; outline: none; }
 
         @keyframes pulseBeat {
             0% { transform: scale(1); }
@@ -283,23 +279,24 @@
     </header>
 
     <div class="container">
-        <!-- 🎵 위드해피 스마트 BGM 플레이어 (전체 사용자 공통 재생) -->
+        <!-- 🎵 위드해피 스마트 BGM 플레이어 -->
         <div class="bgm-banner">
+            <button class="btn accent admin-only" style="position: absolute; top: 15px; right: 20px; font-size: 0.8rem; padding: 5px 12px;" onclick="openEditBgmModal()">✏️ 테마곡 음원 수정</button>
             <div class="bgm-header-row">
                 <div class="bgm-info">
                     <div class="bgm-icon">🎧</div>
                     <div>
                         <div class="bgm-title">🎵 위드해피 공식 테마곡 - 우리들의 보드게임 아지트</div>
-                        <div class="bgm-sub" id="bgmStatusText">화면을 어디든 클릭/터치하시면 음악이 바로 재생됩니다!</div>
+                        <div class="bgm-sub" id="bgmStatusText">화면을 어디든 클릭/터치하시면 테마곡이 시작됩니다!</div>
                     </div>
                 </div>
             </div>
             
             <div class="bgm-controls-wrapper">
                 <div class="bgm-player-box">
-                    <button id="bgmToggleBtn" class="bgm-toggle-btn" onclick="toggleBgm()">▶ 테마곡 재생</button>
-                    <audio id="bgmAudio" loop style="display:none;">
-                        <source src="withhappy_bgm.mp3" type="audio/mpeg">
+                    <audio controls id="bgmAudio" loop style="width:100%;">
+                        <source id="bgmAudioSource" src="withhappy_bgm.mp3" type="audio/mpeg">
+                        브라우저가 오디오 재생을 지원하지 않습니다.
                     </audio>
                 </div>
             </div>
@@ -419,6 +416,19 @@
 
             <div class="guestbook-list" id="guestbookList">
                 <div style="text-align: center; color: var(--sub-text); padding: 20px;">방명록을 불러오는 중입니다...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BGM 주소 수정 모달 (관리자 전용) -->
+    <div class="modal" id="editBgmModal">
+        <div class="modal-content" style="text-align: left;">
+            <h3>🎧 위드해피 테마곡 MP3 주소 수정</h3>
+            <label>MP3 음원 URL 주소 입력</label>
+            <input type="text" id="editBgmUrlInput" placeholder="https://example.com/withhappy_bgm.mp3 또는 파일명.mp3">
+            <div style="margin-top: 15px; text-align: right; display:flex; gap:8px; justify-content:flex-end;">
+                <button class="btn" onclick="closeEditBgmModal()">취소</button>
+                <button class="btn primary" onclick="saveBgmUrl()">저장하기</button>
             </div>
         </div>
     </div>
@@ -581,78 +591,76 @@
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
     <script>
-        // 🎵 스마트 BGM 오디오 및 합성 웹오디오 엔진
-        let isPlayingBgm = false;
-        let audioCtx = null;
-        let synthInterval = null;
-
-        function playSynthBgm() {
-            if (synthInterval) return;
-            try {
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                audioCtx = new AudioContext();
-                const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 349.23, 329.63, 293.66]; // C E G C A F E D
-                let idx = 0;
-                synthInterval = setInterval(() => {
-                    if (!isPlayingBgm || !audioCtx) return;
-                    let osc = audioCtx.createOscillator();
-                    let gain = audioCtx.createGain();
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(notes[idx % notes.length], audioCtx.currentTime);
-                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-                    osc.start();
-                    osc.stop(audioCtx.currentTime + 0.4);
-                    idx++;
-                }, 300);
-            } catch(e) {}
-        }
-
-        function stopSynthBgm() {
-            if (synthInterval) { clearInterval(synthInterval); synthInterval = null; }
-            if (audioCtx) { audioCtx.close(); audioCtx = null; }
-        }
-
-        function toggleBgm() {
+        // 📱 모든 접속자 대상 모바일/PC 스마트 오디오 재생 제어
+        document.addEventListener('DOMContentLoaded', function() {
             const audio = document.getElementById('bgmAudio');
-            const btn = document.getElementById('bgmToggleBtn');
-            const statusText = document.getElementById('bgmStatusText');
-
-            if (!isPlayingBgm) {
-                isPlayingBgm = true;
-                btn.innerText = "❚❚ 테마곡 일시정지";
-                statusText.innerText = "🎵 위드해피 테마곡이 활기차게 재생 중입니다!";
-                
+            loadBgmUrl(); // 저장된 BGM URL 로딩
+            
+            if (audio) {
                 let playPromise = audio.play();
                 if (playPromise !== undefined) {
                     playPromise.catch(() => {
-                        // MP3 재생 실패 시 Web Audio API 합성 오디오 엔진 자동 가동
-                        playSynthBgm();
+                        const startPlayOnInteraction = () => {
+                            audio.play().catch(() => {});
+                            document.removeEventListener('click', startPlayOnInteraction);
+                            document.removeEventListener('touchstart', startPlayOnInteraction);
+                        };
+                        document.addEventListener('click', startPlayOnInteraction);
+                        document.addEventListener('touchstart', startPlayOnInteraction);
                     });
                 }
-            } else {
-                isPlayingBgm = false;
-                audio.pause();
-                stopSynthBgm();
-                btn.innerText = "▶ 테마곡 재생";
-                statusText.innerText = "일시정지되었습니다. 언제든 다시 클릭해보세요!";
             }
+        });
+
+        // 🎧 BGM URL 수정 및 동적 적용 함수 (관리자 기능)
+        function openEditBgmModal() {
+            const audioSource = document.getElementById('bgmAudioSource');
+            document.getElementById('editBgmUrlInput').value = audioSource.src || '';
+            document.getElementById('editBgmModal').classList.add('active');
+        }
+        function closeEditBgmModal() { document.getElementById('editBgmModal').classList.remove('active'); }
+
+        async function saveBgmUrl() {
+            let newUrl = document.getElementById('editBgmUrlInput').value.trim();
+            if (!newUrl) { alert('URL을 입력해주세요.'); return; }
+
+            const audio = document.getElementById('bgmAudio');
+            const audioSource = document.getElementById('bgmAudioSource');
+
+            audioSource.src = newUrl;
+            audio.load();
+            audio.play().catch(() => {});
+
+            localStorage.setItem('withhappy_bgm_url', newUrl);
+            
+            if (guestbookReady) {
+                try {
+                    await guestbookDb.collection("stats").doc("bgmConfig").set({ url: newUrl });
+                } catch(e) {}
+            }
+
+            closeEditBgmModal();
+            alert('테마곡 음원 주소가 성공적으로 저장 및 적용되었습니다!');
         }
 
-        // 📱 스마트 오디오 자동 재생 핸들러
-        document.addEventListener('DOMContentLoaded', function() {
-            const startPlayOnInteraction = () => {
-                if (!isPlayingBgm) {
-                    toggleBgm();
-                }
-                document.removeEventListener('click', startPlayOnInteraction);
-                document.removeEventListener('touchstart', startPlayOnInteraction);
-            };
-            document.addEventListener('click', startPlayOnInteraction);
-            document.addEventListener('touchstart', startPlayOnInteraction);
-        });
+        async function loadBgmUrl() {
+            let savedUrl = localStorage.getItem('withhappy_bgm_url');
+            if (guestbookReady) {
+                try {
+                    let doc = await guestbookDb.collection("stats").doc("bgmConfig").get();
+                    if (doc.exists && doc.data().url) {
+                        savedUrl = doc.data().url;
+                        localStorage.setItem('withhappy_bgm_url', savedUrl);
+                    }
+                } catch(e) {}
+            }
+            if (savedUrl) {
+                const audio = document.getElementById('bgmAudio');
+                const audioSource = document.getElementById('bgmAudioSource');
+                audioSource.src = savedUrl;
+                audio.load();
+            }
+        }
 
         let boardGames = [
             { title: "5초준다", players: "3-8", genre: "카드, 순발력, 파티", time: "15분", image: "https://boardm.co.kr/upload/product/1709106093.jpg", link1: "https://www.youtube.com/watch?v=AolIAYTLjH0", link2: "", link3: "https://www.youtube.com/watch?v=wdT6g4Kwz4g" },
