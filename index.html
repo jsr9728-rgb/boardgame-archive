@@ -281,10 +281,6 @@
     <div class="container">
         <!-- 🎵 위드해피 스마트 BGM 플레이어 -->
         <div class="bgm-banner">
-            <!-- 관리자 모드 파일 업로드 버튼 -->
-            <button class="btn accent admin-only" style="position: absolute; top: 15px; right: 20px; font-size: 0.8rem; padding: 6px 14px;" onclick="triggerFileInput()">📁 MP3 파일 업로드/교체</button>
-            <input type="file" id="bgmFileInput" accept="audio/*" style="display:none;" onchange="handleBgmFileUpload(event)">
-
             <div class="bgm-header-row">
                 <div class="bgm-info">
                     <div class="bgm-icon">🎧</div>
@@ -298,7 +294,8 @@
             <div class="bgm-controls-wrapper">
                 <div class="bgm-player-box">
                     <audio controls id="bgmAudio" loop style="width:100%;">
-                        <source id="bgmAudioSource" src="withhappy_bgm.mp3" type="audio/mpeg">
+                        <!-- 인터넷에 올라간 MP3 공개 링크 URL을 아래 src에 지정합니다 -->
+                        <source id="bgmAudioSource" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
                         브라우저가 오디오 재생을 지원하지 않습니다.
                     </audio>
                 </div>
@@ -581,93 +578,22 @@
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
     <script>
-        // IndexedDB 활용 MP3 저장 시스템
-        function openBgmDB() {
-            return new Promise((resolve, reject) => {
-                const request = indexedDB.open("WithHappyBgmDB", 1);
-                request.onupgradeneeded = (e) => {
-                    const db = e.target.result;
-                    if (!db.objectStoreNames.contains("bgmStore")) {
-                        db.createObjectStore("bgmStore");
-                    }
-                };
-                request.onsuccess = (e) => resolve(e.target.result);
-                request.onerror = (e) => reject(e);
-            });
-        }
-
-        async function saveBgmBlobToDB(fileBlob) {
-            const db = await openBgmDB();
-            return new Promise((resolve, reject) => {
-                const transaction = db.transaction(["bgmStore"], "readwrite");
-                const store = transaction.objectStore("bgmStore");
-                const putRequest = store.put(fileBlob, "custom_bgm");
-                putRequest.onsuccess = () => resolve();
-                putRequest.onerror = (e) => reject(e);
-            });
-        }
-
-        async function loadBgmBlobFromDB() {
-            const db = await openBgmDB();
-            return new Promise((resolve, reject) => {
-                const transaction = db.transaction(["bgmStore"], "readonly");
-                const store = transaction.objectStore("bgmStore");
-                const getRequest = store.get("custom_bgm");
-                getRequest.onsuccess = (e) => resolve(e.target.result);
-                getRequest.onerror = (e) => reject(e);
-            });
-        }
-
-        function triggerFileInput() {
-            document.getElementById('bgmFileInput').click();
-        }
-
-        async function handleBgmFileUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            try {
-                await saveBgmBlobToDB(file);
-                const fileUrl = URL.createObjectURL(file);
-                const audio = document.getElementById('bgmAudio');
-                const audioSource = document.getElementById('bgmAudioSource');
-
-                audioSource.src = fileUrl;
-                audio.load();
-                audio.play().catch(() => {});
-
-                document.getElementById('bgmStatusText').innerText = `🎵 테마곡 파일("${file.name}")이 성공적으로 저장 및 적용되었습니다!`;
-                alert(`음악 파일("${file.name}")이 브라우저에 저장되어 재생됩니다!`);
-            } catch(e) {
-                alert("파일 저장 중 오류가 발생했습니다.");
-            }
-        }
-
-        async function initAudioSystem() {
+        // 🎵 웹 URL 기반 BGM 시스템 (자동재생 정책 대응)
+        function initAudioSystem() {
             const audio = document.getElementById('bgmAudio');
-            const audioSource = document.getElementById('bgmAudioSource');
             
-            try {
-                const savedBlob = await loadBgmBlobFromDB();
-                if (savedBlob) {
-                    const savedUrl = URL.createObjectURL(savedBlob);
-                    audioSource.src = savedUrl;
-                    audio.load();
-                }
-            } catch(e) {}
+            // 첫 상호작용(화면 클릭/터치) 시 음악 재생
+            const startPlayOnInteraction = () => {
+                audio.play().then(() => {
+                    document.getElementById('bgmStatusText').innerText = "🎶 테마곡이 재생 중입니다.";
+                }).catch(() => {});
+                
+                document.removeEventListener('click', startPlayOnInteraction);
+                document.removeEventListener('touchstart', startPlayOnInteraction);
+            };
 
-            let playPromise = audio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(() => {
-                    const startPlayOnInteraction = () => {
-                        audio.play().catch(() => {});
-                        document.removeEventListener('click', startPlayOnInteraction);
-                        document.removeEventListener('touchstart', startPlayOnInteraction);
-                    };
-                    document.addEventListener('click', startPlayOnInteraction);
-                    document.addEventListener('touchstart', startPlayOnInteraction);
-                });
-            }
+            document.addEventListener('click', startPlayOnInteraction);
+            document.addEventListener('touchstart', startPlayOnInteraction);
         }
 
         document.addEventListener('DOMContentLoaded', function() {
