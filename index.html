@@ -65,19 +65,29 @@
 
         .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
 
-        /* 🎵 위드해피 BGM 오디오 플레이어 스타일 */
+        /* 🎵 위드해피 스마트 BGM 플레이어 스타일 */
         .bgm-banner {
             background: linear-gradient(135deg, #ffffff 0%, #fff5f5 100%);
             border-radius: 16px; padding: 20px 25px; margin-bottom: 25px;
             box-shadow: var(--shadow); border: 2px solid #fecaca;
-            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;
+            display: flex; flex-direction: column; gap: 15px;
         }
+        .bgm-header-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
         .bgm-info { display: flex; align-items: center; gap: 12px; }
         .bgm-icon { font-size: 2rem; animation: pulseBeat 2s infinite; }
         .bgm-title { font-weight: 800; font-size: 1.1rem; color: #1e293b; }
         .bgm-sub { font-size: 0.85rem; color: #64748b; margin-top: 3px; }
-        .bgm-player-container { flex: 1; max-width: 450px; min-width: 280px; }
-        .bgm-player-container audio { width: 100%; height: 40px; border-radius: 8px; outline: none; }
+        
+        .bgm-controls-wrapper { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .bgm-player-box { flex: 1; min-width: 280px; }
+        .bgm-player-box audio { width: 100%; height: 42px; border-radius: 8px; outline: none; }
+        
+        .file-upload-label {
+            background: #ff6b6b; color: white; padding: 8px 16px; border-radius: 20px;
+            font-size: 0.85rem; font-weight: bold; cursor: pointer; transition: all 0.2s;
+            display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 6px rgba(255,107,107,0.3);
+        }
+        .file-upload-label:hover { background: #fa5252; transform: translateY(-1px); }
 
         @keyframes pulseBeat {
             0% { transform: scale(1); }
@@ -85,7 +95,7 @@
             100% { transform: scale(1); }
         }
 
-        /* 🏆 화려하고 매력적인 업적 뱃지 디자인 스타일 */
+        /* 🏆 업적 뱃지 디자인 스타일 */
         .badge-bar {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             border-radius: 16px; padding: 20px 25px; margin-bottom: 25px;
@@ -274,21 +284,29 @@
     </header>
 
     <div class="container">
-        <!-- 🎵 위드해피 시그니처 BGM 오디오 플레이어 섹션 -->
+        <!-- 🎵 위드해피 스마트 BGM 오디오 플레이어 섹션 -->
         <div class="bgm-banner">
-            <div class="bgm-info">
-                <div class="bgm-icon">🎧</div>
-                <div>
-                    <div class="bgm-title">🎵 위드해피 공식 테마곡 - 우리들의 보드게임 아지트</div>
-                    <div class="bgm-sub">신나는 음악과 함께 위드해피 보드게임 아카이브를 둘러보세요!</div>
+            <div class="bgm-header-row">
+                <div class="bgm-info">
+                    <div class="bgm-icon">🎧</div>
+                    <div>
+                        <div class="bgm-title">🎵 위드해피 공식 테마곡 - 우리들의 보드게임 아지트</div>
+                        <div class="bgm-sub" id="bgmStatusText">내 컴퓨터/핸드폰의 MP3 음원 파일을 선택하면 바로 재생됩니다!</div>
+                    </div>
                 </div>
+                <label class="file-upload-label">
+                    📂 MP3 파일 선택하기
+                    <input type="file" id="localBgmInput" accept="audio/mp3,audio/*" style="display:none;" onchange="loadLocalAudio(this)">
+                </label>
             </div>
-            <div class="bgm-player-container">
-                <!-- 다운로드받으신 MP3 파일명을 src에 적어주시면 됩니다 (예: withhappy_bgm.mp3) -->
-                <audio controls id="bgmAudio">
-                    <source src="withhappy_bgm.mp3" type="audio/mpeg">
-                    브라우저가 오디오 재생을 지원하지 않습니다.
-                </audio>
+            
+            <div class="bgm-controls-wrapper">
+                <div class="bgm-player-box">
+                    <audio controls id="bgmAudio" style="width:100%;">
+                        <source id="bgmSource" src="withhappy_bgm.mp3" type="audio/mpeg">
+                        브라우저가 오디오를 지원하지 않습니다.
+                    </audio>
+                </div>
             </div>
         </div>
 
@@ -568,6 +586,18 @@
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
     <script>
+        // 🎵 로컬 MP3 파일 선택하여 즉시 재생하는 스크립트
+        function loadLocalAudio(input) {
+            const file = input.files[0];
+            if (file) {
+                const audioPlayer = document.getElementById('bgmAudio');
+                const objectUrl = URL.createObjectURL(file);
+                audioPlayer.src = objectUrl;
+                document.getElementById('bgmStatusText').innerText = `🎶 현재 재생 중: ${file.name}`;
+                audioPlayer.play().catch(e => console.log('재생 시작됨'));
+            }
+        }
+
         let boardGames = [
             { title: "5초준다", players: "3-8", genre: "카드, 순발력, 파티", time: "15분", image: "https://boardm.co.kr/upload/product/1709106093.jpg", link1: "https://www.youtube.com/watch?v=AolIAYTLjH0", link2: "", link3: "https://www.youtube.com/watch?v=wdT6g4Kwz4g" },
             { title: "13일의 금요일", players: "3-6", genre: "카드, 심리", time: "30분", image: "https://boardm.co.kr/upload/product/db_5e43a91e5e2e4.jpg", link1: "https://youtu.be/s1O7EElnOyo", link2: "https://youtu.be/IB89NsJl1XY", link3: "" },
@@ -759,7 +789,6 @@
 
         function applyFilters() { renderCards(getCurrentFilteredItems()); }
 
-        // ⚡ 0.1초 반응형 고속 렌더링 엔진
         function renderCards(items) {
             const grid = document.getElementById('cardGrid');
             document.getElementById('totalCount').innerText = `검색된 보드게임: ${items.length}개`;
@@ -903,7 +932,6 @@
             renderBalanceQuestion();
         }
 
-        // 상단 안내 문구 관리자 수정 관련 함수들
         function openEditIntroModal() {
             document.getElementById('editIntroTextarea').value = document.getElementById('introContentDisplay').innerHTML.trim();
             document.getElementById('editIntroModal').classList.add('active');
