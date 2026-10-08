@@ -281,7 +281,10 @@
     <div class="container">
         <!-- 🎵 위드해피 스마트 BGM 플레이어 -->
         <div class="bgm-banner">
-            <button class="btn accent admin-only" style="position: absolute; top: 15px; right: 20px; font-size: 0.8rem; padding: 5px 12px;" onclick="openEditBgmModal()">✏️ 테마곡 음원 수정</button>
+            <!-- 관리자 모드 파일 업로드 버튼 -->
+            <button class="btn accent admin-only" style="position: absolute; top: 15px; right: 20px; font-size: 0.8rem; padding: 6px 14px;" onclick="triggerFileInput()">📁 MP3 파일 업로드/교체</button>
+            <input type="file" id="bgmFileInput" accept="audio/*" style="display:none;" onchange="handleBgmFileUpload(event)">
+
             <div class="bgm-header-row">
                 <div class="bgm-info">
                     <div class="bgm-icon">🎧</div>
@@ -416,19 +419,6 @@
 
             <div class="guestbook-list" id="guestbookList">
                 <div style="text-align: center; color: var(--sub-text); padding: 20px;">방명록을 불러오는 중입니다...</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- BGM 주소 수정 모달 (관리자 전용) -->
-    <div class="modal" id="editBgmModal">
-        <div class="modal-content" style="text-align: left;">
-            <h3>🎧 위드해피 테마곡 MP3 주소 수정</h3>
-            <label>MP3 음원 URL 주소 입력</label>
-            <input type="text" id="editBgmUrlInput" placeholder="https://example.com/withhappy_bgm.mp3 또는 파일명.mp3">
-            <div style="margin-top: 15px; text-align: right; display:flex; gap:8px; justify-content:flex-end;">
-                <button class="btn" onclick="closeEditBgmModal()">취소</button>
-                <button class="btn primary" onclick="saveBgmUrl()">저장하기</button>
             </div>
         </div>
     </div>
@@ -591,76 +581,98 @@
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
     <script>
-        // 📱 모든 접속자 대상 모바일/PC 스마트 오디오 재생 제어
-        document.addEventListener('DOMContentLoaded', function() {
-            const audio = document.getElementById('bgmAudio');
-            loadBgmUrl(); // 저장된 BGM URL 로딩
-            
-            if (audio) {
-                let playPromise = audio.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(() => {
-                        const startPlayOnInteraction = () => {
-                            audio.play().catch(() => {});
-                            document.removeEventListener('click', startPlayOnInteraction);
-                            document.removeEventListener('touchstart', startPlayOnInteraction);
-                        };
-                        document.addEventListener('click', startPlayOnInteraction);
-                        document.addEventListener('touchstart', startPlayOnInteraction);
-                    });
-                }
-            }
-        });
-
-        // 🎧 BGM URL 수정 및 동적 적용 함수 (관리자 기능)
-        function openEditBgmModal() {
-            const audioSource = document.getElementById('bgmAudioSource');
-            document.getElementById('editBgmUrlInput').value = audioSource.src || '';
-            document.getElementById('editBgmModal').classList.add('active');
-        }
-        function closeEditBgmModal() { document.getElementById('editBgmModal').classList.remove('active'); }
-
-        async function saveBgmUrl() {
-            let newUrl = document.getElementById('editBgmUrlInput').value.trim();
-            if (!newUrl) { alert('URL을 입력해주세요.'); return; }
-
-            const audio = document.getElementById('bgmAudio');
-            const audioSource = document.getElementById('bgmAudioSource');
-
-            audioSource.src = newUrl;
-            audio.load();
-            audio.play().catch(() => {});
-
-            localStorage.setItem('withhappy_bgm_url', newUrl);
-            
-            if (guestbookReady) {
-                try {
-                    await guestbookDb.collection("stats").doc("bgmConfig").set({ url: newUrl });
-                } catch(e) {}
-            }
-
-            closeEditBgmModal();
-            alert('테마곡 음원 주소가 성공적으로 저장 및 적용되었습니다!');
-        }
-
-        async function loadBgmUrl() {
-            let savedUrl = localStorage.getItem('withhappy_bgm_url');
-            if (guestbookReady) {
-                try {
-                    let doc = await guestbookDb.collection("stats").doc("bgmConfig").get();
-                    if (doc.exists && doc.data().url) {
-                        savedUrl = doc.data().url;
-                        localStorage.setItem('withhappy_bgm_url', savedUrl);
+        // IndexedDB 활용 MP3 저장 시스템
+        function openBgmDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open("WithHappyBgmDB", 1);
+                request.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains("bgmStore")) {
+                        db.createObjectStore("bgmStore");
                     }
-                } catch(e) {}
-            }
-            if (savedUrl) {
+                };
+                request.onsuccess = (e) => resolve(e.target.result);
+                request.onerror = (e) => reject(e);
+            });
+        }
+
+        async function saveBgmBlobToDB(fileBlob) {
+            const db = await openBgmDB();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction(["bgmStore"], "readwrite");
+                const store = transaction.objectStore("bgmStore");
+                const putRequest = store.put(fileBlob, "custom_bgm");
+                putRequest.onsuccess = () => resolve();
+                putRequest.onerror = (e) => reject(e);
+            });
+        }
+
+        async function loadBgmBlobFromDB() {
+            const db = await openBgmDB();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction(["bgmStore"], "readonly");
+                const store = transaction.objectStore("bgmStore");
+                const getRequest = store.get("custom_bgm");
+                getRequest.onsuccess = (e) => resolve(e.target.result);
+                getRequest.onerror = (e) => reject(e);
+            });
+        }
+
+        function triggerFileInput() {
+            document.getElementById('bgmFileInput').click();
+        }
+
+        async function handleBgmFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            try {
+                await saveBgmBlobToDB(file);
+                const fileUrl = URL.createObjectURL(file);
                 const audio = document.getElementById('bgmAudio');
                 const audioSource = document.getElementById('bgmAudioSource');
-                audioSource.src = savedUrl;
+
+                audioSource.src = fileUrl;
                 audio.load();
+                audio.play().catch(() => {});
+
+                document.getElementById('bgmStatusText').innerText = `🎵 테마곡 파일("${file.name}")이 성공적으로 저장 및 적용되었습니다!`;
+                alert(`음악 파일("${file.name}")이 브라우저에 저장되어 재생됩니다!`);
+            } catch(e) {
+                alert("파일 저장 중 오류가 발생했습니다.");
             }
         }
+
+        async function initAudioSystem() {
+            const audio = document.getElementById('bgmAudio');
+            const audioSource = document.getElementById('bgmAudioSource');
+            
+            try {
+                const savedBlob = await loadBgmBlobFromDB();
+                if (savedBlob) {
+                    const savedUrl = URL.createObjectURL(savedBlob);
+                    audioSource.src = savedUrl;
+                    audio.load();
+                }
+            } catch(e) {}
+
+            let playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    const startPlayOnInteraction = () => {
+                        audio.play().catch(() => {});
+                        document.removeEventListener('click', startPlayOnInteraction);
+                        document.removeEventListener('touchstart', startPlayOnInteraction);
+                    };
+                    document.addEventListener('click', startPlayOnInteraction);
+                    document.addEventListener('touchstart', startPlayOnInteraction);
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initAudioSystem();
+        });
 
         let boardGames = [
             { title: "5초준다", players: "3-8", genre: "카드, 순발력, 파티", time: "15분", image: "https://boardm.co.kr/upload/product/1709106093.jpg", link1: "https://www.youtube.com/watch?v=AolIAYTLjH0", link2: "", link3: "https://www.youtube.com/watch?v=wdT6g4Kwz4g" },
