@@ -65,7 +65,6 @@
 
         .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
 
-        /* 업적 뱃지 표시 바 스타일 */
         .badge-bar {
             background: white; border-radius: 14px; padding: 15px 20px; margin-bottom: 25px;
             box-shadow: var(--shadow); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;
@@ -146,7 +145,7 @@
         }
         .action-tag.played { background: #e2e8f0; color: #64748b; }
         .action-tag.played.checked { background: #16a34a; color: white; border-color: #16a34a; }
-        .action-tag.wish.checked { background: #ff6b6b; color: white; border-color: #ff6b6b; }
+        .action-tag.wish.checked { background: #ff6b6b; color: white; border-color: #fecaca; }
 
         .box-image-container {
             width: 100%; height: 190px; background: #ffffff; display: flex; align-items: center; justify-content: center;
@@ -184,7 +183,7 @@
 
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 1000; }
         .modal.active { display: flex; }
-        .modal-content { background: white; padding: 30px; border-radius: 16px; width: 100%; max-width: 450px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); box-sizing: border-box; text-align: center; }
+        .modal-content { background: white; padding: 30px; border-radius: 16px; width: 100%; max-width: 480px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); box-sizing: border-box; text-align: center; }
         .modal-content h3 { margin-top: 0; margin-bottom: 20px; }
         .modal-content label { display: block; font-weight: bold; font-size: 0.85rem; margin-bottom: 5px; color: var(--sub-text); text-align: left; }
         .modal-content input[type="text"], .modal-content input[type="password"], .modal-content select { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; font-size: 0.95rem; }
@@ -225,7 +224,7 @@
 
         <div class="header-actions">
             <button class="btn course" onclick="openCourseModal()">🍽️ 코스 요리 추천기</button>
-            <button class="btn balance" onclick="openBalanceModal()">⚖️ 보드게임 밸런스</button>
+            <button class="btn balance" onclick="openBalanceModal()">⚖️ 취향 밸런스 게임</button>
             <button class="btn smart-rec" onclick="openSmartRecModal()">✨ 맞춤형 랜덤 추천</button>
             <button class="btn random" onclick="openRouletteModal()">🎰 룰렛 랜덤 뽑기</button>
             <button class="btn feature" onclick="openWorldcupModal()">🏆 이상형 월드컵</button>
@@ -240,7 +239,7 @@
     </header>
 
     <div class="container">
-        <!-- 🏆 방문자 업적 뱃지 시스템 바 -->
+        <!-- 업적 뱃지 바 -->
         <div class="badge-bar">
             <div class="badge-title">🏆 방문자 업적 뱃지 (<span id="unlockedBadgeCount">0</span>/4 달성)</div>
             <div class="badge-items">
@@ -260,7 +259,7 @@
                 <p style="margin: 10px 0 5px; font-weight: bold; color: #b45309;">✨ [새롭게 추가된 즐길 거리들]</p>
                 <ul>
                     <li><strong>1. 🎲 보드게임 코스 추천기 (상단 초록색 버튼)</strong><br>모임 인원수와 성향에 맞춰 오늘 모임에서 달릴 1·2라운드 코스 요리를 척척 추천해 드립니다!</li>
-                    <li><strong>2. ⚖️ 보드게임 밸런스 게임 (상단 분홍색 버튼)</strong><br>취향저격 양자택일 질문에 답하고 내 성향에 딱 맞는 게임 스타일을 알아보세요!</li>
+                    <li><strong>2. ⚖️ 보드게임 밸런스 게임 (상단 분홍색 버튼)</strong><br>취향저격 양자택일 질문에 답하고 내 성향에 딱 맞는 게임을 바로 찾아보세요!</li>
                     <li><strong>3. 🏆 방문자 업적 뱃지 시스템</strong><br>사이트를 둘러보고, 찜이나 완료 체크도 해보세요! 숨겨진 뱃지들을 하나씩 모으는 재미가 있습니다.</li>
                     <li><strong>4. 🎰 랜덤 룰렛 & 이상형 월드컵 & 도구 상자</strong><br>뭘 할지 고민될 때는 룰렛을 돌리고, 이상형 월드컵으로 최애 게임을 뽑아보세요. 타이머와 점수판 기능도 유용합니다!</li>
                 </ul>
@@ -284,7 +283,7 @@
             </div>
         </div>
 
-        <!-- 인원수 & 장르별 스마트 필터 박스 -->
+        <!-- 필터 박스 -->
         <div class="filter-section-box">
             <div class="filter-group">
                 <span class="filter-group-title">👥 인원수:</span>
@@ -334,7 +333,7 @@
             </div>
         </div>
 
-        <!-- 0.1초 반응형 고속 그리드 -->
+        <!-- 카드 그리드 -->
         <div class="grid" id="cardGrid"></div>
 
         <div class="guestbook-section" id="guestbookSection">
@@ -363,18 +362,13 @@
         <div class="modal-content" style="text-align: left;">
             <h3 style="text-align: center;">🍽️ 오늘의 보드게임 코스 추천기</h3>
             <p style="color:var(--sub-text); font-size:0.85rem; text-align: center; margin-top:-10px;">모임의 오프닝부터 메인, 엔딩까지 코스로 짜드립니다!</p>
-            
             <button class="btn course" style="width:100%; margin-top:10px; padding:12px;" onclick="executeCourseRec()">✨ 오늘의 2단계 코스 요리 뽑기!</button>
-
             <div id="courseRecResult" style="margin-top:20px; padding:15px; background:#f8fafc; border-radius:8px; border:1px solid var(--border-color); display:none;"></div>
-
-            <div style="margin-top: 20px; text-align: right;">
-                <button class="btn" onclick="closeCourseModal()">닫기</button>
-            </div>
+            <div style="margin-top: 20px; text-align: right;"><button class="btn" onclick="closeCourseModal()">닫기</button></div>
         </div>
     </div>
 
-    <!-- ⚖️ 보드게임 밸런스 게임 모달 -->
+    <!-- ⚖️ 보드게임 밸런스 게임 모달 (매칭 게임 결과 연동 완료!) -->
     <div class="modal" id="balanceModal">
         <div class="modal-content">
             <h3 id="balanceTitle">⚖️ 보드게임 취향 밸런스 게임</h3>
@@ -403,7 +397,6 @@
         <div class="modal-content" style="text-align: left;">
             <h3 style="text-align: center;">✨ 인원수 & 스타일 맞춤 랜덤 추천</h3>
             <p style="color:var(--sub-text); font-size:0.85rem; text-align: center; margin-top:-10px;">조건에 딱 맞는 게임을 아카이브에서 골라드립니다!</p>
-            
             <label>👥 인원수 선택</label>
             <select id="recPlayerCount">
                 <option value="1인용">1인용 (혼자서 뇌 풀기)</option>
@@ -411,7 +404,6 @@
                 <option value="3~4인용">3~4인용 (가족/소모임 최적)</option>
                 <option value="5인 이상">5인 이상 (시끌벅적 파티)</option>
             </select>
-
             <label>🏷️ 플레이 스타일 선택</label>
             <select id="recGameStyle">
                 <option value="퍼즐/두뇌">🧩 퍼즐/두뇌 (단계별 도전, 손맛)</option>
@@ -419,14 +411,9 @@
                 <option value="심리/블러핑">🕵️ 심리/블러핑 (속고 속이는 눈치)</option>
                 <option value="전략/몰입">🧠 전략/몰입 (깊이 있는 수싸움)</option>
             </select>
-
             <button class="btn smart-rec" style="width:100%; margin-top:10px; padding:12px;" onclick="executeSmartRec()">🚀 맞춤 게임 추천받기!</button>
-
             <div id="smartRecResult" style="margin-top:20px; padding:15px; background:#f8fafc; border-radius:8px; border:1px solid var(--border-color); display:none; text-align:center;"></div>
-
-            <div style="margin-top: 20px; text-align: right;">
-                <button class="btn" onclick="closeSmartRecModal()">닫기</button>
-            </div>
+            <div style="margin-top: 20px; text-align: right;"><button class="btn" onclick="closeSmartRecModal()">닫기</button></div>
         </div>
     </div>
 
@@ -449,9 +436,7 @@
             <h3>🏆 보드게임 이상형 월드컵</h3>
             <div id="wcProgress" style="font-weight: bold; color: var(--sub-text); font-size: 0.9rem;"></div>
             <div class="worldcup-arena" id="wcArena"></div>
-            <div style="margin-top: 20px; text-align: right;">
-                <button class="btn" onclick="closeWorldcupModal()">닫기</button>
-            </div>
+            <div style="margin-top: 20px; text-align: right;"><button class="btn" onclick="closeWorldcupModal()">닫기</button></div>
         </div>
     </div>
 
@@ -463,7 +448,6 @@
                 <button class="tool-tab-btn active" onclick="switchToolTab('timer')">⏱️ 타이머</button>
                 <button class="tool-tab-btn" onclick="switchToolTab('score')">📊 간이 점수판</button>
             </div>
-            
             <div id="toolTimerSection" style="padding: 20px 0;">
                 <div id="timerDisplay" style="font-size: 3rem; font-weight: bold; color: var(--primary-color); margin-bottom: 15px;">00:00</div>
                 <div style="display: flex; gap: 10px; justify-content: center;">
@@ -472,7 +456,6 @@
                     <button class="btn accent" onclick="resetTimer()">초기화</button>
                 </div>
             </div>
-
             <div id="toolScoreSection" style="display: none; padding: 10px 0; text-align: left;">
                 <div style="display: flex; gap: 8px; margin-bottom: 10px;">
                     <input type="text" id="scorePlayerName" placeholder="플레이어 이름" style="margin-bottom:0;">
@@ -480,10 +463,7 @@
                 </div>
                 <div id="scoreList" style="max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div>
             </div>
-
-            <div style="margin-top: 15px; text-align: right;">
-                <button class="btn" onclick="closeToolModal()">닫기</button>
-            </div>
+            <div style="margin-top: 15px; text-align: right;"><button class="btn" onclick="closeToolModal()">닫기</button></div>
         </div>
     </div>
 
@@ -504,22 +484,14 @@
     <div class="modal" id="addGameModal">
         <div class="modal-content" style="text-align: left;">
             <h3>새 보드게임 추가</h3>
-            <label>게임 이름</label>
-            <input type="text" id="newTitle" placeholder="예: 스플렌더">
-            <label>인원</label>
-            <input type="text" id="newPlayers" placeholder="예: 2-4 또는 3-10">
-            <label>장르</label>
-            <input type="text" id="newGenre" placeholder="예: 전략, 카드">
-            <label>소요 시간</label>
-            <input type="text" id="newTime" placeholder="예: 30분">
-            <label>상자 이미지 인터넷 주소 (URL)</label>
-            <input type="text" id="newImage" placeholder="https://...">
-            <label>게임 소개 영상 링크</label>
-            <input type="text" id="newLink1" placeholder="https://youtube.com/...">
-            <label>게임 영상 링크</label>
-            <input type="text" id="newLink2" placeholder="https://youtube.com/...">
-            <label>쇼츠 링크</label>
-            <input type="text" id="newLink3" placeholder="https://youtube.com/shorts/...">
+            <label>게임 이름</label><input type="text" id="newTitle" placeholder="예: 스플렌더">
+            <label>인원</label><input type="text" id="newPlayers" placeholder="예: 2-4 또는 3-10">
+            <label>장르</label><input type="text" id="newGenre" placeholder="예: 전략, 카드">
+            <label>소요 시간</label><input type="text" id="newTime" placeholder="예: 30분">
+            <label>상자 이미지 인터넷 주소 (URL)</label><input type="text" id="newImage" placeholder="https://...">
+            <label>게임 소개 영상 링크</label><input type="text" id="newLink1" placeholder="https://youtube.com/...">
+            <label>게임 영상 링크</label><input type="text" id="newLink2" placeholder="https://youtube.com/...">
+            <label>쇼츠 링크</label><input type="text" id="newLink3" placeholder="https://youtube.com/shorts/...">
             <div class="modal-buttons">
                 <button class="btn" onclick="closeAddModal()">취소</button>
                 <button class="btn primary" onclick="addNewGame()">추가하기</button>
@@ -532,16 +504,12 @@
         <div class="modal-content" style="text-align: left;">
             <h3>방명록 수정/삭제</h3>
             <input type="hidden" id="editDocId">
-            <label>비밀번호 확인</label>
-            <input type="password" id="editCheckPassword" placeholder="작성 시 입력한 비밀번호">
+            <label>비밀번호 확인</label><input type="password" id="editCheckPassword" placeholder="작성 시 입력한 비밀번호">
             <label>수정할 내용</label>
             <textarea id="editMessageContent" style="width:100%; min-height:80px; padding:10px; border:1px solid var(--border-color); border-radius:8px; box-sizing:border-box; font-family:inherit;"></textarea>
             <div style="display:flex; justify-content:space-between; margin-top:15px;">
                 <button class="btn accent" onclick="deleteGuestbookEntry()">삭제하기</button>
-                <div style="display:flex; gap:8px;">
-                    <button class="btn" onclick="closeEditModal()">취소</button>
-                    <button class="btn primary" onclick="updateGuestbookEntry()">수정 완료</button>
-                </div>
+                <div style="display:flex; gap:8px;"><button class="btn" onclick="closeEditModal()">취소</button><button class="btn primary" onclick="updateGuestbookEntry()">수정 완료</button></div>
             </div>
         </div>
     </div>
@@ -574,7 +542,6 @@
             applyFilters();
         }
 
-        // 🏆 업적 뱃지 시스템 체크 로직
         function checkBadges() {
             let visited = localStorage.getItem('withhappy_visited') === 'true';
             let wishCount = Object.values(userRecords).filter(r => r.wish).length;
@@ -590,7 +557,6 @@
             document.getElementById('unlockedBadgeCount').innerText = unlockedCount;
         }
 
-        // 최초 방문 시 탐험가 뱃지 자동 해금
         if (!localStorage.getItem('withhappy_visited')) {
             localStorage.setItem('withhappy_visited', 'true');
         }
@@ -803,7 +769,7 @@
             grid.appendChild(fragment);
         }
 
-        // 🍽️ 코스 요리 추천기 기능
+        // 🍽️ 코스 요리 추천기
         function openCourseModal() { document.getElementById('courseModal').classList.add('active'); document.getElementById('courseRecResult').style.display = 'none'; }
         function closeCourseModal() { document.getElementById('courseModal').classList.remove('active'); }
 
@@ -817,13 +783,14 @@
             resBox.style.display = 'block';
             resBox.innerHTML = `
                 <div style="font-weight:bold; color:var(--primary-color); margin-bottom:8px; font-size:1.1rem;">🎉 오늘의 위드해피 추천 코스 요리!</div>
-                <div style="margin-bottom:8px;"><strong>1라운드 (오프닝/가볍게):</strong> ${course1.title} (${course1.genre})</div>
-                <div><strong>2라운드 (메인/몰입하기):</strong> ${course2.title} (${course2.genre})</div>
+                <div style="margin-bottom:8px;"><strong>1라운드:</strong> <span style="color:#2563eb; cursor:pointer; text-decoration:underline;" onclick="searchBannerGame('${course1.title}')">${course1.title}</span> (${course1.genre})</div>
+                <div><strong>2라운드:</strong> <span style="color:#2563eb; cursor:pointer; text-decoration:underline;" onclick="searchBannerGame('${course2.title}')">${course2.title}</span> (${course2.genre})</div>
             `;
         }
 
-        // ⚖️ 보드게임 밸런스 게임 기능
+        // ⚖️ 보드게임 밸런스 게임 (선택 성향에 맞는 게임 바로 찾아주기 연동 완료!)
         let balanceStep = 0;
+        let balanceScores = { 전략: 0, 파티: 0, 카드: 0, 심화: 0 };
         const balanceQuestions = [
             {
                 q: "친구들과 보드게임을 할 때 나의 선호는?",
@@ -839,6 +806,7 @@
 
         function openBalanceModal() {
             balanceStep = 0;
+            balanceScores = { 전략: 0, 파티: 0, 카드: 0, 심화: 0 };
             document.getElementById('balanceModal').classList.add('active');
             renderBalanceQuestion();
         }
@@ -852,21 +820,35 @@
                 arena.innerHTML = `
                     <div style="font-weight:bold; font-size:1.1rem; margin-bottom:20px; color:#1e293b;">${qData.q}</div>
                     <div style="display:flex; flex-direction:column; gap:10px;">
-                        <button class="btn" style="padding:15px; background:#f1f5f9; border:1px solid var(--border-color); font-size:0.95rem;" onclick="answerBalance('${qData.t1}')">🔥 ${qData.a1}</button>
-                        <button class="btn" style="padding:15px; background:#f1f5f9; border:1px solid var(--border-color); font-size:0.95rem;" onclick="answerBalance('${qData.t2}')">🔥 ${qData.a2}</button>
+                        <button class="btn" style="padding:15px; background:#f1f5f9; border:1px solid var(--border-color); font-size:0.95rem; justify-content:flex-start;" onclick="answerBalance('${qData.t1}')">🔥 ${qData.a1}</button>
+                        <button class="btn" style="padding:15px; background:#f1f5f9; border:1px solid var(--border-color); font-size:0.95rem; justify-content:flex-start;" onclick="answerBalance('${qData.t2}')">🔥 ${qData.a2}</button>
                     </div>
                 `;
             } else {
-                document.getElementById('balanceTitle').innerText = `🎉 취향 분석 완료!`;
+                // 가장 점수가 높은 성향 찾기
+                let bestTag = Object.keys(balanceScores).reduce((a, b) => balanceScores[a] > balanceScores[b] ? a : b);
+                let matchedGames = boardGames.filter(g => g.genre.toLowerCase().includes(bestTag.toLowerCase()));
+                if (matchedGames.length === 0) matchedGames = boardGames.slice(0, 3); // 없으면 일부 추천
+
+                document.getElementById('balanceTitle').innerText = `🎉 취향 분석 완료! (추천 스타일: ${bestTag})`;
+                
+                let listHtml = matchedGames.map(g => `
+                    <div style="display:flex; align-items:center; justify-content:between; background:#f8fafc; padding:8px 12px; border-radius:8px; border:1px solid var(--border-color); margin-bottom:6px;">
+                        <span>🎲 <strong>${g.title}</strong> (${g.genre})</span>
+                        <button class="btn primary" style="padding:4px 10px; font-size:0.8rem;" onclick="searchBannerGame('${g.title}'); closeBalanceModal();">바로 찾기</button>
+                    </div>
+                `).join('');
+
                 arena.innerHTML = `
-                    <div style="font-size:1.1rem; font-weight:bold; color:var(--primary-color); margin-bottom:15px;">토리님의 취향에 딱 맞는 게임을 찾아보세요!</div>
-                    <p style="color:var(--sub-text); font-size:0.9rem;">상단 필터에서 장르나 인원수를 골라 아카이브를 탐험해 보세요.</p>
-                    <button class="btn primary" onclick="closeBalanceModal()" style="margin-top:10px;">확인</button>
+                    <div style="font-size:0.95rem; font-weight:bold; color:var(--primary-color); margin-bottom:12px;">토리님의 성향(${bestTag})에 딱 맞는 아카이브 게임들입니다!</div>
+                    <div style="max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; margin-bottom: 15px;">${listHtml}</div>
+                    <button class="btn primary" onclick="closeBalanceModal()" style="width:100%;">확인 및 닫기</button>
                 `;
             }
         }
 
         function answerBalance(tag) {
+            balanceScores[tag] = (balanceScores[tag] || 0) + 1;
             balanceStep++;
             renderBalanceQuestion();
         }
@@ -885,7 +867,7 @@
                 try {
                     await guestbookDb.collection("stats").doc("introText").set({ html: newHtml });
                     alert('안내 문구가 성공적으로 저장되었습니다!');
-                } catch(e) { alert('로컬에만 반영되었습니다. (파이어베이스 저장 실패)'); }
+                } catch(e) { alert('로컬에만 반영되었습니다.'); }
             } else {
                 localStorage.setItem('withhappy_intro_html', newHtml);
                 alert('로컬에 저장되었습니다!');
@@ -935,8 +917,8 @@
             resBox.style.display = 'block';
             resBox.innerHTML = `
                 <div style="font-size:0.8rem; color:var(--sub-text); font-weight:bold;">🎉 토리님을 위한 맞춤 추천 게임!</div>
-                <div style="font-size:1.2rem; font-weight:bold; color:var(--primary-color); margin:5px 0;">${chosen.title}</div>
-                <div style="font-size:0.85rem; color:var(--text-color);">🏷️ 장르: ${chosen.genre} | 👥 인원: ${chosen.players}인</div>
+                <div style="font-size:1.2rem; font-weight:bold; color:var(--primary-color); margin:5px 0; cursor:pointer; text-decoration:underline;" onclick="searchBannerGame('${chosen.title}'); closeSmartRecModal();">${chosen.title}</div>
+                <div style="font-size:0.85rem; color:var(--text-color);">🏷️ 장르: ${chosen.genre} | 👥 인원: ${chosen.players}인 (클릭하면 바로 검색!)</div>
             `;
         }
 
@@ -957,7 +939,7 @@
                 count++;
                 if (count > 15) {
                     clearInterval(timer);
-                    display.innerHTML = `🎉 당첨: <span style="color:#1e293b;">${randGame.title}</span>!`;
+                    display.innerHTML = `🎉 당첨: <span style="color:#1e293b; cursor:pointer; text-decoration:underline;" onclick="searchBannerGame('${randGame.title}'); closeRouletteModal();">${randGame.title}</span>!`;
                 }
             }, 50);
         }
@@ -984,8 +966,8 @@
                     document.getElementById('wcArena').innerHTML = `
                         <div style="text-align:center; padding:10px;">
                             ${imgHtml}
-                            <h2 style="color:var(--primary-color); margin:10px 0;">${winner.title}</h2>
-                            <p style="color:var(--sub-text);">오늘의 최종 선택 게임입니다!</p>
+                            <h2 style="color:var(--primary-color); margin:10px 0; cursor:pointer; text-decoration:underline;" onclick="searchBannerGame('${winner.title}'); closeWorldcupModal();">${winner.title}</h2>
+                            <p style="color:var(--sub-text);">오늘의 최종 선택 게임입니다! (클릭 시 바로 검색)</p>
                             <button class="btn primary" onclick="closeWorldcupModal()" style="margin-top:15px;">확인</button>
                         </div>`;
                     return;
