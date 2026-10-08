@@ -66,7 +66,7 @@
 
         .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
 
-        /* 🎬 MP4 / MP3 미디어 플레이어 스타일 */
+        /* 🎵 스마트 BGM 오디오 플레이어 스타일 */
         .bgm-banner {
             background: linear-gradient(135deg, #ffffff 0%, #fff5f5 100%);
             border-radius: 16px; padding: 20px 25px; margin-bottom: 25px;
@@ -79,16 +79,9 @@
         .bgm-title { font-weight: 800; font-size: 1.1rem; color: #1e293b; }
         .bgm-sub { font-size: 0.85rem; color: #64748b; margin-top: 3px; }
         
-        .bgm-controls-wrapper { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
-        .bgm-media-box { width: 100%; max-width: 500px; border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .bgm-media-box video { width: 100%; max-height: 280px; display: block; outline: none; }
-        
-        .file-upload-label {
-            background: #ff6b6b; color: white; padding: 8px 16px; border-radius: 20px;
-            font-size: 0.85rem; font-weight: bold; cursor: pointer; transition: all 0.2s;
-            display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 6px rgba(255,107,107,0.3);
-        }
-        .file-upload-label:hover { background: #fa5252; transform: translateY(-1px); }
+        .bgm-controls-wrapper { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; width: 100%; }
+        .bgm-player-box { flex: 1; min-width: 280px; width: 100%; }
+        .bgm-player-box audio { width: 100%; height: 42px; border-radius: 8px; outline: none; }
 
         @keyframes pulseBeat {
             0% { transform: scale(1); }
@@ -285,29 +278,24 @@
     </header>
 
     <div class="container">
-        <!-- 🎬 MP4 / MP3 스마트 미디어 플레이어 섹션 -->
+        <!-- 🎵 위드해피 스마트 BGM 플레이어 (전체 사용자 공통 재생) -->
         <div class="bgm-banner">
             <div class="bgm-header-row">
                 <div class="bgm-info">
-                    <div class="bgm-icon">🎬</div>
+                    <div class="bgm-icon">🎧</div>
                     <div>
-                        <div class="bgm-title">🎵 위드해피 공식 테마곡</div>
-                        <div class="bgm-sub" id="bgmStatusText">위드해피 보드게임 아지트 테마곡을 감상해 보세요!</div>
+                        <div class="bgm-title">🎵 위드해피 공식 테마곡 - 우리들의 보드게임 아지트</div>
+                        <div class="bgm-sub" id="bgmStatusText">화면을 어디든 누르시면 테마곡이 시작됩니다!</div>
                     </div>
                 </div>
-                <!-- 🔒 admin-only 클래스 추가: 관리자 로그인 상태에서만 업로드 버튼 표시 -->
-                <label class="file-upload-label admin-only">
-                    ⚙️ [관리자전용] MP4 / MP3 선택
-                    <input type="file" id="localBgmInput" accept="video/mp4,video/*,audio/*" style="display:none;" onchange="loadLocalMedia(this)">
-                </label>
             </div>
             
             <div class="bgm-controls-wrapper">
-                <div class="bgm-media-box">
-                    <video controls id="bgmVideo" controlsList="nodownload">
-                        <source id="bgmSource" src="withhappy_bgm.mp4" type="video/mp4">
-                        브라우저가 동영상 및 오디오 재생을 지원하지 않습니다.
-                    </video>
+                <div class="bgm-player-box">
+                    <audio controls id="bgmAudio" autoplay loop style="width:100%;">
+                        <source src="withhappy_bgm.mp3" type="audio/mpeg">
+                        브라우저가 오디오 재생을 지원하지 않습니다.
+                    </audio>
                 </div>
             </div>
         </div>
@@ -588,21 +576,24 @@
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
     <script>
-        // 🎬 MP4 / MP3 미디어 파일 선택 시 즉시 재생해 주는 스크립트 (관리자 검증 포함)
-        function loadLocalMedia(input) {
-            if (!isAdminMode) {
-                alert("관리자만 파일을 변경할 수 있습니다.");
-                return;
+        // 📱 모든 접속자 대상 모바일/PC 스마트 오디오 재생 제어
+        document.addEventListener('DOMContentLoaded', function() {
+            const audio = document.getElementById('bgmAudio');
+            if (audio) {
+                let playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        const startPlayOnInteraction = () => {
+                            audio.play();
+                            document.removeEventListener('click', startPlayOnInteraction);
+                            document.removeEventListener('touchstart', startPlayOnInteraction);
+                        };
+                        document.addEventListener('click', startPlayOnInteraction);
+                        document.addEventListener('touchstart', startPlayOnInteraction);
+                    });
+                }
             }
-            const file = input.files[0];
-            if (file) {
-                const videoPlayer = document.getElementById('bgmVideo');
-                const objectUrl = URL.createObjectURL(file);
-                videoPlayer.src = objectUrl;
-                document.getElementById('bgmStatusText').innerText = `🎬 현재 재생 중: ${file.name}`;
-                videoPlayer.play().catch(e => console.log('재생 시작됨'));
-            }
-        }
+        });
 
         let boardGames = [
             { title: "5초준다", players: "3-8", genre: "카드, 순발력, 파티", time: "15분", image: "https://boardm.co.kr/upload/product/1709106093.jpg", link1: "https://www.youtube.com/watch?v=AolIAYTLjH0", link2: "", link3: "https://www.youtube.com/watch?v=wdT6g4Kwz4g" },
@@ -925,7 +916,7 @@
                 `).join('');
 
                 arena.innerHTML = `
-                    <div style="font-size:0.95rem; font-weight:bold; color:var(--primary-color); margin-bottom:12px;">토리님의 성향(${bestTag})에 딱 맞는 아카이브 게임들입니다!</div>
+                    <div style="font-size:0.95rem; font-weight:bold; color:var(--primary-color); margin-bottom:12px;">성향(${bestTag})에 딱 맞는 아카이브 게임들입니다!</div>
                     <div style="max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; margin-bottom: 15px;">${listHtml}</div>
                     <button class="btn primary" onclick="closeBalanceModal()" style="width:100%;">확인 및 닫기</button>
                 `;
@@ -1000,7 +991,7 @@
             let resBox = document.getElementById('smartRecResult');
             resBox.style.display = 'block';
             resBox.innerHTML = `
-                <div style="font-size:0.8rem; color:var(--sub-text); font-weight:bold;">🎉 토리님을 위한 맞춤 추천 게임!</div>
+                <div style="font-size:0.8rem; color:var(--sub-text); font-weight:bold;">🎉 맞춤 추천 게임!</div>
                 <div style="font-size:1.2rem; font-weight:bold; color:var(--primary-color); margin:5px 0; cursor:pointer; text-decoration:underline;" onclick="searchBannerGame('${chosen.title}'); closeSmartRecModal();">${chosen.title}</div>
                 <div style="font-size:0.85rem; color:var(--text-color);">🏷️ 장르: ${chosen.genre} | 👥 인원: ${chosen.players}인 (클릭하면 바로 검색!)</div>
             `;
