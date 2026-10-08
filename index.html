@@ -63,6 +63,14 @@
 
         .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
 
+        /* 채널 소개 게시판 카드 영역 (복구됨!) */
+        .intro-banner {
+            background: white; border-radius: 16px; padding: 25px 30px; margin-bottom: 25px;
+            box-shadow: var(--shadow); border: 1px solid var(--border-color);
+            line-height: 1.6; font-size: 0.95rem; color: #475569;
+        }
+        .intro-banner h3 { margin-top: 0; color: #1e293b; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
+
         .top-banner {
             background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
             border-radius: 16px; padding: 25px 30px; margin-bottom: 30px;
@@ -219,6 +227,12 @@
     </header>
 
     <div class="container">
+        <!-- 채널 및 아카이브 소개 게시판 영역 (복구 완료!) -->
+        <div class="intro-banner">
+            <h3>📢 위드해피 채널 & 아카이브 안내</h3>
+            <p>안녕하세요! 유튜브 채널 <strong>'위드해피'</strong>의 보드게임 아카이브 공식 홈페이지입니다. 보유하고 있는 보드게임과 퍼즐들의 룰 설명, 플레이 영상, 쇼츠를 한눈에 찾아보실 수 있도록 정리하고 있습니다. 게임별 필터와 룰렛, 이상형 월드컵 등 다양한 기능도 함께 즐겨보세요!</p>
+        </div>
+
         <!-- 인기 추천 게임 배너 -->
         <div class="top-banner">
             <div class="top-banner-header">
@@ -289,7 +303,7 @@
 
         <div class="guestbook-section" id="guestbookSection">
             <h2>💌 방문객 소통 방명록</h2>
-            <p style="color: var(--sub-text); font-size: 0.9rem; margin-top: 0;">컴퓨터와 스마트폰에서 남긴 글과 대댓글이 실시간 연동됩니다!</p>
+            <p style="color: var(--sub-text); font-size: 0.9rem; margin-top: 0;">남기신 글은 비밀번호를 통해 수정 및 삭제가 가능합니다!</p>
             
             <div class="guestbook-form">
                 <div class="guestbook-form-row">
@@ -308,7 +322,7 @@
         </div>
     </div>
 
-    <!-- 맞춤형 랜덤 추천 모달 (✨ 새로 추가된 기능!) -->
+    <!-- 맞춤형 랜덤 추천 모달 -->
     <div class="modal" id="smartRecModal">
         <div class="modal-content" style="text-align: left;">
             <h3 style="text-align: center;">✨ 인원수 & 스타일 맞춤 랜덤 추천</h3>
@@ -433,6 +447,25 @@
             <div class="modal-buttons">
                 <button class="btn" onclick="closeAddModal()">취소</button>
                 <button class="btn primary" onclick="addNewGame()">추가하기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 방명록 수정 모달 (복구됨!) -->
+    <div class="modal" id="editGuestbookModal">
+        <div class="modal-content" style="text-align: left;">
+            <h3>방명록 수정/삭제</h3>
+            <input type="hidden" id="editDocId">
+            <label>비밀번호 확인</label>
+            <input type="password" id="editCheckPassword" placeholder="작성 시 입력한 비밀번호">
+            <label>수정할 내용</label>
+            <textarea id="editMessageContent" style="width:100%; min-height:80px; padding:10px; border:1px solid var(--border-color); border-radius:8px; box-sizing:border-box; font-family:inherit;"></textarea>
+            <div style="display:flex; justify-content:space-between; margin-top:15px;">
+                <button class="btn accent" onclick="deleteGuestbookEntry()">삭제하기</button>
+                <div style="display:flex; gap:8px;">
+                    <button class="btn" onclick="closeEditModal()">취소</button>
+                    <button class="btn primary" onclick="updateGuestbookEntry()">수정 완료</button>
+                </div>
             </div>
         </div>
     </div>
@@ -597,7 +630,6 @@
 
         function applyFilters() { renderCards(getCurrentFilteredItems()); }
 
-        // ✨ 맞춤형 랜덤 추천 로직 추가
         function openSmartRecModal() { document.getElementById('smartRecModal').classList.add('active'); document.getElementById('smartRecResult').style.display = 'none'; }
         function closeSmartRecModal() { document.getElementById('smartRecModal').classList.remove('active'); }
 
@@ -605,7 +637,6 @@
             let pVal = document.getElementById('recPlayerCount').value;
             let sVal = document.getElementById('recGameStyle').value;
 
-            // 조건 매칭 필터링
             let candidates = boardGames.filter(game => {
                 let pMatch = true;
                 let numbers = game.players.replace(/\s+/g, '').match(/\d+/g);
@@ -621,11 +652,7 @@
                 return pMatch && sMatch;
             });
 
-            // 조건에 딱 맞는 게 없으면 전체 아카이브에서 랜덤 추첨
-            if (candidates.length === 0) {
-                candidates = boardGames;
-            }
-
+            if (candidates.length === 0) candidates = boardGames;
             let chosen = candidates[Math.floor(Math.random() * candidates.length)];
             let resBox = document.getElementById('smartRecResult');
             resBox.style.display = 'block';
@@ -910,11 +937,15 @@
                 if (posts.length === 0) { listEl.innerHTML = `<div style="text-align:center;color:var(--sub-text);padding:20px;">작성된 방명록이 없습니다.</div>`; return; }
                 listEl.innerHTML = "";
                 posts.forEach(post => {
+                    let escapedMsg = post.message.replace(/'/g, "\\'").replace(/"/g, '&quot;');
                     listEl.innerHTML += `
                         <div class="guestbook-item">
                             <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
                                 <span style="font-weight:bold; color:var(--primary-color);">👤 ${post.author}</span>
-                                <span style="font-size:0.8rem; color:var(--sub-text);">${post.date}</span>
+                                <div style="display:flex; align-items:center; gap:8px;">
+                                    <span style="font-size:0.8rem; color:var(--sub-text);">${post.date}</span>
+                                    <button class="gb-action-btn" onclick="openEditModal('${post.id}', '${escapedMsg}')">수정/삭제</button>
+                                </div>
                             </div>
                             <div>${post.message}</div>
                         </div>`;
@@ -938,6 +969,44 @@
                 document.getElementById("gbMessage").value = "";
                 loadGuestbook(); alert("등록되었습니다!");
             } catch (e) {}
+        }
+
+        function openEditModal(docId, message) {
+            document.getElementById('editDocId').value = docId;
+            document.getElementById('editCheckPassword').value = '';
+            document.getElementById('editMessageContent').value = message;
+            document.getElementById('editGuestbookModal').classList.add('active');
+        }
+        function closeEditModal() { document.getElementById('editGuestbookModal').classList.remove('active'); }
+
+        async function updateGuestbookEntry() {
+            let docId = document.getElementById('editDocId').value;
+            let pwd = document.getElementById('editCheckPassword').value.trim();
+            let newMsg = document.getElementById('editMessageContent').value.trim();
+            if (!pwd) { alert('비밀번호를 입력해주세요.'); return; }
+            try {
+                let docRef = guestbookDb.collection("guestbook").doc(docId);
+                let doc = await docRef.get();
+                if (!doc.exists) { alert('해당 글이 존재하지 않습니다.'); return; }
+                if (doc.data().password !== pwd && pwd !== 'wkdtmdfl87!@') { alert('비밀번호가 틀렸습니다.'); return; }
+                await docRef.update({ message: newMsg });
+                closeEditModal(); loadGuestbook(); alert('수정되었습니다!');
+            } catch (e) { alert('수정 중 오류가 발생했습니다.'); }
+        }
+
+        async function deleteGuestbookEntry() {
+            let docId = document.getElementById('editDocId').value;
+            let pwd = document.getElementById('editCheckPassword').value.trim();
+            if (!pwd) { alert('비밀번호를 입력해주세요.'); return; }
+            if (!confirm('정말 이 방명록을 삭제하시겠습니까?')) return;
+            try {
+                let docRef = guestbookDb.collection("guestbook").doc(docId);
+                let doc = await docRef.get();
+                if (!doc.exists) { alert('해당 글이 존재하지 않습니다.'); return; }
+                if (doc.data().password !== pwd && pwd !== 'wkdtmdfl87!@') { alert('비밀번호가 틀렸습니다.'); return; }
+                await docRef.delete();
+                closeEditModal(); loadGuestbook(); alert('삭제되었습니다!');
+            } catch (e) { alert('삭제 중 오류가 발생했습니다.'); }
         }
 
         renderCards(boardGames);
