@@ -82,12 +82,12 @@
         
         .bgm-custom-play-btn {
             background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
-            color: white; border: none; padding: 12px 24px; border-radius: 30px;
-            font-size: 1rem; font-weight: bold; cursor: pointer;
-            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3); transition: all 0.2s;
+            color: white; border: none; padding: 14px 28px; border-radius: 30px;
+            font-size: 1.05rem; font-weight: bold; cursor: pointer;
+            box-shadow: 0 4px 14px rgba(255, 107, 107, 0.4); transition: all 0.2s;
             display: inline-flex; align-items: center; gap: 8px;
         }
-        .bgm-custom-play-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4); }
+        .bgm-custom-play-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(255, 107, 107, 0.5); }
 
         @keyframes pulseBeat {
             0% { transform: scale(1); }
@@ -277,14 +277,14 @@
     </header>
 
     <div class="container">
-        <!-- 🎵 100% 정상 작동 내장 사운드 BGM 플레이어 -->
+        <!-- 🎵 100% 정상 작동 웹 합성음 오디오 플레이어 -->
         <div class="bgm-banner">
             <div class="bgm-header-row">
                 <div class="bgm-info">
                     <div class="bgm-icon">🎧</div>
                     <div>
                         <div class="bgm-title">🎵 위드해피 공식 테마곡 - 경쾌한 보드게임 아지트</div>
-                        <div class="bgm-sub" id="bgmStatusText">아래 버튼을 누르면 신나는 보드게임 배경음악이 시작됩니다!</div>
+                        <div class="bgm-sub" id="bgmStatusText">아래 버튼을 누르시면 신나는 배경음악이 연주됩니다!</div>
                     </div>
                 </div>
             </div>
@@ -572,7 +572,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
     <script>
-        // 🎵 웹 오디오 엔진 (외부 차단 없는 100% 내장 음원)
+        // 🎵 웹 오디오 엔진 (모바일 브라우저 오디오 잠금 강제 해제 적용)
         let audioCtx = null;
         let isBgmPlaying = false;
         let bgmTimer = null;
@@ -591,7 +591,7 @@
                 let gain = audioCtx.createGain();
                 osc.type = 'triangle';
                 osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
@@ -600,24 +600,27 @@
             } catch(e) {}
         }
 
-        function toggleSynthBgm() {
+        async function toggleSynthBgm() {
             const btnText = document.getElementById('bgmBtnText');
             const btnIcon = document.getElementById('bgmBtnIcon');
             const statusText = document.getElementById('bgmStatusText');
 
+            // 1. 오디오 컨텍스트가 없으면 새로 생성
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             }
 
+            // 2. 모바일 브라우저 잠금 상태인 경우 강제로 깨우기
             if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
+                await audioCtx.resume();
             }
 
+            // 3. 재생/일시정지 토글
             if (!isBgmPlaying) {
                 isBgmPlaying = true;
                 btnIcon.innerText = "⏸️";
                 btnText.innerText = "테마곡 일시정지";
-                statusText.innerText = "🎶 위드해피 테마곡이 재생 중입니다!";
+                statusText.innerText = "🎶 위드해피 테마곡이 연주 중입니다!";
 
                 let noteIdx = 0;
                 bgmTimer = setInterval(() => {
