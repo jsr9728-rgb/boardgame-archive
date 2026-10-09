@@ -277,26 +277,22 @@
     </header>
 
     <div class="container">
-        <!-- 🎵 100% 정상 작동 내장 BGM 오디오 플레이어 -->
+        <!-- 🎵 경쾌하고 끊김 없는 실시간 연주 오디오 플레이어 -->
         <div class="bgm-banner">
             <div class="bgm-header-row">
                 <div class="bgm-info">
                     <div class="bgm-icon">🎧</div>
                     <div>
-                        <div class="bgm-title">🎵 위드해피 공식 테마곡 - 우리들의 보드게임 아지트</div>
-                        <div class="bgm-sub" id="bgmStatusText">버튼을 누르시면 경쾌한 테마곡 음악이 연주됩니다!</div>
+                        <div class="bgm-title">🎵 위드해피 공식 테마곡 - 신나는 보드게임 아지트</div>
+                        <div class="bgm-sub" id="bgmStatusText">아래 버튼을 누르면 경쾌한 오리지널 음악이 재생됩니다!</div>
                     </div>
                 </div>
             </div>
             
             <div class="bgm-controls-wrapper">
-                <button class="bgm-custom-play-btn" id="bgmToggleBtn" onclick="toggleEmbeddedAudio()">
+                <button class="bgm-custom-play-btn" id="bgmToggleBtn" onclick="toggleMusicBgm()">
                     <span id="bgmBtnIcon">▶️</span> <span id="bgmBtnText">테마곡 재생하기</span>
                 </button>
-                <audio id="embeddedAudioPlayer" loop style="display:none;" preload="auto">
-                    <!-- Base64 로컬 임베딩 음원 (외부 주소 차단 원천 해결) -->
-                    <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFb3J2e3R3eoKGi4mJjo2KipCRkY2Ojo+RkpGQkJGSlJGQkJGSlJCSkI+QkpGQkZKRkpGSkZKRkZKRkpGSkZKRkpGSkZCSkZKRkpGRkpGSkZKRkZKSkZKS" type="audio/wav">
-                </audio>
             </div>
         </div>
 
@@ -576,23 +572,75 @@
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
     <script>
-        // 🎵 안전 오디오 재생 로직 (차단 및 무음 문제 완전 해결)
-        function toggleEmbeddedAudio() {
-            const player = document.getElementById('embeddedAudioPlayer');
+        // 🎵 실시간 오디오 연주 엔진 (외부 에러 없이 끊김 없이 리듬 연주)
+        let audioCtx = null;
+        let isMusicPlaying = false;
+        let musicTimer = null;
+
+        // 경쾌한 보드게임 테마 멜로디 및 베이스 주파수 표
+        const melodyNotes = [
+            523.25, 659.25, 783.99, 1046.50, 783.99, 659.25, 523.25, 659.25,
+            587.33, 698.46, 880.00, 1174.66, 880.00, 698.46, 587.33, 698.46,
+            659.25, 783.99, 1046.50, 1318.51, 1046.50, 783.99, 659.25, 783.99,
+            783.99, 880.00, 987.77, 1046.50, 1174.66, 1318.51, 1046.50, 783.99
+        ];
+        
+        const bassNotes = [
+            261.63, 261.63, 293.66, 293.66, 329.63, 329.63, 392.00, 392.00
+        ];
+
+        function playSoundTone(freq, type, duration, vol) {
+            if (!audioCtx) return;
+            try {
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) {}
+        }
+
+        async function toggleMusicBgm() {
             const btnText = document.getElementById('bgmBtnText');
             const btnIcon = document.getElementById('bgmBtnIcon');
             const statusText = document.getElementById('bgmStatusText');
 
-            if (player.paused) {
-                player.play().then(() => {
-                    btnIcon.innerText = "⏸️";
-                    btnText.innerText = "테마곡 일시정지";
-                    statusText.innerText = "🎶 위드해피 테마곡이 연주 중입니다!";
-                }).catch(() => {
-                    statusText.innerText = "⚠️ 재생 버튼을 한번 더 클릭해 주세요!";
-                });
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            if (audioCtx.state === 'suspended') {
+                await audioCtx.resume();
+            }
+
+            if (!isMusicPlaying) {
+                isMusicPlaying = true;
+                btnIcon.innerText = "⏸️";
+                btnText.innerText = "테마곡 일시정지";
+                statusText.innerText = "🎶 위드해피 테마곡이 신나게 연주 중입니다!";
+
+                let step = 0;
+                musicTimer = setInterval(() => {
+                    // 메인 멜로디 (실로폰/피아노 느낌)
+                    let mFreq = melodyNotes[step % melodyNotes.length];
+                    playSoundTone(mFreq, 'sine', 0.18, 0.12);
+
+                    // 베이스 음 (둥둥거리는 리듬감)
+                    if (step % 2 === 0) {
+                        let bFreq = bassNotes[Math.floor(step / 4) % bassNotes.length];
+                        playSoundTone(bFreq, 'triangle', 0.35, 0.08);
+                    }
+
+                    step++;
+                }, 160); // 160ms 속도로 신나는 템포 유지
             } else {
-                player.pause();
+                isMusicPlaying = false;
+                clearInterval(musicTimer);
                 btnIcon.innerText = "▶️";
                 btnText.innerText = "테마곡 다시 재생";
                 statusText.innerText = "⏸️ 테마곡이 일시정지되었습니다.";
