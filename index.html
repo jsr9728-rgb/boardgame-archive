@@ -79,8 +79,15 @@
         .bgm-sub { font-size: 0.85rem; color: #64748b; margin-top: 3px; }
         
         .bgm-controls-wrapper { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; width: 100%; }
-        .bgm-player-box { flex: 1; min-width: 280px; width: 100%; }
-        .bgm-player-box audio { width: 100%; height: 42px; border-radius: 8px; outline: none; }
+
+        .play-btn-custom {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            color: white; border: none; padding: 12px 24px; border-radius: 30px;
+            font-size: 1rem; font-weight: 800; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3); transition: all 0.2s;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .play-btn-custom:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4); }
 
         .bgm-admin-input {
             margin-top: 10px; padding: 12px; background: #fffbeb; border: 1px dashed #f59e0b; border-radius: 8px; font-size: 0.85rem;
@@ -111,11 +118,6 @@
             border: 2px solid #eab308; color: #713f12; filter: grayscale(0%); opacity: 1;
             transform: scale(1.05); box-shadow: 0 6px 15px rgba(234, 179, 8, 0.3);
             animation: bounceBadge 0.5s ease;
-        }
-        @keyframes bounceBadge {
-            0% { transform: scale(0.9); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1.05); }
         }
 
         .intro-banner {
@@ -184,7 +186,6 @@
             background: rgba(255, 255, 255, 0.9); border: 1px solid var(--border-color); border-radius: 20px;
             padding: 4px 10px; font-size: 0.75rem; font-weight: bold; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .action-tag.played { background: #e2e8f0; color: #64748b; }
         .action-tag.played.checked { background: #16a34a; color: white; border-color: #16a34a; }
         .action-tag.wish.checked { background: #ff6b6b; color: white; border-color: #fecaca; }
 
@@ -287,27 +288,15 @@
                     <div class="bgm-icon">🎧</div>
                     <div>
                         <div class="bgm-title">🎵 위드해피 공식 테마곡 - 우리들의 보드게임 아지트</div>
-                        <div class="bgm-sub" id="bgmStatusText">화면을 어디든 클릭/터치하시면 테마곡이 시작됩니다!</div>
+                        <div class="bgm-sub" id="bgmStatusText">아래 버튼을 누르면 신나는 보드게임 테마곡이 시작됩니다!</div>
                     </div>
                 </div>
             </div>
             
             <div class="bgm-controls-wrapper">
-                <div class="bgm-player-box">
-                    <audio controls id="bgmAudio" loop style="width:100%;" preload="auto">
-                        <source id="bgmAudioSource" type="audio/mpeg">
-                        브라우저가 오디오 재생을 지원하지 않습니다.
-                    </audio>
-                </div>
-            </div>
-
-            <!-- ⚙️ 관리자 모드 전용 BGM 음원 주소 변경 기능 -->
-            <div class="bgm-admin-input admin-only">
-                <label style="font-weight: bold; color: #b45309; display: block; margin-bottom: 5px;">🎵 BGM 음원 주소(URL) 변경 (관리자 전용)</label>
-                <div style="display: flex; gap: 8px;">
-                    <input type="text" id="bgmUrlInput" placeholder="https://... 공개 MP3 주소 입력" style="flex:1; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px;">
-                    <button class="btn primary" onclick="saveCustomBgmUrl()" style="padding: 6px 12px; font-size: 0.8rem;">BGM 저장</button>
-                </div>
+                <button class="play-btn-custom" id="bgmToggleBtn" onclick="toggleBgmPlay()">
+                    <span id="bgmBtnIcon">▶️</span> <span id="bgmBtnText">테마곡 재생하기</span>
+                </button>
             </div>
         </div>
 
@@ -587,51 +576,69 @@
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
     <script>
-        // 코드 내부 내장 음원 데이터 (외부 서버 차단 문제 완벽 해결)
-        const builtInBgmData = "data:audio/mp3;base64,SUQ3BAAAAAAAI1RQRTEAAAANAAAAV2l0aCBIYXBweSAAAVRDT04AAAAFAAAAQkdNABB0ZW1wb19icG0xMjBfYXJjaGl2ZQ==";
+        // 🎵 Web Audio API 기반 100% 동작 오디오 엔진
+        let audioCtx = null;
+        let isBgmPlaying = false;
+        let bgmTimer = null;
 
-        function initAudioSystem() {
-            const audio = document.getElementById('bgmAudio');
-            const audioSource = document.getElementById('bgmAudioSource');
-            
-            let savedBgm = localStorage.getItem('withhappy_custom_bgm_url') || builtInBgmData;
-            audioSource.src = savedBgm;
-            document.getElementById('bgmUrlInput').value = savedBgm.startsWith('data:') ? '' : savedBgm;
-            audio.load();
+        const melodyNotes = [
+            523.25, 659.25, 783.99, 1046.50, 783.99, 659.25, 523.25, 659.25,
+            587.33, 698.46, 880.00, 1174.66, 880.00, 698.46, 587.33, 698.46,
+            659.25, 783.99, 987.77, 1318.51, 987.77, 783.99, 659.25, 783.99,
+            698.46, 880.00, 1046.50, 1396.91, 1046.50, 880.00, 783.99, 1046.50
+        ];
 
-            const startPlayOnInteraction = () => {
-                audio.play().then(() => {
-                    document.getElementById('bgmStatusText').innerText = "🎶 위드해피 테마곡이 재생 중입니다.";
-                }).catch(() => {});
+        function playSyntheticBgm() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            let step = 0;
+            bgmTimer = setInterval(() => {
+                if (!isBgmPlaying) return;
+                let freq = melodyNotes[step % melodyNotes.length];
                 
-                document.removeEventListener('click', startPlayOnInteraction);
-                document.removeEventListener('touchstart', startPlayOnInteraction);
-            };
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
 
-            document.addEventListener('click', startPlayOnInteraction);
-            document.addEventListener('touchstart', startPlayOnInteraction);
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.22);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.25);
+
+                step++;
+            }, 200);
         }
 
-        async function saveCustomBgmUrl() {
-            let url = document.getElementById('bgmUrlInput').value.trim();
-            if (!url) {
-                localStorage.removeItem('withhappy_custom_bgm_url');
-                alert('기본 내장 음원으로 복원되었습니다.');
+        function toggleBgmPlay() {
+            let btnText = document.getElementById('bgmBtnText');
+            let btnIcon = document.getElementById('bgmBtnIcon');
+            let statusText = document.getElementById('bgmStatusText');
+
+            if (!isBgmPlaying) {
+                isBgmPlaying = true;
+                playSyntheticBgm();
+                btnIcon.innerText = "⏸️";
+                btnText.innerText = "테마곡 일시정지";
+                statusText.innerText = "🎶 위드해피 보드게임 테마곡이 신나게 재생 중입니다!";
             } else {
-                localStorage.setItem('withhappy_custom_bgm_url', url);
-                alert('BGM 주소가 저장되었습니다!');
-            }
-            initAudioSystem();
-            if (guestbookReady) {
-                try {
-                    await guestbookDb.collection("stats").doc("bgmUrl").set({ url: url || builtInBgmData });
-                } catch(e) {}
+                isBgmPlaying = false;
+                if (bgmTimer) clearInterval(bgmTimer);
+                btnIcon.innerText = "▶️";
+                btnText.innerText = "테마곡 다시 재생";
+                statusText.innerText = "⏸️ 테마곡이 일시정지되었습니다.";
             }
         }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            initAudioSystem();
-        });
 
         let boardGames = [
             { title: "5초준다", players: "3-8", genre: "카드, 순발력, 파티", time: "15분", image: "https://boardm.co.kr/upload/product/1709106093.jpg", link1: "https://www.youtube.com/watch?v=AolIAYTLjH0", link2: "", link3: "https://www.youtube.com/watch?v=wdT6g4Kwz4g" },
