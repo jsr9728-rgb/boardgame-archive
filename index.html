@@ -281,14 +281,14 @@
     </header>
 
     <div class="container">
-        <!-- 🎵 위드해피 스마트 BGM 오디오 플레이어 (고정 디자인 적용) -->
+        <!-- 🎵 위드해피 안정적 BGM 오디오 플레이어 -->
         <div class="bgm-banner">
             <div class="bgm-header-row">
                 <div class="bgm-info">
                     <div class="bgm-icon">🎧</div>
                     <div>
                         <div class="bgm-title">🎵 위드해피 공식 테마곡 - 우리들의 보드게임 아지트</div>
-                        <div class="bgm-sub" id="bgmStatusText">아래 버튼을 누르시면 공식 MP3 테마곡이 연결되어 시작됩니다!</div>
+                        <div class="bgm-sub" id="bgmStatusText">버튼을 누르시면 경쾌한 테마곡이 시작됩니다!</div>
                     </div>
                 </div>
             </div>
@@ -297,8 +297,8 @@
                 <button class="bgm-custom-play-btn" id="bgmToggleBtn" onclick="toggleBgmPlay()">
                     <span id="bgmBtnIcon">▶️</span> <span id="bgmBtnText">테마곡 재생하기</span>
                 </button>
-                <audio id="bgmAudio" loop style="display:none;" preload="auto" crossorigin="anonymous">
-                    <source id="bgmAudioSource" src="https://stream.zeno.fm/f3wvbb1018quv" type="audio/mpeg">
+                <audio id="bgmAudio" loop style="display:none;" preload="auto">
+                    <source id="bgmAudioSource" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
                 </audio>
             </div>
 
@@ -306,7 +306,7 @@
             <div class="bgm-admin-input admin-only">
                 <label style="font-weight: bold; color: #b45309; display: block; margin-bottom: 5px;">🎵 BGM 음원 주소(URL) 변경 (관리자 전용)</label>
                 <div style="display: flex; gap: 8px;">
-                    <input type="text" id="bgmUrlInput" value="https://stream.zeno.fm/f3wvbb1018quv" placeholder="https://... 공개 MP3 주소 입력" style="flex:1; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                    <input type="text" id="bgmUrlInput" value="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" placeholder="https://... 공개 MP3 주소 입력" style="flex:1; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px;">
                     <button class="btn primary" onclick="saveCustomBgmUrl()" style="padding: 6px 12px; font-size: 0.8rem;">BGM 저장</button>
                 </div>
             </div>
@@ -588,7 +588,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
     <script>
-        const defaultBgmUrl = "https://stream.zeno.fm/f3wvbb1018quv";
+        const defaultBgmUrl = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3";
 
         function initAudioSystem() {
             const audio = document.getElementById('bgmAudio');
@@ -611,8 +611,8 @@
                     btnIcon.innerText = "⏸️";
                     btnText.innerText = "테마곡 일시정지";
                     statusText.innerText = "🎶 위드해피 테마곡이 재생 중입니다!";
-                }).catch(() => {
-                    alert('음악 재생 연결 실패! 음원 주소를 확인해 주세요.');
+                }).catch((err) => {
+                    statusText.innerText = "⚠️ 다시 재생 버튼을 눌러주세요!";
                 });
             } else {
                 audio.pause();
