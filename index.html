@@ -298,7 +298,7 @@
             <div class="bgm-controls-wrapper">
                 <div class="bgm-player-box">
                     <audio controls id="bgmAudio" loop style="width:100%;" preload="auto">
-                        <source id="bgmAudioSource" src="https://file.notion.so/f/f/withhappy-theme.mp3" type="audio/mpeg">
+                        <source id="bgmAudioSource" src="https://raw.githubusercontent.com/withhappy-theme/bgm/main/theme.mp3" type="audio/mpeg">
                         브라우저가 오디오 재생을 지원하지 않습니다.
                     </audio>
                 </div>
@@ -308,7 +308,7 @@
             <div class="bgm-admin-input admin-only">
                 <label style="font-weight: bold; color: #b45309; display: block; margin-bottom: 5px;">🎵 BGM 음원 주소(URL) 변경 (관리자 전용)</label>
                 <div style="display: flex; gap: 8px;">
-                    <input type="text" id="bgmUrlInput" value="https://file.notion.so/f/f/withhappy-theme.mp3" placeholder="https://... 공개 MP3 주소 입력" style="flex:1; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                    <input type="text" id="bgmUrlInput" value="https://raw.githubusercontent.com/withhappy-theme/bgm/main/theme.mp3" placeholder="https://... 공개 MP3 주소 입력" style="flex:1; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px;">
                     <button class="btn primary" onclick="saveCustomBgmUrl()" style="padding: 6px 12px; font-size: 0.8rem;">BGM 저장</button>
                 </div>
             </div>
@@ -590,7 +590,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
     <script>
-        const defaultBgmUrl = "https://file.notion.so/f/f/withhappy-theme.mp3";
+        const defaultBgmUrl = "https://raw.githubusercontent.com/withhappy-theme/bgm/main/theme.mp3";
 
         function initAudioSystem() {
             const audio = document.getElementById('bgmAudio');
