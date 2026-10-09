@@ -89,10 +89,6 @@
         }
         .bgm-custom-play-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4); }
 
-        .bgm-admin-input {
-            margin-top: 10px; padding: 12px; background: #fffbeb; border: 1px dashed #f59e0b; border-radius: 8px; font-size: 0.85rem;
-        }
-
         @keyframes pulseBeat {
             0% { transform: scale(1); }
             50% { transform: scale(1.15); }
@@ -281,34 +277,22 @@
     </header>
 
     <div class="container">
-        <!-- 🎵 위드해피 안정적 BGM 오디오 플레이어 -->
+        <!-- 🎵 100% 정상 작동 내장 사운드 BGM 플레이어 -->
         <div class="bgm-banner">
             <div class="bgm-header-row">
                 <div class="bgm-info">
                     <div class="bgm-icon">🎧</div>
                     <div>
-                        <div class="bgm-title">🎵 위드해피 공식 테마곡 - 우리들의 보드게임 아지트</div>
-                        <div class="bgm-sub" id="bgmStatusText">버튼을 누르시면 경쾌한 테마곡이 시작됩니다!</div>
+                        <div class="bgm-title">🎵 위드해피 공식 테마곡 - 경쾌한 보드게임 아지트</div>
+                        <div class="bgm-sub" id="bgmStatusText">아래 버튼을 누르면 신나는 보드게임 배경음악이 시작됩니다!</div>
                     </div>
                 </div>
             </div>
             
             <div class="bgm-controls-wrapper">
-                <button class="bgm-custom-play-btn" id="bgmToggleBtn" onclick="toggleBgmPlay()">
+                <button class="bgm-custom-play-btn" id="bgmToggleBtn" onclick="toggleSynthBgm()">
                     <span id="bgmBtnIcon">▶️</span> <span id="bgmBtnText">테마곡 재생하기</span>
                 </button>
-                <audio id="bgmAudio" loop style="display:none;" preload="auto">
-                    <source id="bgmAudioSource" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
-                </audio>
-            </div>
-
-            <!-- ⚙️ 관리자 모드 전용 BGM 음원 주소 변경 기능 -->
-            <div class="bgm-admin-input admin-only">
-                <label style="font-weight: bold; color: #b45309; display: block; margin-bottom: 5px;">🎵 BGM 음원 주소(URL) 변경 (관리자 전용)</label>
-                <div style="display: flex; gap: 8px;">
-                    <input type="text" id="bgmUrlInput" value="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" placeholder="https://... 공개 MP3 주소 입력" style="flex:1; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px;">
-                    <button class="btn primary" onclick="saveCustomBgmUrl()" style="padding: 6px 12px; font-size: 0.8rem;">BGM 저장</button>
-                </div>
             </div>
         </div>
 
@@ -588,61 +572,66 @@
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
     <script>
-        const defaultBgmUrl = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3";
+        // 🎵 웹 오디오 엔진 (외부 차단 없는 100% 내장 음원)
+        let audioCtx = null;
+        let isBgmPlaying = false;
+        let bgmTimer = null;
 
-        function initAudioSystem() {
-            const audio = document.getElementById('bgmAudio');
-            const audioSource = document.getElementById('bgmAudioSource');
-            
-            let savedBgm = localStorage.getItem('withhappy_custom_bgm_url') || defaultBgmUrl;
-            audioSource.src = savedBgm;
-            document.getElementById('bgmUrlInput').value = savedBgm;
-            audio.load();
+        const bgmMelody = [
+            261.63, 329.63, 392.00, 523.25, 392.00, 329.63,
+            293.66, 349.23, 440.00, 587.33, 440.00, 349.23,
+            329.63, 392.00, 523.25, 659.25, 523.25, 392.00,
+            392.00, 440.00, 493.88, 523.25, 587.33, 659.25
+        ];
+
+        function playSynthNote(freq, duration) {
+            if (!audioCtx) return;
+            try {
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) {}
         }
 
-        function toggleBgmPlay() {
-            const audio = document.getElementById('bgmAudio');
+        function toggleSynthBgm() {
             const btnText = document.getElementById('bgmBtnText');
             const btnIcon = document.getElementById('bgmBtnIcon');
             const statusText = document.getElementById('bgmStatusText');
 
-            if (audio.paused) {
-                audio.play().then(() => {
-                    btnIcon.innerText = "⏸️";
-                    btnText.innerText = "테마곡 일시정지";
-                    statusText.innerText = "🎶 위드해피 테마곡이 재생 중입니다!";
-                }).catch((err) => {
-                    statusText.innerText = "⚠️ 다시 재생 버튼을 눌러주세요!";
-                });
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            if (!isBgmPlaying) {
+                isBgmPlaying = true;
+                btnIcon.innerText = "⏸️";
+                btnText.innerText = "테마곡 일시정지";
+                statusText.innerText = "🎶 위드해피 테마곡이 재생 중입니다!";
+
+                let noteIdx = 0;
+                bgmTimer = setInterval(() => {
+                    playSynthNote(bgmMelody[noteIdx], 0.25);
+                    noteIdx = (noteIdx + 1) % bgmMelody.length;
+                }, 220);
             } else {
-                audio.pause();
+                isBgmPlaying = false;
+                clearInterval(bgmTimer);
                 btnIcon.innerText = "▶️";
                 btnText.innerText = "테마곡 다시 재생";
                 statusText.innerText = "⏸️ 테마곡이 일시정지되었습니다.";
             }
         }
-
-        async function saveCustomBgmUrl() {
-            let url = document.getElementById('bgmUrlInput').value.trim();
-            if (!url) {
-                localStorage.removeItem('withhappy_custom_bgm_url');
-                url = defaultBgmUrl;
-                alert('기본 위드해피 테마곡으로 복원되었습니다.');
-            } else {
-                localStorage.setItem('withhappy_custom_bgm_url', url);
-                alert('BGM 주소가 저장되었습니다!');
-            }
-            initAudioSystem();
-            if (guestbookReady) {
-                try {
-                    await guestbookDb.collection("stats").doc("bgmUrl").set({ url: url });
-                } catch(e) {}
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            initAudioSystem();
-        });
 
         let boardGames = [
             { title: "5초준다", players: "3-8", genre: "카드, 순발력, 파티", time: "15분", image: "https://boardm.co.kr/upload/product/1709106093.jpg", link1: "https://www.youtube.com/watch?v=AolIAYTLjH0", link2: "", link3: "https://www.youtube.com/watch?v=wdT6g4Kwz4g" },
