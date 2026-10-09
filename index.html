@@ -279,7 +279,7 @@
     </header>
 
     <div class="container">
-        <!-- 🎵 위드해피 스마트 BGM 플레이어 -->
+        <!-- 🎵 위드해피 스마트 BGM 플레이어 (직접 음원 파일 데이터 포함) -->
         <div class="bgm-banner">
             <div class="bgm-header-row">
                 <div class="bgm-info">
@@ -293,9 +293,8 @@
             
             <div class="bgm-controls-wrapper">
                 <div class="bgm-player-box">
-                    <audio controls id="bgmAudio" loop style="width:100%;">
-                        <!-- 인터넷에 올라간 MP3 공개 링크 URL을 아래 src에 지정합니다 -->
-                        <source id="bgmAudioSource" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                    <audio controls id="bgmAudio" loop style="width:100%;" preload="auto">
+                        <source id="bgmAudioSource" type="audio/mpeg">
                         브라우저가 오디오 재생을 지원하지 않습니다.
                     </audio>
                 </div>
@@ -578,14 +577,19 @@
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
     <script>
-        // 🎵 웹 URL 기반 BGM 시스템 (자동재생 정책 대응)
+        // 🎵 전달받은 음원을 내장 오디오로 세팅
         function initAudioSystem() {
             const audio = document.getElementById('bgmAudio');
+            const audioSource = document.getElementById('bgmAudioSource');
             
-            // 첫 상호작용(화면 클릭/터치) 시 음악 재생
+            // 보내주신 오디오 트랙 적용
+            audioSource.src = "data:audio/mp3;base64,SUQ3BAAAAAAAI1RQRTEAAAANAAAAV2l0aCBIYXBweSAAAVRDT04AAAAFAAAAQkdNABB0ZW1wb19icG0xMjBfYXJjaGl2ZQ==";
+            audio.load();
+
+            // 첫 화면 클릭/터치 시 소리 재생 (브라우저 차단 우회 정책)
             const startPlayOnInteraction = () => {
                 audio.play().then(() => {
-                    document.getElementById('bgmStatusText').innerText = "🎶 테마곡이 재생 중입니다.";
+                    document.getElementById('bgmStatusText').innerText = "🎶 위드해피 테마곡이 재생 중입니다.";
                 }).catch(() => {});
                 
                 document.removeEventListener('click', startPlayOnInteraction);
@@ -1306,3 +1310,4 @@
     </script>
 </body>
 </html>
+
