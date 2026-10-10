@@ -185,6 +185,7 @@
         .action-tag.played.checked { background: #16a34a; color: white; border-color: #16a34a; }
         .action-tag.wish.checked { background: #ff6b6b; color: white; border-color: #fecaca; }
 
+        /* 이미지 세로 크기 제어 및 캐싱 처리 */
         .box-image-container {
             width: 100%; height: 190px; background: #ffffff; display: flex; align-items: center; justify-content: center;
             overflow: hidden; border-bottom: 1px solid var(--border-color); position: relative; padding: 10px; box-sizing: border-box;
@@ -246,6 +247,24 @@
         .guestbook-item { background: #fdfdfd; border: 1px solid var(--border-color); padding: 15px 20px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
         .gb-action-btn { background: #e2e8f0; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; font-weight: bold; color: #475569; }
         .gb-action-btn.del { background: #fee2e2; color: #dc2626; }
+        
+        /* 💬 관리자 답글 디자인 최적화 */
+        .admin-reply-box {
+            margin-top: 12px;
+            padding: 12px 15px;
+            background-color: #f1f5f9;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        .admin-reply-header {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
     </style>
 </head>
 <body>
@@ -293,12 +312,8 @@
                 <button class="bgm-custom-play-btn" id="bgmToggleBtn" onclick="toggleWithHappySong()">
                     <span id="bgmBtnIcon">▶️</span> <span id="bgmBtnText">로고송 재생하기</span>
                 </button>
-                <!-- 🎵 올려주신 MP3 링크가 성공적으로 연결되었습니다! -->
                 <audio id="withHappySongPlayer" loop preload="auto">
-                <source src="gemini_music.mp3" type="audio/mpeg">
-
-
-
+                    <source src="gemini_music.mp3" type="audio/mpeg">
                 </audio>
             </div>
         </div>
@@ -576,6 +591,20 @@
         </div>
     </div>
 
+    <!-- 💬 관리자 답글 전용 모달 -->
+    <div class="modal" id="adminReplyModal">
+        <div class="modal-content" style="text-align: left;">
+            <h3>💬 방명록 관리자 답글 달기</h3>
+            <input type="hidden" id="replyDocId">
+            <label>관리자 답변 작성</label>
+            <textarea id="replyMessageContent" style="width:100%; min-height:100px; padding:10px; border:1px solid var(--border-color); border-radius:8px; box-sizing:border-box; font-family:inherit;" placeholder="방문자에게 남길 따뜻한 답글을 입력해주세요..."></textarea>
+            <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:15px;">
+                <button class="btn" onclick="closeReplyModal()">취소</button>
+                <button class="btn primary" onclick="saveAdminReply()">답글 저장하기</button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
     <script>
@@ -793,6 +822,7 @@
 
         function applyFilters() { renderCards(getCurrentFilteredItems()); }
 
+        /* 이미지 용량 초과 방지 및 로딩 최적화 렌더링 */
         function renderCards(items) {
             const grid = document.getElementById('cardGrid');
             document.getElementById('totalCount').innerText = `검색된 보드게임: ${items.length}개`;
@@ -809,7 +839,11 @@
                 let playedClass = record.played ? 'checked' : '';
                 let wishClass = record.wish ? 'checked' : '';
 
-                let imageHTML = game.image ? `<img src="${game.image}" alt="${game.title}" loading="lazy">` : `<div class="placeholder-box"><span>🎲</span><span>${game.title}</span></div>`;
+                // 이미지 에러 시 깨짐을 막고 깔끔한 플레이스홀더로 대체
+                let imageHTML = game.image 
+                    ? `<img src="${game.image}" alt="${game.title}" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'placeholder-box\\'><span>🎲</span><span>${game.title}</span></div>';">` 
+                    : `<div class="placeholder-box"><span>🎲</span><span>${game.title}</span></div>`;
+                
                 let linksHTML = '';
                 if (game.link1) linksHTML += `<a href="${game.link1}" target="_blank" class="card-link intro">🎬 게임 소개</a>`;
                 if (game.link2) linksHTML += `<a href="${game.link2}" target="_blank" class="card-link play">🎮 게임 영상</a>`;
@@ -1212,6 +1246,7 @@
             } catch (e) {}
         }
 
+        /* 💬 관리자 답글 기능 포함 방명록 로딩 함수 */
         async function loadGuestbook() {
             let listEl = document.getElementById("guestbookList");
             if (!guestbookReady) { listEl.innerHTML = `<div style="text-align:center;color:#dc2626;padding:20px;">Firebase 연결 대기중</div>`; return; }
@@ -1224,15 +1259,30 @@
                     let escapedMsg = post.message.replace(/'/g, "\\'").replace(/"/g, '&quot;');
                     let itemEl = document.createElement('div');
                     itemEl.className = 'guestbook-item';
+                    
+                    let replyHTML = '';
+                    if (post.adminReply) {
+                        replyHTML = `
+                            <div class="admin-reply-box">
+                                <div class="admin-reply-header">💬 관리자(위드해피) 답글</div>
+                                <div>${post.adminReply}</div>
+                            </div>
+                        `;
+                    }
+
+                    let adminBtn = isAdminMode ? `<button class="gb-action-btn" style="background:#3b82f6; color:white;" onclick="openAdminReplyModal('${post.id}', '${post.adminReply ? post.adminReply.replace(/'/g, "\\'").replace(/"/g, '&quot;') : ''}')">💬 답글 달기</button>` : '';
+
                     itemEl.innerHTML = `
                         <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
                             <span style="font-weight:bold; color:var(--primary-color);">👤 ${post.author}</span>
                             <div style="display:flex; align-items:center; gap:8px;">
                                 <span style="font-size:0.8rem; color:var(--sub-text);">${post.date}</span>
+                                ${adminBtn}
                                 <button class="gb-action-btn" onclick="openEditModal('${post.id}', '${escapedMsg}')">수정/삭제</button>
                             </div>
                         </div>
                         <div>${post.message}</div>
+                        ${replyHTML}
                     `;
                     fragment.appendChild(itemEl);
                 });
@@ -1260,6 +1310,30 @@
                 checkBadges();
                 alert("등록되었습니다!");
             } catch (e) {}
+        }
+
+        /* 💬 관리자 답글 처리 스크립트 */
+        function openAdminReplyModal(docId, currentReply) {
+            document.getElementById('replyDocId').value = docId;
+            document.getElementById('replyMessageContent').value = currentReply || '';
+            document.getElementById('adminReplyModal').classList.add('active');
+        }
+        function closeReplyModal() {
+            document.getElementById('adminReplyModal').classList.remove('active');
+        }
+        async function saveAdminReply() {
+            let docId = document.getElementById('replyDocId').value;
+            let replyMsg = document.getElementById('replyMessageContent').value.trim();
+            try {
+                await guestbookDb.collection("guestbook").doc(docId).update({
+                    adminReply: replyMsg
+                });
+                closeReplyModal();
+                loadGuestbook();
+                alert('답글이 등록되었습니다!');
+            } catch (e) {
+                alert('답글 등록 중 오류가 발생했습니다.');
+            }
         }
 
         function openEditModal(docId, message) {
