@@ -237,6 +237,7 @@
         .tool-tab-btn { padding: 6px 14px; font-weight: bold; border: none; background: #e2e8f0; border-radius: 6px; cursor: pointer; }
         .tool-tab-btn.active { background: #1e293b; color: white; }
 
+        /* 방명록 스타일 */
         .guestbook-section { margin-top: 60px; background: white; border-radius: 16px; padding: 30px; box-shadow: var(--shadow); border: 1px solid var(--border-color); }
         .guestbook-form { display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px; background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); }
         .guestbook-form-row { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -244,13 +245,21 @@
         .guestbook-form input { flex: 1; min-width: 140px; }
         .guestbook-form textarea { resize: vertical; min-height: 80px; width: 100%; box-sizing: border-box; }
         .guestbook-item { background: #fdfdfd; border: 1px solid var(--border-color); padding: 15px 20px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .gb-action-btn { background: #e2e8f0; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; font-weight: bold; color: #475569; }
+        
+        .gb-action-btn { background: #e2e8f0; border: none; padding: 5px 10px; border-radius: 6px; font-size: 0.78rem; cursor: pointer; font-weight: bold; color: #475569; transition: all 0.2s; }
+        .gb-action-btn:hover { background: #cbd5e1; }
         .gb-action-btn.del { background: #fee2e2; color: #dc2626; }
+        .gb-action-btn.del:hover { background: #fca5a5; }
         .gb-action-btn.reply { background: #e0f2fe; color: #0284c7; }
+        .gb-action-btn.reply:hover { background: #bae6fd; }
 
-        .reply-list { margin-top: 12px; padding-left: 20px; border-left: 3px solid #cbd5e1; display: flex; flex-direction: column; gap: 10px; }
-        .reply-item { background: #f1f5f9; padding: 10px 14px; border-radius: 8px; font-size: 0.9rem; }
-        .reply-form-container { margin-top: 10px; padding: 12px; background: #f1f5f9; border-radius: 8px; display: none; }
+        .reply-list { margin-top: 12px; padding-left: 15px; border-left: 3px solid #cbd5e1; display: flex; flex-direction: column; gap: 10px; }
+        .reply-item { background: #f1f5f9; padding: 12px 14px; border-radius: 8px; font-size: 0.9rem; }
+        .reply-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .reply-author-info { display: flex; align-items: center; gap: 8px; font-weight: bold; color: var(--primary-color); }
+        .reply-time-btn { display: flex; align-items: center; gap: 6px; }
+
+        .reply-form-container { margin-top: 10px; padding: 12px; background: #e2e8f0; border-radius: 8px; display: none; }
         .reply-form-container.active { display: flex; flex-direction: column; gap: 8px; }
     </style>
 </head>
@@ -409,7 +418,7 @@
             <div class="guestbook-form">
                 <div class="guestbook-form-row">
                     <input type="text" id="gbAuthor" placeholder="닉네임 (예: 위드해피)">
-                    <input type="password" id="gbPassword" placeholder="비밀번호 (수정/삭제용)" style="max-width: 180px;">
+                    <input type="password" id="gbPassword" placeholder="비밀번호 (본인 확인 및 보호용)" style="max-width: 180px;">
                 </div>
                 <textarea id="gbMessage" placeholder="따뜻한 응원이나 소통의 글을 남겨주세요..."></textarea>
                 <div style="text-align: right;">
@@ -563,17 +572,34 @@
         </div>
     </div>
 
-    <!-- 방명록 수정 모달 -->
+    <!-- 방명록 본문 수정/삭제 모달 (본인 비밀번호 또는 관리자 권한 필수) -->
     <div class="modal" id="editGuestbookModal">
         <div class="modal-content" style="text-align: left;">
-            <h3>방명록 수정/삭제</h3>
+            <h3>🔒 방명록 본문 수정/삭제</h3>
+            <p style="font-size:0.8rem; color:var(--sub-text); margin-top:-10px;">작성 시 설정한 비밀번호 또는 관리자 비밀번호를 입력해 주세요.</p>
             <input type="hidden" id="editDocId">
-            <label>비밀번호 확인</label><input type="password" id="editCheckPassword" placeholder="작성 시 입력한 비밀번호">
+            <label>비밀번호 입력</label><input type="password" id="editCheckPassword" placeholder="비밀번호 입력">
             <label>수정할 내용</label>
             <textarea id="editMessageContent" style="width:100%; min-height:80px; padding:10px; border:1px solid var(--border-color); border-radius:8px; box-sizing:border-box; font-family:inherit;"></textarea>
             <div style="display:flex; justify-content:space-between; margin-top:15px;">
                 <button class="btn accent" onclick="deleteGuestbookEntry()">삭제하기</button>
                 <div style="display:flex; gap:8px;"><button class="btn" onclick="closeEditModal()">취소</button><button class="btn primary" onclick="updateGuestbookEntry()">수정 완료</button></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 답글(대댓글) 수정/삭제 모달 (비밀번호 없이 누구나 자유롭게 수정/삭제 가능) -->
+    <div class="modal" id="editReplyModal">
+        <div class="modal-content" style="text-align: left;">
+            <h3>💬 답글 수정/삭제</h3>
+            <p style="font-size:0.8rem; color:var(--sub-text); margin-top:-10px;">누구나 오타를 자유롭게 수정하거나 삭제할 수 있습니다.</p>
+            <input type="hidden" id="replyDocId">
+            <input type="hidden" id="replyIndex">
+            <label>수정할 답글 내용</label>
+            <textarea id="replyMessageContent" style="width:100%; min-height:80px; padding:10px; border:1px solid var(--border-color); border-radius:8px; box-sizing:border-box; font-family:inherit;"></textarea>
+            <div style="display:flex; justify-content:space-between; margin-top:15px;">
+                <button class="btn accent" onclick="deleteReplyEntry()">삭제하기</button>
+                <div style="display:flex; gap:8px;"><button class="btn" onclick="closeReplyModal()">취소</button><button class="btn primary" onclick="updateReplyEntry()">수정 완료</button></div>
             </div>
         </div>
     </div>
@@ -795,7 +821,6 @@
 
         function applyFilters() { renderCards(getCurrentFilteredItems()); }
 
-        /* 이미지 용량 초과 방지 및 로딩 최적화 렌더링 */
         function renderCards(items) {
             const grid = document.getElementById('cardGrid');
             document.getElementById('totalCount').innerText = `검색된 보드게임: ${items.length}개`;
@@ -1218,7 +1243,15 @@
             } catch (e) {}
         }
 
-        /* 💬 누구나 답글 등록이 가능한 방명록 불러오기 */
+        function escapeQuotes(str) {
+            if (!str) return '';
+            return str.replace(/\\/g, '\\\\')
+                      .replace(/'/g, "\\'")
+                      .replace(/"/g, '&quot;')
+                      .replace(/\r?\n/g, '\\n');
+        }
+
+        /* 💬 방명록 및 답글 불러오기 */
         async function loadGuestbook() {
             let listEl = document.getElementById("guestbookList");
             if (!guestbookReady) { listEl.innerHTML = `<div style="text-align:center;color:#dc2626;padding:20px;">Firebase 연결 대기중</div>`; return; }
@@ -1228,38 +1261,43 @@
                 if (posts.length === 0) { listEl.innerHTML = `<div style="text-align:center;color:var(--sub-text);padding:20px;">작성된 방명록이 없습니다.</div>`; return; }
                 let fragment = document.createDocumentFragment();
                 posts.forEach(post => {
-                    let escapedMsg = post.message.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    let escapedMsg = escapeQuotes(post.message);
                     let itemEl = document.createElement('div');
                     itemEl.className = 'guestbook-item';
                     
                     let repliesHTML = '';
                     if (post.replies && post.replies.length > 0) {
-                        repliesHTML = '<div class="reply-list">' + post.replies.map(r => `
+                        repliesHTML = '<div class="reply-list">' + post.replies.map((r, rIdx) => {
+                            let escapedRMsg = escapeQuotes(r.message);
+                            return `
                             <div class="reply-item">
-                                <div style="display:flex; justify-content:space-between; font-weight:bold; color:var(--primary-color);">
-                                    <span>↳ 👤 ${r.author}</span>
-                                    <span style="font-size:0.75rem; color:var(--sub-text);">${r.date}</span>
+                                <div class="reply-header">
+                                    <div class="reply-author-info">↳ 👤 ${r.author}</div>
+                                    <div class="reply-time-btn">
+                                        <span style="font-size:0.75rem; color:var(--sub-text); font-weight:normal;">${r.date}</span>
+                                        <button class="gb-action-btn" onclick="openReplyModal('${post.id}', ${rIdx}, '${escapedRMsg}')">✏️ 수정/삭제</button>
+                                    </div>
                                 </div>
-                                <div style="margin-top:4px;">${r.message}</div>
+                                <div style="margin-top:4px; color:#334155; line-height:1.4;">${r.message}</div>
                             </div>
-                        `).join('') + '</div>';
+                        `}).join('') + '</div>';
                     }
 
                     itemEl.innerHTML = `
-                        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:6px; align-items:center;">
                             <span style="font-weight:bold; color:var(--primary-color);">👤 ${post.author}</span>
                             <div style="display:flex; align-items:center; gap:6px;">
                                 <span style="font-size:0.8rem; color:var(--sub-text);">${post.date}</span>
-                                <button class="gb-action-btn reply" onclick="toggleReplyForm('${post.id}')">💬 답글</button>
-                                <button class="gb-action-btn" onclick="openEditModal('${post.id}', '${escapedMsg}')">수정/삭제</button>
+                                <button class="gb-action-btn reply" onclick="toggleReplyForm('${post.id}')">💬 답글 쓰기</button>
+                                <button class="gb-action-btn" onclick="openEditModal('${post.id}', '${escapedMsg}')">✏️ 수정/삭제</button>
                             </div>
                         </div>
-                        <div>${post.message}</div>
+                        <div style="line-height:1.5;">${post.message}</div>
                         ${repliesHTML}
                         
                         <div class="reply-form-container" id="replyForm-${post.id}">
                             <div style="display:flex; gap:6px;">
-                                <input type="text" id="rAuthor-${post.id}" placeholder="닉네임">
+                                <input type="text" id="rAuthor-${post.id}" placeholder="닉네임 (예: 방문자)">
                             </div>
                             <textarea id="rMessage-${post.id}" placeholder="답글을 남겨주세요..." style="height:50px;"></textarea>
                             <div style="text-align:right;">
@@ -1283,7 +1321,7 @@
             let author = document.getElementById("gbAuthor").value.trim();
             let password = document.getElementById("gbPassword").value.trim();
             let message = document.getElementById("gbMessage").value.trim();
-            if (!author || !password || !message) return alert("모든 항목을 입력해주세요.");
+            if (!author || !password || !message) return alert("닉네임, 비밀번호, 본문 내용을 모두 입력해주세요.");
             try {
                 await guestbookDb.collection("guestbook").add({
                     author, password, message,
@@ -1297,7 +1335,7 @@
                 document.getElementById("gbMessage").value = "";
                 loadGuestbook(); 
                 checkBadges();
-                alert("등록되었습니다!");
+                alert("방명록이 등록되었습니다!");
             } catch (e) {}
         }
 
@@ -1326,10 +1364,11 @@
             }
         }
 
+        // --- 방명록 본문 수정/삭제 (본인 비밀번호 또는 관리자 권한만 허용) ---
         function openEditModal(docId, message) {
             document.getElementById('editDocId').value = docId;
             document.getElementById('editCheckPassword').value = '';
-            document.getElementById('editMessageContent').value = message;
+            document.getElementById('editMessageContent').value = message.replace(/\\n/g, '\n');
             document.getElementById('editGuestbookModal').classList.add('active');
         }
         function closeEditModal() { document.getElementById('editGuestbookModal').classList.remove('active'); }
@@ -1343,7 +1382,10 @@
                 let docRef = guestbookDb.collection("guestbook").doc(docId);
                 let doc = await docRef.get();
                 if (!doc.exists) { alert('해당 글이 존재하지 않습니다.'); return; }
-                if (doc.data().password !== pwd && pwd !== 'wkdtmdfl87!@') { alert('비밀번호가 틀렸습니다.'); return; }
+                if (doc.data().password !== pwd && pwd !== 'wkdtmdfl87!@') { 
+                    alert('비밀번호가 틀렸습니다. 다른 사람의 글은 수정할 수 없습니다!'); 
+                    return; 
+                }
                 await docRef.update({ message: newMsg });
                 closeEditModal(); loadGuestbook(); alert('수정되었습니다!');
             } catch (e) { alert('수정 중 오류가 발생했습니다.'); }
@@ -1353,15 +1395,74 @@
             let docId = document.getElementById('editDocId').value;
             let pwd = document.getElementById('editCheckPassword').value.trim();
             if (!pwd) { alert('비밀번호를 입력해주세요.'); return; }
-            if (!confirm('정말 이 방명록을 삭제하시겠습니까?')) return;
+            if (!confirm('정말 이 방명록 글을 삭제하시겠습니까?')) return;
             try {
                 let docRef = guestbookDb.collection("guestbook").doc(docId);
                 let doc = await docRef.get();
                 if (!doc.exists) { alert('해당 글이 존재하지 않습니다.'); return; }
-                if (doc.data().password !== pwd && pwd !== 'wkdtmdfl87!@') { alert('비밀번호가 틀렸습니다.'); return; }
+                if (doc.data().password !== pwd && pwd !== 'wkdtmdfl87!@') { 
+                    alert('비밀번호가 틀렸습니다. 다른 사람의 글은 삭제할 수 없습니다!'); 
+                    return; 
+                }
                 await docRef.delete();
                 closeEditModal(); loadGuestbook(); alert('삭제되었습니다!');
             } catch (e) { alert('삭제 중 오류가 발생했습니다.'); }
+        }
+
+        // --- 답글(대댓글) 수정/삭제 (누구나 자유롭게 수정/삭제 가능) ---
+        function openReplyModal(docId, replyIndex, message) {
+            document.getElementById('replyDocId').value = docId;
+            document.getElementById('replyIndex').value = replyIndex;
+            document.getElementById('replyMessageContent').value = message.replace(/\\n/g, '\n');
+            document.getElementById('editReplyModal').classList.add('active');
+        }
+        function closeReplyModal() { document.getElementById('editReplyModal').classList.remove('active'); }
+
+        async function updateReplyEntry() {
+            let docId = document.getElementById('replyDocId').value;
+            let idx = parseInt(document.getElementById('replyIndex').value, 10);
+            let newMsg = document.getElementById('replyMessageContent').value.trim();
+            if (!newMsg) return alert('수정할 답글 내용을 입력해주세요.');
+
+            try {
+                let docRef = guestbookDb.collection("guestbook").doc(docId);
+                let doc = await docRef.get();
+                if (!doc.exists) return alert('게시글이 존재하지 않습니다.');
+
+                let replies = doc.data().replies || [];
+                if (!replies[idx]) return alert('해당 답글이 존재하지 않습니다.');
+
+                replies[idx].message = newMsg;
+                await docRef.update({ replies });
+                closeReplyModal();
+                loadGuestbook();
+                alert('답글이 수정되었습니다!');
+            } catch (e) {
+                alert('답글 수정 중 오류가 발생했습니다.');
+            }
+        }
+
+        async function deleteReplyEntry() {
+            let docId = document.getElementById('replyDocId').value;
+            let idx = parseInt(document.getElementById('replyIndex').value, 10);
+            if (!confirm('정말 이 답글을 삭제하시겠습니까?')) return;
+
+            try {
+                let docRef = guestbookDb.collection("guestbook").doc(docId);
+                let doc = await docRef.get();
+                if (!doc.exists) return alert('게시글이 존재하지 않습니다.');
+
+                let replies = doc.data().replies || [];
+                if (!replies[idx]) return alert('해당 답글이 존재하지 않습니다.');
+
+                replies.splice(idx, 1);
+                await docRef.update({ replies });
+                closeReplyModal();
+                loadGuestbook();
+                alert('답글이 삭제되었습니다!');
+            } catch (e) {
+                alert('답글 삭제 중 오류가 발생했습니다.');
+            }
         }
 
         loadIntroText();
