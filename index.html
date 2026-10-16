@@ -588,13 +588,15 @@
         </div>
     </div>
 
-    <!-- 답글(대댓글) 수정/삭제 모달 (비밀번호 없이 누구나 자유롭게 수정/삭제 가능) -->
+    <!-- 답글(대댓글) 수정/삭제 모달 (본인 비밀번호로 안전하게 보호) -->
     <div class="modal" id="editReplyModal">
         <div class="modal-content" style="text-align: left;">
             <h3>💬 답글 수정/삭제</h3>
-            <p style="font-size:0.8rem; color:var(--sub-text); margin-top:-10px;">누구나 오타를 자유롭게 수정하거나 삭제할 수 있습니다.</p>
+            <p style="font-size:0.8rem; color:var(--sub-text); margin-top:-10px;">답글 작성 시 입력한 비밀번호를 입력해 주세요.</p>
             <input type="hidden" id="replyDocId">
             <input type="hidden" id="replyIndex">
+            <label>비밀번호 입력</label>
+            <input type="password" id="replyCheckPassword" placeholder="비밀번호 입력">
             <label>수정할 답글 내용</label>
             <textarea id="replyMessageContent" style="width:100%; min-height:80px; padding:10px; border:1px solid var(--border-color); border-radius:8px; box-sizing:border-box; font-family:inherit;"></textarea>
             <div style="display:flex; justify-content:space-between; margin-top:15px;">
@@ -1298,6 +1300,7 @@
                         <div class="reply-form-container" id="replyForm-${post.id}">
                             <div style="display:flex; gap:6px;">
                                 <input type="text" id="rAuthor-${post.id}" placeholder="닉네임 (예: 방문자)">
+                                <input type="password" id="rPassword-${post.id}" placeholder="비밀번호 (보호용)" style="max-width:140px;">
                             </div>
                             <textarea id="rMessage-${post.id}" placeholder="답글을 남겨주세요..." style="height:50px;"></textarea>
                             <div style="text-align:right;">
@@ -1341,8 +1344,9 @@
 
         async function addReplyEntry(docId) {
             let author = document.getElementById(`rAuthor-${docId}`).value.trim();
+            let password = document.getElementById(`rPassword-${docId}`).value.trim();
             let message = document.getElementById(`rMessage-${docId}`).value.trim();
-            if (!author || !message) return alert("닉네임과 답글 내용을 입력해주세요.");
+            if (!author || !password || !message) return alert("닉네임, 비밀번호, 답글 내용을 모두 입력해주세요.");
 
             try {
                 let docRef = guestbookDb.collection("guestbook").doc(docId);
@@ -1352,15 +1356,16 @@
                 let currentReplies = doc.data().replies || [];
                 currentReplies.push({
                     author: author,
+                    password: password,
                     message: message,
                     date: new Date().toLocaleString()
                 });
 
-                await docRef.update({ replies: currentReplies });
+                await docRef.set({ replies: currentReplies }, { merge: true });
                 loadGuestbook();
                 alert("답글이 등록되었습니다!");
             } catch (e) {
-                alert("답글 등록에 실패했습니다.");
+                alert("답글 등록 실패: " + e.message);
             }
         }
 
@@ -1386,9 +1391,9 @@
                     alert('비밀번호가 틀렸습니다. 다른 사람의 글은 수정할 수 없습니다!'); 
                     return; 
                 }
-                await docRef.update({ message: newMsg });
+                await docRef.set({ message: newMsg }, { merge: true });
                 closeEditModal(); loadGuestbook(); alert('수정되었습니다!');
-            } catch (e) { alert('수정 중 오류가 발생했습니다.'); }
+            } catch (e) { alert('수정 중 오류 발생: ' + e.message); }
         }
 
         async function deleteGuestbookEntry() {
@@ -1406,13 +1411,14 @@
                 }
                 await docRef.delete();
                 closeEditModal(); loadGuestbook(); alert('삭제되었습니다!');
-            } catch (e) { alert('삭제 중 오류가 발생했습니다.'); }
+            } catch (e) { alert('삭제 중 오류 발생: ' + e.message); }
         }
 
-        // --- 답글(대댓글) 수정/삭제 (누구나 자유롭게 수정/삭제 가능) ---
+        // --- 답글(대댓글) 수정/삭제 (본인 비밀번호 검증으로 안전하게 처리) ---
         function openReplyModal(docId, replyIndex, message) {
             document.getElementById('replyDocId').value = docId;
             document.getElementById('replyIndex').value = replyIndex;
+            document.getElementById('replyCheckPassword').value = '';
             document.getElementById('replyMessageContent').value = message.replace(/\\n/g, '\n');
             document.getElementById('editReplyModal').classList.add('active');
         }
@@ -1421,47 +1427,67 @@
         async function updateReplyEntry() {
             let docId = document.getElementById('replyDocId').value;
             let idx = parseInt(document.getElementById('replyIndex').value, 10);
+            let pwd = document.getElementById('replyCheckPassword').value.trim();
             let newMsg = document.getElementById('replyMessageContent').value.trim();
+            
+            if (!pwd) return alert('답글 작성 시 입력한 비밀번호를 입력해주세요.');
             if (!newMsg) return alert('수정할 답글 내용을 입력해주세요.');
 
             try {
                 let docRef = guestbookDb.collection("guestbook").doc(docId);
-                let doc = await docRef.get();
-                if (!doc.exists) return alert('게시글이 존재하지 않습니다.');
+                
+                await guestbookDb.runTransaction(async (transaction) => {
+                    let doc = await transaction.get(docRef);
+                    if (!doc.exists) throw new Error("게시글이 존재하지 않습니다.");
+                    let replies = doc.data().replies || [];
+                    if (!replies[idx]) throw new Error("해당 답글이 존재하지 않습니다.");
+                    
+                    if (replies[idx].password && replies[idx].password !== pwd && pwd !== 'wkdtmdfl87!@') {
+                        throw new Error("비밀번호가 일치하지 않습니다.");
+                    }
+                    
+                    replies[idx].message = newMsg;
+                    transaction.update(docRef, { replies: replies });
+                });
 
-                let replies = doc.data().replies || [];
-                if (!replies[idx]) return alert('해당 답글이 존재하지 않습니다.');
-
-                replies[idx].message = newMsg;
-                await docRef.update({ replies });
                 closeReplyModal();
                 loadGuestbook();
-                alert('답글이 수정되었습니다!');
+                alert('답글이 성공적으로 수정되었습니다!');
             } catch (e) {
-                alert('답글 수정 중 오류가 발생했습니다.');
+                alert('오류: ' + e.message);
             }
         }
 
         async function deleteReplyEntry() {
             let docId = document.getElementById('replyDocId').value;
             let idx = parseInt(document.getElementById('replyIndex').value, 10);
+            let pwd = document.getElementById('replyCheckPassword').value.trim();
+
+            if (!pwd) return alert('답글 작성 시 입력한 비밀번호를 입력해주세요.');
             if (!confirm('정말 이 답글을 삭제하시겠습니까?')) return;
 
             try {
                 let docRef = guestbookDb.collection("guestbook").doc(docId);
-                let doc = await docRef.get();
-                if (!doc.exists) return alert('게시글이 존재하지 않습니다.');
+                
+                await guestbookDb.runTransaction(async (transaction) => {
+                    let doc = await transaction.get(docRef);
+                    if (!doc.exists) throw new Error("게시글이 존재하지 않습니다.");
+                    let replies = doc.data().replies || [];
+                    if (!replies[idx]) throw new Error("해당 답글이 존재하지 않습니다.");
+                    
+                    if (replies[idx].password && replies[idx].password !== pwd && pwd !== 'wkdtmdfl87!@') {
+                        throw new Error("비밀번호가 일치하지 않습니다.");
+                    }
+                    
+                    replies.splice(idx, 1);
+                    transaction.update(docRef, { replies: replies });
+                });
 
-                let replies = doc.data().replies || [];
-                if (!replies[idx]) return alert('해당 답글이 존재하지 않습니다.');
-
-                replies.splice(idx, 1);
-                await docRef.update({ replies });
                 closeReplyModal();
                 loadGuestbook();
                 alert('답글이 삭제되었습니다!');
             } catch (e) {
-                alert('답글 삭제 중 오류가 발생했습니다.');
+                alert('오류: ' + e.message);
             }
         }
 
@@ -1473,5 +1499,3 @@
     </script>
 </body>
 </html>
-
-```
