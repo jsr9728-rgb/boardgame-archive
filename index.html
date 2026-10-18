@@ -270,9 +270,9 @@
         <p>인기 게임 박스 아트와 유튜브 영상 저장소</p>
         
         <div class="visitor-counter">
-            <span id="todayVisitorCount">오늘 방문자: --명</span>
+            <span id="todayVisitorCount">오늘 방문자: 1명</span>
             <span>|</span>
-            <span id="totalVisitorCount">전체 방문자: --명</span>
+            <span id="totalVisitorCount">전체 방문자: 1명</span>
         </div>
 
         <div class="header-actions">
@@ -1227,35 +1227,41 @@
             }
         } catch (e) {}
 
-        // 🚀 초고속 0.1초 즉시 로딩 비동기 방문자 측정 로직
+        // 🚀 개선된 실시간 방문자 카운트 및 세션 체크 로직 (숫자 1 이상 보장)
         function countAndLoadVisitors() {
-            if (!guestbookReady) return;
-            
-            setTimeout(() => {
-                let todayStr = new Date().toISOString().slice(0, 10);
-                let lastVisitDate = localStorage.getItem('withhappy_last_visit_date');
-                let statsRef = guestbookDb.collection("stats").doc("visitors");
+            let todayStr = new Date().toISOString().slice(0, 10);
+            let sessionKey = 'withhappy_session_' + todayStr;
 
-                if (lastVisitDate !== todayStr) {
-                    localStorage.setItem('withhappy_last_visit_date', todayStr);
-                    statsRef.set({
-                        total: firebase.firestore.FieldValue.increment(1),
-                        [`daily.${todayStr}`]: firebase.firestore.FieldValue.increment(1)
-                    }, { merge: true }).then(() => {
-                        updateVisitorDisplay(statsRef, todayStr);
-                    }).catch(() => {});
-                } else {
+            // UI 선표시 (기본값 설정으로 -- 방지)
+            document.getElementById("todayVisitorCount").textContent = `오늘 방문자: 1명`;
+            document.getElementById("totalVisitorCount").textContent = `전체 방문자: 1명`;
+
+            if (!guestbookReady) return;
+
+            let statsRef = guestbookDb.collection("stats").doc("visitors");
+
+            // 세션 단위로 첫 방문인 경우에만 카운트 증가 처리
+            if (!sessionStorage.getItem(sessionKey)) {
+                sessionStorage.setItem(sessionKey, 'counted');
+                statsRef.set({
+                    total: firebase.firestore.FieldValue.increment(1),
+                    [`daily.${todayStr}`]: firebase.firestore.FieldValue.increment(1)
+                }, { merge: true }).then(() => {
                     updateVisitorDisplay(statsRef, todayStr);
-                }
-            }, 0);
+                }).catch(() => {
+                    updateVisitorDisplay(statsRef, todayStr);
+                });
+            } else {
+                updateVisitorDisplay(statsRef, todayStr);
+            }
         }
 
         function updateVisitorDisplay(statsRef, todayStr) {
             statsRef.get().then(doc => {
                 if (doc.exists) {
-                    let total = doc.data().total || 0;
+                    let total = doc.data().total || 1;
                     let dailyData = doc.data().daily || {};
-                    let todayCount = dailyData[todayStr] || 0;
+                    let todayCount = dailyData[todayStr] || 1;
                     document.getElementById("todayVisitorCount").textContent = `오늘 방문자: ${todayCount}명`;
                     document.getElementById("totalVisitorCount").textContent = `전체 방문자: ${total}명`;
                 }
@@ -1506,7 +1512,7 @@
             }
         }
 
-        // ⚡ [0.1초 즉시 실행] UI 데이터를 화면에 동기적으로 빠르게 뿌린 후 비동기 데이터 로딩
+        // 초기 실행
         renderCards(boardGames);
         checkBadges();
         loadIntroText();
