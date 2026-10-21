@@ -270,9 +270,9 @@
         <p>인기 게임 박스 아트와 유튜브 영상 저장소</p>
         
         <div class="visitor-counter">
-            <span id="todayVisitorCount">오늘 방문자: 1명</span>
+            <span id="todayVisitorCount">오늘 방문자: 로딩 중...</span>
             <span>|</span>
-            <span id="totalVisitorCount">전체 방문자: 1명</span>
+            <span id="totalVisitorCount">전체 방문자: 로딩 중...</span>
         </div>
 
         <div class="header-actions">
@@ -1197,11 +1197,9 @@
             sortGamesAlphabetically();
             let clonedDoc = document.documentElement.cloneNode(true);
             let scripts = clonedDoc.getElementsByTagName('script');
-            for (let s of scripts) {
-                if (s.textContent.includes('let boardGames = [')) {
-                    s.textContent = s.textContent.replace(/let boardGames\s*=\s*\[[\s\S]*?\];\s*\n/, `let boardGames = ${JSON.stringify(boardGames, null, 4)};\n`);
-                    break;
-                }
+            let boardGamesDataScript = Array.from(scripts).find(s => s.textContent.includes('let boardGames = ['));
+            if (boardGamesDataScript) {
+                boardGamesDataScript.textContent = boardGamesDataScript.textContent.replace(/let boardGames\s*=\s*\[[\s\S]*?\];\s*\n/, `let boardGames = ${JSON.stringify(boardGames, null, 4)};\n`);
             }
             let blob = new Blob(["<!DOCTYPE html>\n" + clonedDoc.outerHTML], { type: 'text/html;charset=utf-8' });
             let url = URL.createObjectURL(blob);
@@ -1227,33 +1225,31 @@
             }
         } catch (e) {}
 
-        // 🚀 개선된 실시간 방문자 카운트 및 세션 체크 로직 (숫자 1 이상 보장)
+        // 🚀 클릭할 때마다 무조건 방문자 수가 올라가도록 개선된 카운트 로직
         function countAndLoadVisitors() {
             let todayStr = new Date().toISOString().slice(0, 10);
-            let sessionKey = 'withhappy_session_' + todayStr;
 
-            // UI 선표시 (기본값 설정으로 -- 방지)
-            document.getElementById("todayVisitorCount").textContent = `오늘 방문자: 1명`;
-            document.getElementById("totalVisitorCount").textContent = `전체 방문자: 1명`;
+            // UI 초기 표시
+            document.getElementById("todayVisitorCount").textContent = `오늘 방문자: 집계 중...`;
+            document.getElementById("totalVisitorCount").textContent = `전체 방문자: 집계 중...`;
 
-            if (!guestbookReady) return;
+            if (!guestbookReady) {
+                document.getElementById("todayVisitorCount").textContent = `오늘 방문자: 1명`;
+                document.getElementById("totalVisitorCount").textContent = `전체 방문자: 1명`;
+                return;
+            }
 
             let statsRef = guestbookDb.collection("stats").doc("visitors");
 
-            // 세션 단위로 첫 방문인 경우에만 카운트 증가 처리
-            if (!sessionStorage.getItem(sessionKey)) {
-                sessionStorage.setItem(sessionKey, 'counted');
-                statsRef.set({
-                    total: firebase.firestore.FieldValue.increment(1),
-                    [`daily.${todayStr}`]: firebase.firestore.FieldValue.increment(1)
-                }, { merge: true }).then(() => {
-                    updateVisitorDisplay(statsRef, todayStr);
-                }).catch(() => {
-                    updateVisitorDisplay(statsRef, todayStr);
-                });
-            } else {
+            // 새로고침이나 접속할 때마다 무조건 1씩 증가시키도록 중복 차단 해제
+            statsRef.set({
+                total: firebase.firestore.FieldValue.increment(1),
+                [`daily.${todayStr}`]: firebase.firestore.FieldValue.increment(1)
+            }, { merge: true }).then(() => {
                 updateVisitorDisplay(statsRef, todayStr);
-            }
+            }).catch(() => {
+                updateVisitorDisplay(statsRef, todayStr);
+            });
         }
 
         function updateVisitorDisplay(statsRef, todayStr) {
