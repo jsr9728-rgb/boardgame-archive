@@ -1225,16 +1225,32 @@
             }
         } catch (e) {}
 
-        // 🚀 파이어베이스 + 로컬스토리지 이중 안전장치 카운터 (새로고침할 때마다 무조건 1씩 증가)
+        // 🚀 일자별(새벽 초기화) 방문자 카운터 로직 수정
         function countAndLoadVisitors() {
-            let todayStr = new Date().toISOString().slice(0, 10);
-            
-            // 로컬스토리지 기반 즉시 카운트 처리 (파이어베이스 에러/권한 문제 시에도 100% 작동)
-            let localTotal = parseInt(localStorage.getItem('withhappy_local_total') || '10', 10) + 1;
-            let localDailyKey = 'withhappy_local_daily_' + todayStr;
-            let localDaily = parseInt(localStorage.getItem(localDailyKey) || '3', 10) + 1;
+            // 오늘 날짜 구하기 (한국 시간 기준 연-월-일)
+            let todayStr = new Date().toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' }).replace(/\./g, '').replace(/\s+/g, '-').slice(0, 10);
+            // 만약 형식 안정성을 위해 ISO 포맷을 선호하신다면 아래 방식도 가능합니다:
+            // let todayStr = new Date().toISOString().slice(0, 10);
 
+            // 로컬 스토리지에 기록된 마지막 방문 날짜 확인
+            let lastVisitDate = localStorage.getItem('withhappy_last_visit_date');
+
+            // 전체 방문자 수는 계속 누적
+            let localTotal = parseInt(localStorage.getItem('withhappy_local_total') || '10', 10) + 1;
             localStorage.setItem('withhappy_local_total', localTotal);
+
+            // 오늘 방문자 키
+            let localDailyKey = 'withhappy_local_daily_' + todayStr;
+            let localDaily = parseInt(localStorage.getItem(localDailyKey) || '0', 10);
+
+            // 날짜가 바뀌었거나(새벽이 지났거나) 처음 방문인 경우 오늘 카운트를 1로 시작
+            if (lastVisitDate !== todayStr) {
+                localDaily = 1;
+                localStorage.setItem('withhappy_last_visit_date', todayStr);
+            } else {
+                // 같은 날 재방문/새로고침 시 1증가
+                localDaily += 1;
+            }
             localStorage.setItem(localDailyKey, localDaily);
 
             // 화면에 먼저 반영
@@ -1245,7 +1261,7 @@
 
             let statsRef = guestbookDb.collection("stats").doc("visitors");
 
-            // 파이어베이스에도 동기화 시도
+            // 파이어베이스 동기화
             statsRef.set({
                 total: firebase.firestore.FieldValue.increment(1),
                 [`daily.${todayStr}`]: firebase.firestore.FieldValue.increment(1)
@@ -1259,9 +1275,7 @@
                         document.getElementById("totalVisitorCount").textContent = `전체 방문자: ${total}명`;
                     }
                 }).catch(() => {});
-            }).catch(() => {
-                // 파이어베이스 쓰기 권한이 막혀있어도 로컬 카운트로 정상 표시됨
-            });
+            }).catch(() => {});
         }
 
         function escapeQuotes(str) {
@@ -1517,5 +1531,3 @@
     </script>
 </body>
 </html>
-
-```
